@@ -34,7 +34,7 @@ LOG4J="$VOLTDB_VOLTDB/log4j.xml"
 LICENSE="$VOLTDB_VOLTDB/license.xml"
 HOST="172.31.21.104"
 CLIENTHOST="172.31.21.104:21212,172.31.24.203:21212"
-
+PROCEDURENAME=""
 
 # remove build artifacts
 function clean() {
@@ -92,7 +92,7 @@ function simulator() {
 function querytester() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        PositionKeeper.$2 \
+        PositionKeeper.$PROCEDURENAME \
         --displayinterval=5 \
         --duration=120 \
         --servers=$CLIENTHOST \
@@ -106,5 +106,7 @@ function help() {
 
 # Run the target passed as the first arg on the command line
 # If no first arg, run server
-echo $2
-if [ $# -gt 0 ]; then $1; else server; fi
+if [ $# -gt 0 ]; 
+	then PROCEDURENAME = $2
+	$1; 
+else server; fi
