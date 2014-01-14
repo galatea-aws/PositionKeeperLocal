@@ -108,8 +108,11 @@ function help() {
 # If no first arg, run server
 if [ $# = 1 ];
 	then $1
-else if [ $# -gt 0 ]; 
-	then PROCEDURENAME=$2
-	echo $PROCEDURENAME
-	$1; 
-else server; fi
+else 
+	if [ $# -gt 0 ]; 
+		then PROCEDURENAME=$2
+		echo $PROCEDURENAME
+		$1; 
+	else server; 
+	fi
+fi
