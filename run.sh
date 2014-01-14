@@ -85,6 +85,7 @@ function simulator() {
         --displayinterval=5 \
         --duration=120 \
         --servers=$CLIENTHOST
+		--tradevolume=500000
 }
 
 #test the voltdb query performance
@@ -95,7 +96,7 @@ function querytester() {
         --displayinterval=5 \
         --duration=120 \
         --servers=$CLIENTHOST \
-	--tradevolume=500000
+	    --tradevolume=500000
 }
 
 function help() {
