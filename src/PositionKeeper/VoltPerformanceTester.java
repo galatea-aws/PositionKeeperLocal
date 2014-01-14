@@ -28,6 +28,8 @@ public class VoltPerformanceTester {
          client = ClientFactory.createClient(clientConfig);
     }
     
+    
+    //Connect to Servers
     void connect(String servers) throws InterruptedException {
         System.out.println("Connecting to VoltDB...");
 
@@ -64,6 +66,12 @@ public class VoltPerformanceTester {
         System.out.printf("Connected to VoltDB node at: %s.\n", server);
     }
     
+    /**
+     * Core simulator code.
+     * Connect. Run. Print Results.
+     *
+     * @throws Exception if anything unexpected happens.
+     */
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
         connect(config.servers);
         

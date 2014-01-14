@@ -77,7 +77,9 @@ function rejoin() {
         license $LICENSE host $HOST
 }
 
-#insert trade data into voltdb
+#insert account data and product data into database
+
+#insert trade data into database
 function simulator() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
@@ -87,15 +89,7 @@ function simulator() {
         --servers=$CLIENTHOST \
 }
 
-#test the voltdb query performance
-function querytester() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        PositionKeeper.VoltPerformanceTester \
-        --displayinterval=5 \
-        --duration=120 \
-        --servers=$CLIENTHOST \
-}
+
 
 function help() {
     echo "Usage: ./run.sh {clean|catalog|server|async-benchmark|aysnc-benchmark-help|...}"
