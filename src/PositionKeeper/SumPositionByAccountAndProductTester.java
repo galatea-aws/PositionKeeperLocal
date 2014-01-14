@@ -49,7 +49,7 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
         TradeConfig config = new TradeConfig();
         config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
         
-        CountTradesByAccountTester tester = new CountTradesByAccountTester(config);
+        SumPositionByAccountAndProductTester tester = new SumPositionByAccountAndProductTester(config);
         tester.run();
     }
 }
