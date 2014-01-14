@@ -42,7 +42,7 @@ import org.voltdb.VoltType;
 public class CountTradesByAccount extends VoltProcedure
 {
     public final SQLStmt resultStmt = new SQLStmt(
-            "SELECT count (*) from trades where account_id = ?");
+            "SELECT count (account_id) from trades where account_id = ?");
 
     static class Result {
         public final long count;
