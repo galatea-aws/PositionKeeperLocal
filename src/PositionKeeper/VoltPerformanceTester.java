@@ -83,7 +83,7 @@ public class VoltPerformanceTester {
         while(result.advanceRow()) {
             System.out.println("Count: " + result.getLong(0));
             System.out.println((double)(System.currentTimeMillis()-queryStartTS)/1000f + "s");
-        }  
+        }
 
         // block until all outstanding txns return
         client.drain();
@@ -94,6 +94,7 @@ public class VoltPerformanceTester {
         
 
     }
+    
     public static void main(String[] args) throws Exception {
         // create a configuration from the arguments
         TradeConfig config = new TradeConfig();

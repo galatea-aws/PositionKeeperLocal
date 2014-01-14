@@ -94,7 +94,8 @@ function querytester() {
         PositionKeeper.VoltPerformanceTester \
         --displayinterval=5 \
         --duration=120 \
-        --servers=$CLIENTHOST
+        --servers=$CLIENTHOST \
+	--tradevolume=500000
 }
 
 function help() {

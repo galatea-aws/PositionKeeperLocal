@@ -111,7 +111,7 @@ public class TestDataSimulator {
         int tradedays = 5;
         
         @Option(desc = "trade volume of each day.")
-        int tradevolume = 1000000;
+        int tradevolume = 100000;
 
         @Option(desc = "Filename to write raw summary statistics to.")
         String statsfile = "";
