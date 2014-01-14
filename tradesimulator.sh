@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-git push
+git pull
 ./run.sh clean
 ./run.sh simulator
