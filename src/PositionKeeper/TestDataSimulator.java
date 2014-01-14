@@ -99,7 +99,7 @@ public class TestDataSimulator {
         int duration = 120;
 
         @Option(desc = "Comma separated list of the form server[:port] to connect to.")
-        String servers = "192.168.52.128:21212,192.168.52.129:21212";
+        String servers = "ec2-54-208-134-51.compute-1.amazonaws.com:21212,ec2-54-209-26-134.compute-1.amazonaws.com:21212";
 
         @Option(desc = "Number of accounts.")
         int accounts = 6;
@@ -111,7 +111,7 @@ public class TestDataSimulator {
         int tradedays = 5;
         
         @Option(desc = "trade volume of each day.")
-        int tradevolume = 100000;
+        int tradevolume = 1000000;
 
         @Option(desc = "Filename to write raw summary statistics to.")
         String statsfile = "";
