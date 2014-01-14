@@ -107,6 +107,6 @@ function help() {
 # Run the target passed as the first arg on the command line
 # If no first arg, run server
 if [ $# -gt 0 ]; 
-	then PROCEDURENAME = $2
+	then PROCEDURENAME=$2
 	$1; 
 else server; fi
