@@ -395,7 +395,7 @@ public class TestDataSimulator {
     public static void main(String[] args) throws Exception {
         // create a configuration from the arguments
         TradeConfig config = new TradeConfig();
-        config.parse(TestDataSimulator.class.getName(), args);
+        config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
 
         TestDataSimulator simulator = new TestDataSimulator(config);
         simulator.runSimulator();
