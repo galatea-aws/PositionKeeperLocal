@@ -84,7 +84,7 @@ function simulator() {
         PositionKeeper.TestDataSimulator \
         --displayinterval=5 \
         --duration=120 \
-        --servers=$CLIENTHOST
+        --servers=$CLIENTHOST \
 		--tradevolume=500000
 }
 
