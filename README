@@ -1,4 +1,4 @@
-Voter application
+VoltDB Test application
 ===========================
 
 This example application simulates a phone based election process. Voters (based on phone numbers generated randomly by the client application) are allowed a limited number of votes.

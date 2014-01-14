@@ -48,11 +48,11 @@ public class Initialize extends VoltProcedure
 
     public long run(int maxAccounts, int maxProducts) {
         voltQueueSQL(checkStmt, EXPECT_SCALAR_LONG);
-        long existingContestantCount = voltExecuteSQL()[0].asScalarLong();
+        long existingAccount = voltExecuteSQL()[0].asScalarLong();
 
-        // if the data is initialized, return the contestant count
-        if (existingContestantCount != 0)
-            return existingContestantCount;
+        // if the data is initialized, return the account count
+        if (existingAccount != 0)
+            return existingAccount;
 
         // initialize the data
         String accountId = null;

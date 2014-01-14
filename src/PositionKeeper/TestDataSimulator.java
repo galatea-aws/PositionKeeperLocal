@@ -63,7 +63,7 @@ import org.voltdb.client.ProcedureCallback;
 
 import PositionKeeper.procedures.DoTrade;;
 
-public class AsyncBenchmark {
+public class TestDataSimulator {
 
     // handy, rather than typing this out several times
     static final String HORIZONTAL_RULE =
@@ -79,12 +79,11 @@ public class AsyncBenchmark {
     // Timer for periodic stats printing
     Timer timer;
     // Benchmark start time
-    long benchmarkStartTS;
+    long simulatorStartTS;
     // Statistics manager objects from the client
     final ClientStatsContext periodicStatsContext;
     final ClientStatsContext fullStatsContext;
 
-    // voter benchmark state
     AtomicLong acceptedTrades = new AtomicLong(0);
 
     /**
@@ -96,11 +95,8 @@ public class AsyncBenchmark {
         @Option(desc = "Interval for performance feedback, in seconds.")
         long displayinterval = 5;
 
-        @Option(desc = "Benchmark duration, in seconds.")
+        @Option(desc = "Simulator duration, in seconds.")
         int duration = 120;
-
-        @Option(desc = "Warmup duration in seconds.")
-        int warmup = 0;
 
         @Option(desc = "Comma separated list of the form server[:port] to connect to.")
         String servers = "192.168.52.128:21212,192.168.52.129:21212";
@@ -117,12 +113,6 @@ public class AsyncBenchmark {
         @Option(desc = "trade volume of each day.")
         int tradevolume = 100000;
 
-        @Option(desc = "Maximum TPS rate for benchmark.")
-        int ratelimit = Integer.MAX_VALUE;
-
-        @Option(desc = "Report latency for async benchmark run.")
-        boolean latencyreport = false;
-
         @Option(desc = "Filename to write raw summary statistics to.")
         String statsfile = "";
 
@@ -135,11 +125,9 @@ public class AsyncBenchmark {
         @Override
         public void validate() {
             if (duration <= 0) exitWithMessageAndUsage("duration must be > 0");
-            if (warmup < 0) exitWithMessageAndUsage("warmup must be >= 0");
             if (displayinterval <= 0) exitWithMessageAndUsage("displayinterval must be > 0");
             if (accounts <= 0) exitWithMessageAndUsage("accounts must be > 0");
             if (products <= 0) exitWithMessageAndUsage("products must be > 0");
-            if (ratelimit <= 0) exitWithMessageAndUsage("ratelimit must be > 0");
         }
     }
 
@@ -150,24 +138,24 @@ public class AsyncBenchmark {
     class StatusListener extends ClientStatusListenerExt {
         @Override
         public void connectionLost(String hostname, int port, int connectionsLeft, DisconnectCause cause) {
-            // if the benchmark is still active
-            if ((System.currentTimeMillis() - benchmarkStartTS) < (config.duration * 1000)) {
+            // if the simulator is still active
+            if ((System.currentTimeMillis() - simulatorStartTS) < (config.duration * 1000)) {
                 System.err.printf("Connection to %s:%d was lost.\n", hostname, port);
             }
         }
     }
 
     /**
-     * Constructor for benchmark instance.
+     * Constructor for simulator instance.
      * Configures VoltDB client and prints configuration.
      *
      * @param config Parsed & validated CLI options.
      */
-    public AsyncBenchmark(TradeConfig config) {
+    public TestDataSimulator(TradeConfig config) {
         this.config = config;
 
         ClientConfig clientConfig = new ClientConfig(config.user, config.password, new StatusListener());
-        clientConfig.setMaxTransactionsPerSecond(config.ratelimit);
+//      clientConfig.setMaxTransactionsPerSecond(config.ratelimit);
 
         client = ClientFactory.createClient(clientConfig);
 
@@ -180,9 +168,9 @@ public class AsyncBenchmark {
         System.out.println(" Command Line Configuration");
         System.out.println(HORIZONTAL_RULE);
         System.out.println(config.getConfigDumpString());
-        if(config.latencyreport) {
+/*        if(config.latencyreport) {
             System.out.println("NOTICE: Option latencyreport is ON for async run, please set a reasonable ratelimit.\n");
-        }
+        }*/
     }
 
     /**
@@ -253,20 +241,20 @@ public class AsyncBenchmark {
 
     /**
      * Prints a one line update on performance that can be printed
-     * periodically during a benchmark.
+     * periodically during a simulator.
      */
     public synchronized void printStatistics() {
         ClientStats stats = periodicStatsContext.fetchAndResetBaseline().getStats();
-        long time = Math.round((stats.getEndTimestamp() - benchmarkStartTS) / 1000.0);
+        long time = Math.round((stats.getEndTimestamp() - simulatorStartTS) / 1000.0);
 
         System.out.printf("%02d:%02d:%02d ", time / 3600, (time / 60) % 60, time % 60);
         System.out.printf("Throughput %d/s, ", stats.getTxnThroughput());
         System.out.printf("Aborts/Failures %d/%d",
                 stats.getInvocationAborts(), stats.getInvocationErrors());
-        if(this.config.latencyreport) {
+/*        if(this.config.latencyreport) {
             System.out.printf(", Avg/95%% Latency %.2f/%dms", stats.getAverageLatency(),
                 stats.kPercentileLatency(0.95));
-        }
+        }*/
         System.out.printf("\n");
     }
 
@@ -293,7 +281,7 @@ public class AsyncBenchmark {
         System.out.println(HORIZONTAL_RULE);
 
         System.out.printf("Average throughput:            %,9d txns/sec\n", stats.getTxnThroughput());
-        if(this.config.latencyreport) {
+/*        if(this.config.latencyreport) {
             System.out.printf("Average latency:               %,9.2f ms\n", stats.getAverageLatency());
             System.out.printf("10th percentile latency:       %,9d ms\n", stats.kPercentileLatency(.1));
             System.out.printf("25th percentile latency:       %,9d ms\n", stats.kPercentileLatency(.25));
@@ -314,7 +302,7 @@ public class AsyncBenchmark {
             System.out.println(" Latency Histogram");
             System.out.println(HORIZONTAL_RULE);
             System.out.println(stats.latencyHistoReport());
-        }
+        }*/
         client.writeSummaryCSV(stats, config.statsfile);
     }
 
@@ -331,12 +319,12 @@ public class AsyncBenchmark {
     }
 
     /**
-     * Core benchmark code.
+     * Core simulator code.
      * Connect. Initialize. Run the loop. Cleanup. Print Results.
      *
      * @throws Exception if anything unexpected happens.
      */
-    public void runBenchmark() throws Exception {
+    public void runSimulator() throws Exception {
         System.out.print(HORIZONTAL_RULE);
         System.out.println(" Setup & Initialization");
         System.out.println(HORIZONTAL_RULE);
@@ -349,17 +337,13 @@ public class AsyncBenchmark {
         client.callProcedure("Initialize", config.accounts, config.products);
 
         System.out.print(HORIZONTAL_RULE);
-        System.out.println(" Starting Benchmark");
+        System.out.println(" Starting Simulator");
         System.out.println(HORIZONTAL_RULE);
 
         // print periodic statistics to the console
         schedulePeriodicStats();
-
-
-        // Run the benchmark loop for the requested duration
-        // The throughput may be throttled depending on client configuration
-        System.out.println("\nRunning benchmark...");
-        //final long benchmarkEndTime = System.currentTimeMillis() + (1000l * config.duration);
+        
+        System.out.println("\nRunning Simulator...");
         
         Calendar calendar = Calendar.getInstance();
         Date endDate = calendar.getTime();
@@ -402,7 +386,7 @@ public class AsyncBenchmark {
     }
 
     /**
-     * Main routine creates a benchmark instance and kicks off the run method.
+     * Main routine creates a Simulator instance and kicks off the run method.
      *
      * @param args Command line arguments.
      * @throws Exception if anything goes wrong.
@@ -411,9 +395,9 @@ public class AsyncBenchmark {
     public static void main(String[] args) throws Exception {
         // create a configuration from the arguments
         TradeConfig config = new TradeConfig();
-        config.parse(AsyncBenchmark.class.getName(), args);
+        config.parse(TestDataSimulator.class.getName(), args);
 
-        AsyncBenchmark benchmark = new AsyncBenchmark(config);
-        benchmark.runBenchmark();
+        TestDataSimulator simulator = new TestDataSimulator(config);
+        simulator.runSimulator();
     }
 }

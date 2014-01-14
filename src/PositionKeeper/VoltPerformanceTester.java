@@ -11,7 +11,7 @@ import org.voltdb.client.ClientStatusListenerExt;
 import org.voltdb.client.NoConnectionsException;
 import org.voltdb.client.ProcCallException;
 
-import PositionKeeper.AsyncBenchmark.TradeConfig;
+import PositionKeeper.TestDataSimulator.TradeConfig;
 
 public class VoltPerformanceTester {
 	
@@ -23,7 +23,7 @@ public class VoltPerformanceTester {
     public VoltPerformanceTester(TradeConfig tradeconfig){
     	 config = tradeconfig;
          ClientConfig clientConfig = new ClientConfig(config.user, config.password, new ClientStatusListenerExt());
-         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);
+/*         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);*/
 
          client = ClientFactory.createClient(clientConfig);
     }
@@ -67,14 +67,14 @@ public class VoltPerformanceTester {
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
         connect(config.servers);
         
-    	long benchmarkStartTS = System.currentTimeMillis();
+    	long queryStartTS = System.currentTimeMillis();
         
     	VoltTable result = client.callProcedure("CountTradesByAccount",
     			"account2").getResults()[0];
     	  
         while(result.advanceRow()) {
             System.out.println("Count: " + result.getLong(0));
-            System.out.println((double)(System.currentTimeMillis()-benchmarkStartTS)/1000f + "s");
+            System.out.println((double)(System.currentTimeMillis()-queryStartTS)/1000f + "s");
         }  
 
         // block until all outstanding txns return
@@ -89,7 +89,7 @@ public class VoltPerformanceTester {
     public static void main(String[] args) throws Exception {
         // create a configuration from the arguments
         TradeConfig config = new TradeConfig();
-        config.parse(AsyncBenchmark.class.getName(), args);
+        config.parse(TestDataSimulator.class.getName(), args);
         
         VoltPerformanceTester tester = new VoltPerformanceTester(config);
         tester.run();

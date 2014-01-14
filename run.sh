@@ -32,7 +32,9 @@ CLIENTCLASSPATH=$CLASSPATH:$({ \
 VOLTDB="$VOLTDB_BIN/voltdb"
 LOG4J="$VOLTDB_VOLTDB/log4j.xml"
 LICENSE="$VOLTDB_VOLTDB/license.xml"
-HOST="192.168.52.128"
+HOST="localhost"
+CLIENTHOST="localhost:21212"
+
 
 # remove build artifacts
 function clean() {
@@ -75,79 +77,19 @@ function rejoin() {
         license $LICENSE host $HOST
 }
 
-# run the client that drives the example
-function client() {
-    async-benchmark
-}
+#insert account data and product data into database
 
-# Asynchronous benchmark sample
-# Use this target for argument help
-function async-benchmark-help() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj voter.AsyncBenchmark --help
-}
-
-# latencyreport: default is OFF
-# ratelimit: must be a reasonable value if lantencyreport is ON
-# Disable the comments to get latency report
-function async-benchmark() {
+#insert trade data into database
+function simulator() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        voter.AsyncBenchmark \
-        --displayinterval=5 \
-        --warmup=5 \
-        --duration=120 \
-        --servers=localhost:21212 \
-        --contestants=6 \
-        --maxvotes=2
-#        --latencyreport=true \
-#        --ratelimit=100000
-}
-
-function simple-benchmark() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        voter.SimpleBenchmark localhost
-}
-
-# Multi-threaded synchronous benchmark sample
-# Use this target for argument help
-function sync-benchmark-help() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj voter.SyncBenchmark --help
-}
-
-function sync-benchmark() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        voter.SyncBenchmark \
-        --displayinterval=5 \
-        --warmup=5 \
-        --duration=120 \
-        --servers=localhost:21212 \
-        --contestants=6 \
-        --maxvotes=2 \
-        --threads=40
-}
-
-# JDBC benchmark sample
-# Use this target for argument help
-function jdbc-benchmark-help() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj voter.JDBCBenchmark --help
-}
-
-function jdbc-benchmark() {
-    srccompile
-    java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        voter.JDBCBenchmark \
+        PositionKeeper.TestDataSimulator \
         --displayinterval=5 \
         --duration=120 \
-        --maxvotes=2 \
-        --servers=localhost:21212 \
-        --contestants=6 \
-        --threads=40
+        --servers=$CLIENTHOST \
 }
+
+
 
 function help() {
     echo "Usage: ./run.sh {clean|catalog|server|async-benchmark|aysnc-benchmark-help|...}"
