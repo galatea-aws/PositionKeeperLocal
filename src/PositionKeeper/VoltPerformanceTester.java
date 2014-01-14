@@ -84,25 +84,5 @@ public class VoltPerformanceTester {
      * @throws Exception if anything unexpected happens.
      */
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
-        connect(config.servers);
-        
-    	long queryStartTS = System.currentTimeMillis();
-        
-    	VoltTable result = client.callProcedure("CountTradesByAccount",
-    			"account2").getResults()[0];
-    	  
-        while(result.advanceRow()) {
-            System.out.println("Count: " + result.getLong(0));
-            System.out.println((double)(System.currentTimeMillis()-queryStartTS)/1000f + "s");
-        }
-
-        // block until all outstanding txns return
-        client.drain();
-
-
-        // close down the client connections
-        client.close();
-        
-
     }
 }

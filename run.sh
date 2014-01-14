@@ -29,11 +29,13 @@ CLIENTCLASSPATH=$CLASSPATH:$({ \
     \ls -1 "$VOLTDB_LIB"/commons-cli-1.2.jar; \
     \ls -1 "$VOLTDB_LIB"/guava-12.0.jar; \
 } 2> /dev/null | paste -sd ':' - )
+. serverconfig.properties
+
 VOLTDB="$VOLTDB_BIN/voltdb"
 LOG4J="$VOLTDB_VOLTDB/log4j.xml"
 LICENSE="$VOLTDB_VOLTDB/license.xml"
-HOST="172.31.21.104"
-CLIENTHOST="172.31.21.104:21212,172.31.24.203:21212"
+HOST=$host
+CLIENTHOST=$clienthost
 PROCEDURENAME=""
 
 # remove build artifacts
