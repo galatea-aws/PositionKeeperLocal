@@ -1,6 +1,8 @@
 package PositionKeeper;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 import org.voltdb.VoltTable;
@@ -19,13 +21,22 @@ public class VoltPerformanceTester {
     final TradeConfig config;
     // Reference to the database connection we will use
     final Client client;
+    public Properties prop;
     
     public VoltPerformanceTester(TradeConfig tradeconfig){
-    	 config = tradeconfig;
-         ClientConfig clientConfig = new ClientConfig(config.user, config.password, new ClientStatusListenerExt());
-/*         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);*/
-
-         client = ClientFactory.createClient(clientConfig);
+    	config = tradeconfig;
+		ClientConfig clientConfig = new ClientConfig(config.user, config.password, new ClientStatusListenerExt());
+		/*         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);*/
+		client = ClientFactory.createClient(clientConfig);
+         
+     	prop = new Properties();
+    	try {
+            //load a properties file
+    		prop.load(new FileInputStream("procedureconfig.properties"));
+ 
+    	} catch (IOException ex) {
+    		ex.printStackTrace();
+        }
     }
     
     
@@ -93,14 +104,5 @@ public class VoltPerformanceTester {
         client.close();
         
 
-    }
-    
-    public static void main(String[] args) throws Exception {
-        // create a configuration from the arguments
-        TradeConfig config = new TradeConfig();
-        config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
-        
-        VoltPerformanceTester tester = new VoltPerformanceTester(config);
-        tester.run();
     }
 }

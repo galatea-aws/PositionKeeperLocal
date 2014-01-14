@@ -32,3 +32,4 @@ CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.Initialize;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.DoTrade;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.CountTradesByAccount;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.SumPositionByAccount;
+CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.SumPositionByAccountAndProduct;

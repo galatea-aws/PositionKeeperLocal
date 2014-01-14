@@ -99,7 +99,7 @@ public class TestDataSimulator {
         int duration = 120;
 
         @Option(desc = "Comma separated list of the form server[:port] to connect to.")
-        String servers = "ec2-54-208-134-51.compute-1.amazonaws.com:21212,ec2-54-209-26-134.compute-1.amazonaws.com:21212";
+        String servers = "ec2-54-209-238-12.compute-1.amazonaws.com:21212, ec2-54-209-190-108.compute-1.amazonaws.com:21212";
 
         @Option(desc = "Number of accounts.")
         int accounts = 6;

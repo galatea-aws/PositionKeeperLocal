@@ -92,7 +92,7 @@ function simulator() {
 function querytester() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
-        PositionKeeper.VoltPerformanceTester \
+        PositionKeeper.$2 \
         --displayinterval=5 \
         --duration=120 \
         --servers=$CLIENTHOST \
