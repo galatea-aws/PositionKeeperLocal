@@ -84,7 +84,7 @@ function simulator() {
         PositionKeeper.TestDataSimulator \
         --displayinterval=5 \
         --duration=120 \
-        --servers=$CLIENTHOST \
+        --servers=$CLIENTHOST
 }
 
 #test the voltdb query performance
@@ -94,7 +94,7 @@ function querytester() {
         PositionKeeper.VoltPerformanceTester \
         --displayinterval=5 \
         --duration=120 \
-        --servers=$CLIENTHOST \
+        --servers=$CLIENTHOST
 }
 
 function help() {
