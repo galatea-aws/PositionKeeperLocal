@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import paramiko
 import time
-from subprocess import call
+import subprocess
 from pyjavaproperties import Properties
 if __name__ == "__main__":  
     paramiko.util.log_to_file('paramiko.log')
