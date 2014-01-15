@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="unqualified">
+
+  <!-- <deployment> -->
+  <xs:element name="deployment" type="deploymentType"/>
+  <xs:complexType name="deploymentType">
+    <xs:all>
+      <xs:element name="cluster" minOccurs="1" maxOccurs="1" type="clusterType"/>
+	</xs:all>
+  </xs:complexType>
+
+  <!-- <cluster> -->
+  <xs:complexType name="clusterType">
+    <xs:attribute name="hostcount" type="xs:int" default="1"/>
+    <xs:attribute name="sitesperhost" type="xs:int" default="2"/>
+    <xs:attribute name="kfactor" type="xs:int" default="0"/>
+    <xs:attribute name="elastic" type="xs:string" default="enabled"/>
+  </xs:complexType>
+</xs:schema>

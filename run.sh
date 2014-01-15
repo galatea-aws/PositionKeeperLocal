@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
 APPNAME="PositionKeeper"
+. serverconfig.properties
 
 # find voltdb binaries in either installation or distribution directory.
-if [ -n "$(which voltdb 2> /dev/null)" ]; then
-    VOLTDB_BIN=$(dirname "$(which voltdb)")
-else
-    VOLTDB_BIN="/home/voltdb/voltdb-3.5.0.1/bin"
-fi
+VOLTDB_BIN = $votldb_bin
+
 # installation layout has all libraries in $VOLTDB_ROOT/lib/voltdb
 if [ -d "$VOLTDB_BIN/../lib/voltdb" ]; then
     VOLTDB_BASE=$(dirname "$VOLTDB_BIN")
@@ -29,7 +27,6 @@ CLIENTCLASSPATH=$CLASSPATH:$({ \
     \ls -1 "$VOLTDB_LIB"/commons-cli-1.2.jar; \
     \ls -1 "$VOLTDB_LIB"/guava-12.0.jar; \
 } 2> /dev/null | paste -sd ':' - )
-. serverconfig.properties
 
 VOLTDB="$VOLTDB_BIN/voltdb"
 LOG4J="$VOLTDB_VOLTDB/log4j.xml"
