@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-if [ $# -gt 0 && $1 = -r ];
-	then git reset --hard;fi
+git reset --hard
 git pull
 ./run.sh simulator
