@@ -4,8 +4,8 @@ APPNAME="PositionKeeper"
 . serverconfig.properties
 
 # find voltdb binaries in either installation or distribution directory.
-VOLTDB_BIN = $votldb_bin
-
+VOLTDB_BASE = $voltdb_base
+VOLTDB_BIN = "$VOLTDB_BASE/bin"
 # installation layout has all libraries in $VOLTDB_ROOT/lib/voltdb
 if [ -d "$VOLTDB_BIN/../lib/voltdb" ]; then
     VOLTDB_BASE=$(dirname "$VOLTDB_BIN")
