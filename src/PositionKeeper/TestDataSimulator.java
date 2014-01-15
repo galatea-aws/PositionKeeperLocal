@@ -182,18 +182,20 @@ public class TestDataSimulator {
      * syntax (where :port is optional).
      * @throws InterruptedException if anything bad happens with the threads.
      */
-    void connect(String servers) throws InterruptedException {
+    void connect() throws InterruptedException {
         System.out.println("Connecting to VoltDB...");
 
+		String servers = serverProp.getProperty("servers");
         String[] serverArray = servers.split(",");
         final CountDownLatch connections = new CountDownLatch(serverArray.length);
-
+		final String clientport = serverProp.getProperty("clientport");
+		
         // use a new thread to connect to each server
         for (final String server : serverArray) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    connectToOneServerWithRetry(server);
+                    connectToOneServerWithRetry(server + ":" +clientport);
                     connections.countDown();
                 }
             }).start();
@@ -311,8 +313,7 @@ public class TestDataSimulator {
         System.out.println(HORIZONTAL_RULE);
 
         // connect to one or more servers, loop until success
-		String servers = serverProp.getProperty("clienthost");
-        connect(servers);
+        connect();
 
         // initialize using synchronous call
         System.out.println("\nPopulating Static Tables\n");

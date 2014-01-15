@@ -17,8 +17,7 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
 	
 	@Override
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
-		String servers = serverProp.getProperty("clienthost");
-        connect(servers);
+        connect();
         
     	long queryStartTS = System.currentTimeMillis();
 
