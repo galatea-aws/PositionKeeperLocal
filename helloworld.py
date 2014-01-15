@@ -11,6 +11,6 @@ if __name__ == "__main__":
     s.load_system_host_keys()
     s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     s.connect(hostname, port, username, password) 
-    stdin, stdout, stderr = s.exec_command('/home/voltdb/voltdb-3.5.0.1/examples/PositionKeeper/server.sh') 
+    stdin, stdout, stderr = s.exec_command('getconf PATH') 
     print stdout.read()
     s.close()
