@@ -42,8 +42,11 @@
 
 package PositionKeeper;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
@@ -70,8 +73,6 @@ public class TestDataSimulator {
             "----------" + "----------" + "----------" + "----------" +
             "----------" + "----------" + "----------" + "----------" + "\n";
 
-    // validated command line configuration
-    final TradeConfig config;
     // Reference to the database connection we will use
     final Client client;
     // Trade generator
@@ -83,7 +84,9 @@ public class TestDataSimulator {
     // Statistics manager objects from the client
     final ClientStatsContext periodicStatsContext;
     final ClientStatsContext fullStatsContext;
-
+    public Properties serverProp;
+    public Properties tradesimulatorProp;
+    
     AtomicLong acceptedTrades = new AtomicLong(0);
 
     /**
@@ -92,43 +95,6 @@ public class TestDataSimulator {
      * and validation.
      */
     static class TradeConfig extends CLIConfig {
-        @Option(desc = "Interval for performance feedback, in seconds.")
-        long displayinterval = 5;
-
-        @Option(desc = "Simulator duration, in seconds.")
-        int duration = 120;
-
-        @Option(desc = "Comma separated list of the form server[:port] to connect to.")
-        String servers = "ec2-54-209-238-12.compute-1.amazonaws.com:21212, ec2-54-209-190-108.compute-1.amazonaws.com:21212";
-
-        @Option(desc = "Number of accounts.")
-        int accounts = 6;
-        
-        @Option(desc = "Number of products.")
-        int products = 100;
-        
-        @Option(desc = "Number of trade days.")
-        int tradedays = 5;
-        
-        @Option(desc = "trade volume of each day.")
-        int tradevolume = 100000;
-
-        @Option(desc = "Filename to write raw summary statistics to.")
-        String statsfile = "";
-
-        @Option(desc = "User name for connection.")
-        String user = "";
-
-        @Option(desc = "Password for connection.")
-        String password = "";
-
-        @Override
-        public void validate() {
-            if (duration <= 0) exitWithMessageAndUsage("duration must be > 0");
-            if (displayinterval <= 0) exitWithMessageAndUsage("displayinterval must be > 0");
-            if (accounts <= 0) exitWithMessageAndUsage("accounts must be > 0");
-            if (products <= 0) exitWithMessageAndUsage("products must be > 0");
-        }
     }
 
     /**
@@ -139,9 +105,9 @@ public class TestDataSimulator {
         @Override
         public void connectionLost(String hostname, int port, int connectionsLeft, DisconnectCause cause) {
             // if the simulator is still active
-            if ((System.currentTimeMillis() - simulatorStartTS) < (config.duration * 1000)) {
+/*            if ((System.currentTimeMillis() - simulatorStartTS) < (config.duration * 1000)) {
                 System.err.printf("Connection to %s:%d was lost.\n", hostname, port);
-            }
+            }*/
         }
     }
 
@@ -151,10 +117,20 @@ public class TestDataSimulator {
      *
      * @param config Parsed & validated CLI options.
      */
-    public TestDataSimulator(TradeConfig config) {
-        this.config = config;
-
-        ClientConfig clientConfig = new ClientConfig(config.user, config.password, new StatusListener());
+    public TestDataSimulator() {
+    	tradesimulatorProp = new Properties();
+		serverProp = new Properties();
+    	try {
+            //load a properties file
+    		tradesimulatorProp.load(new FileInputStream("tradesimulatorconfig.properties"));
+    		serverProp.load(new FileInputStream("serverconfig.properties"));
+    	} catch (IOException ex) {
+    		ex.printStackTrace();
+        }
+    	
+    	String user = serverProp.getProperty("user");
+    	String password = serverProp.getProperty("password");
+        ClientConfig clientConfig = new ClientConfig(user, password, new StatusListener());
 //      clientConfig.setMaxTransactionsPerSecond(config.ratelimit);
 
         client = ClientFactory.createClient(clientConfig);
@@ -162,12 +138,14 @@ public class TestDataSimulator {
         periodicStatsContext = client.createStatsContext();
         fullStatsContext = client.createStatsContext();
 
-        switchboard = new TradeGenerator(config.accounts, config.products);
+        Integer accounts = Integer.valueOf(tradesimulatorProp.getProperty("accounts"));
+        Integer products = Integer.valueOf(tradesimulatorProp.getProperty("products"));
+        switchboard = new TradeGenerator(accounts, products);
 
         System.out.print(HORIZONTAL_RULE);
         System.out.println(" Command Line Configuration");
         System.out.println(HORIZONTAL_RULE);
-        System.out.println(config.getConfigDumpString());
+        System.out.println(tradesimulatorProp.toString());
 /*        if(config.latencyreport) {
             System.out.println("NOTICE: Option latencyreport is ON for async run, please set a reasonable ratelimit.\n");
         }*/
@@ -234,9 +212,11 @@ public class TestDataSimulator {
             @Override
             public void run() { printStatistics(); }
         };
+        
+        Long displayinterval = Long.valueOf(tradesimulatorProp.getProperty("displayinterval"));
         timer.scheduleAtFixedRate(statsPrinting,
-                                  config.displayinterval * 1000,
-                                  config.displayinterval * 1000);
+                                  displayinterval * 1000,
+                                  displayinterval * 1000);
     }
 
     /**
@@ -303,7 +283,8 @@ public class TestDataSimulator {
             System.out.println(HORIZONTAL_RULE);
             System.out.println(stats.latencyHistoReport());
         }*/
-        client.writeSummaryCSV(stats, config.statsfile);
+        String statsfile = tradesimulatorProp.getProperty("statsfile");
+        client.writeSummaryCSV(stats, statsfile);
     }
 
     /**
@@ -330,11 +311,16 @@ public class TestDataSimulator {
         System.out.println(HORIZONTAL_RULE);
 
         // connect to one or more servers, loop until success
-        connect(config.servers);
+		String servers = serverProp.getProperty("clienthost");
+        connect(servers);
 
         // initialize using synchronous call
         System.out.println("\nPopulating Static Tables\n");
-        client.callProcedure("Initialize", config.accounts, config.products);
+        
+        Integer accounts = Integer.valueOf(tradesimulatorProp.getProperty("accounts"));
+        Integer products = Integer.valueOf(tradesimulatorProp.getProperty("products"));
+        
+        client.callProcedure("Initialize", accounts, products);
 
         System.out.print(HORIZONTAL_RULE);
         System.out.println(" Starting Simulator");
@@ -349,12 +335,15 @@ public class TestDataSimulator {
         Date endDate = calendar.getTime();
         
         //Set the current knowledge date and effective date
-        calendar.add(Calendar.DAY_OF_YEAR,-1*config.tradedays);
+        Integer tradedays = Integer.valueOf(tradesimulatorProp.getProperty("tradedays"));
+        calendar.add(Calendar.DAY_OF_YEAR,-1*tradedays);
         Date currentDate = calendar.getTime();
+        
+        Integer tradevolume = Integer.valueOf(tradesimulatorProp.getProperty("tradevolume"));
         
         long tradeId = 1;
         while (!currentDate.after(endDate)) {
-        	for(int i=0;i<config.tradevolume;i++){
+        	for(int i=0;i<tradevolume;i++){
                 // Get the next phone call
                 TradeGenerator.Trade trade = switchboard.CreateTrade(tradeId++,currentDate, currentDate);
                 // asynchronously call the "Vote" procedure
@@ -397,7 +386,7 @@ public class TestDataSimulator {
         TradeConfig config = new TradeConfig();
         config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
 
-        TestDataSimulator simulator = new TestDataSimulator(config);
+        TestDataSimulator simulator = new TestDataSimulator();
         simulator.runSimulator();
     }
 }

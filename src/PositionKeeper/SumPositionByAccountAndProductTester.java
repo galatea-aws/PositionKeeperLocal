@@ -10,19 +10,20 @@ import PositionKeeper.TestDataSimulator.TradeConfig;
 
 public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester{
 
-	public SumPositionByAccountAndProductTester(TradeConfig tradeconfig) {
-		super(tradeconfig);
+	public SumPositionByAccountAndProductTester() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
-        connect(config.servers);
+		String servers = serverProp.getProperty("clienthost");
+        connect(servers);
         
     	long queryStartTS = System.currentTimeMillis();
 
-    	String accountId = prop.getProperty("SumPositionByAccountAndProduct.accountid","account1");
-    	String productCusip = prop.getProperty("SumPositionByAccountAndProduct.productcusip","cusip1");
+    	String accountId = procedureProp.getProperty("SumPositionByAccountAndProduct.accountid","account1");
+    	String productCusip = procedureProp.getProperty("SumPositionByAccountAndProduct.productcusip","cusip1");
     	
     	System.out.println("Call Procedure: SumPositionByAccountAndProduct");
     	System.out.println("accountId = " + accountId);
@@ -49,7 +50,7 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
         TradeConfig config = new TradeConfig();
         config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
         
-        SumPositionByAccountAndProductTester tester = new SumPositionByAccountAndProductTester(config);
+        SumPositionByAccountAndProductTester tester = new SumPositionByAccountAndProductTester();
         tester.run();
     }
 }

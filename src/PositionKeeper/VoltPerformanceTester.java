@@ -16,27 +16,27 @@ import org.voltdb.client.ProcCallException;
 import PositionKeeper.TestDataSimulator.TradeConfig;
 
 public class VoltPerformanceTester {
-	
-    // validated command line configuration
-    final TradeConfig config;
     // Reference to the database connection we will use
     final Client client;
-    public Properties prop;
+    public Properties procedureProp;
+    public Properties serverProp;
     
-    public VoltPerformanceTester(TradeConfig tradeconfig){
-    	config = tradeconfig;
-		ClientConfig clientConfig = new ClientConfig(config.user, config.password, new ClientStatusListenerExt());
-		/*         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);*/
-		client = ClientFactory.createClient(clientConfig);
-         
-     	prop = new Properties();
+    public VoltPerformanceTester(){
+		procedureProp = new Properties();
+		serverProp = new Properties();
     	try {
             //load a properties file
-    		prop.load(new FileInputStream("procedureconfig.properties"));
- 
+    		procedureProp.load(new FileInputStream("procedureconfig.properties"));
+    		serverProp.load(new FileInputStream("serverconfig.properties"));
     	} catch (IOException ex) {
     		ex.printStackTrace();
         }
+    	
+    	String user = serverProp.getProperty("user");
+    	String password = serverProp.getProperty("password");
+		ClientConfig clientConfig = new ClientConfig(user, password, new ClientStatusListenerExt());
+		/*         clientConfig.setMaxTransactionsPerSecond(config.ratelimit);*/
+		client = ClientFactory.createClient(clientConfig);
     }
     
     

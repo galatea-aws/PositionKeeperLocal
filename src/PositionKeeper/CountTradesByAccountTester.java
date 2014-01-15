@@ -10,18 +10,19 @@ import PositionKeeper.TestDataSimulator.TradeConfig;
 
 public class CountTradesByAccountTester extends VoltPerformanceTester{
 
-	public CountTradesByAccountTester(TradeConfig tradeconfig) {
-		super(tradeconfig);
+	public CountTradesByAccountTester() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
     public void run() throws NoConnectionsException, IOException, ProcCallException, InterruptedException{
-        connect(config.servers);
+		String servers = serverProp.getProperty("clienthost");
+        connect(servers);
         
     	long queryStartTS = System.currentTimeMillis();
 
-    	String accountId = prop.getProperty("CountTradesByAccount.accountid","account2");
+    	String accountId = procedureProp.getProperty("CountTradesByAccount.accountid","account2");
     	
     	System.out.println("Call Procedure: CountTradesByAccount");
     	System.out.println("accountId = " + accountId);
@@ -46,7 +47,7 @@ public class CountTradesByAccountTester extends VoltPerformanceTester{
         TradeConfig config = new TradeConfig();
         config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
         
-        CountTradesByAccountTester tester = new CountTradesByAccountTester(config);
+        CountTradesByAccountTester tester = new CountTradesByAccountTester();
         tester.run();
     }
 
