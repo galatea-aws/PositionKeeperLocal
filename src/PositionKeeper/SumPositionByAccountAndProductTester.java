@@ -46,9 +46,6 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
     }
 	
     public static void main(String[] args) throws Exception {
-        // create a configuration from the arguments
-        TradeConfig config = new TradeConfig();
-        config.parse(TestDataSimulator.TradeConfig.class.getName(), args);
         
         SumPositionByAccountAndProductTester tester = new SumPositionByAccountAndProductTester();
         tester.run();
