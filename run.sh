@@ -15,7 +15,7 @@ if [ -d "$VOLTDB_BIN/../lib/voltdb" ]; then
     VOLTDB_VOLTDB="$VOLTDB_LIB"
 # distribution layout has libraries in separate lib and voltdb directories
 else
-    VOLTDB_LIB="`$VOLTDB_BIN/../lib"
+    VOLTDB_LIB="$VOLTDB_BIN/../lib"
     VOLTDB_VOLTDB="$VOLTDB_BIN/../voltdb"
 fi
 
