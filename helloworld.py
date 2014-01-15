@@ -10,7 +10,7 @@ if __name__ == "__main__":
     s = paramiko.SSHClient()
     s.load_system_host_keys()
     s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    hostlist = p['servers'].split[',']
+    hostlist = p['servers'].split(',')
     port = 22
     username = 'voltdb' 
     password = 'voltdb'
