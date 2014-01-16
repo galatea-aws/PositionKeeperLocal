@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="C:/Users/wsun/Desktop/voltdb-ent-3.7/lib/tomcat-jdbc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/wsun/Desktop/voltdb-ent-3.7/lib/tomcat-juli.jar"/>
 	<classpathentry kind="lib" path="C:/Users/wsun/Desktop/voltdb-ent-3.7/lib/zmq-2.1.11.jar"/>
+	<classpathentry kind="lib" path="lib/commons-exec-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
