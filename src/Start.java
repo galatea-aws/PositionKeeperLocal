@@ -23,6 +23,7 @@ public class Start {
 		cl.addArgument("commit");
 		cl.addArgument("-m");
 		cl.addArgument("'test'");
+		cl.addArgument("-a");
 		exec.execute(cl);
 		//push
 		cl = new CommandLine("git");
