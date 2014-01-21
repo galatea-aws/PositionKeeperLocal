@@ -1,5 +1,7 @@
 package PositionKeeper;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.voltdb.VoltTable;
@@ -28,16 +30,23 @@ public class CountTradesByAccountTester extends VoltPerformanceTester{
     	
     	VoltTable result = client.callProcedure("CountTradesByAccount",
     			accountId).getResults()[0];
-    	  
+    	
+    	long queryDuration = 0;
         while(result.advanceRow()) {
+        	queryDuration = System.currentTimeMillis()-queryStartTS;
             System.out.println("Result: " + result.getLong(0));
-            System.out.println((double)(System.currentTimeMillis()-queryStartTS)/1000f + "s");
+            System.out.println((double)(queryDuration/1000f) + "s");
         }
 
         // block until all outstanding txns return
         client.drain();
         // close down the client connections
         client.close();
+        
+        BufferedWriter bw = new BufferedWriter(new FileWriter ("querytester"));
+        bw.write(String.valueOf(queryDuration));
+        bw.flush();
+        bw.close();
     }
 	
     

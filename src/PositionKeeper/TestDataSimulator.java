@@ -42,7 +42,10 @@
 
 package PositionKeeper;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
@@ -287,6 +290,11 @@ public class TestDataSimulator {
         }*/
         String statsfile = tradesimulatorProp.getProperty("statsfile");
         client.writeSummaryCSV(stats, statsfile);
+        
+        BufferedWriter bw = new BufferedWriter(new FileWriter ("tradesimulator"));
+        bw.write(String.valueOf(stats.getTxnThroughput()));
+        bw.flush();
+        bw.close();
     }
 
     /**
