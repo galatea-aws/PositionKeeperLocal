@@ -254,7 +254,7 @@ public class TestDataSimulator {
                          " Generating Trades Results\n" +
                          HORIZONTAL_RULE +
                          "\nA total of %d trades were received...\n" +
-                         " - %,9d Accepted\n";
+                         " - %d Accepted\n";
         System.out.printf(display, stats.getInvocationsCompleted(),
                 acceptedTrades.get());
 
@@ -262,7 +262,7 @@ public class TestDataSimulator {
         System.out.println(" Client Workload Statistics");
         System.out.println(HORIZONTAL_RULE);
 
-        System.out.printf("Average throughput:            %,9d txns/sec\n", stats.getTxnThroughput());
+        System.out.printf("Average throughput:            %d txns/sec\n", stats.getTxnThroughput());
 /*        if(this.config.latencyreport) {
             System.out.printf("Average latency:               %,9.2f ms\n", stats.getAverageLatency());
             System.out.printf("10th percentile latency:       %,9d ms\n", stats.kPercentileLatency(.1));
