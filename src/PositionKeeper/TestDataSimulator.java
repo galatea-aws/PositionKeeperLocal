@@ -265,7 +265,7 @@ public class TestDataSimulator {
         System.out.println(" Client Workload Statistics");
         System.out.println(HORIZONTAL_RULE);
 
-        System.out.printf("Average throughput:            %d txns/sec\n", stats.getTxnThroughput());
+        System.out.printf("Average throughput:%d txns/sec\n", stats.getTxnThroughput());
 /*        if(this.config.latencyreport) {
             System.out.printf("Average latency:               %,9.2f ms\n", stats.getAverageLatency());
             System.out.printf("10th percentile latency:       %,9d ms\n", stats.kPercentileLatency(.1));
@@ -290,11 +290,6 @@ public class TestDataSimulator {
         }*/
         String statsfile = tradesimulatorProp.getProperty("statsfile");
         client.writeSummaryCSV(stats, statsfile);
-        
-        BufferedWriter bw = new BufferedWriter(new FileWriter ("tradesimulator"));
-        bw.write(String.valueOf(stats.getTxnThroughput()));
-        bw.flush();
-        bw.close();
     }
 
     /**
