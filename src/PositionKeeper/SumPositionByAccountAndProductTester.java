@@ -24,17 +24,14 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
     	String accountId = procedureProp.getProperty("SumPositionByAccountAndProduct.accountid","account1");
     	String productCusip = procedureProp.getProperty("SumPositionByAccountAndProduct.productcusip","cusip1");
     	
-    	System.out.println("Call Procedure: SumPositionByAccountAndProduct");
-    	System.out.println("accountId = " + accountId);
-    	System.out.println("productCusip = " + productCusip);
-    	
     	VoltTable result = client.callProcedure("SumPositionByAccountAndProduct",
     			accountId,
     			productCusip).getResults()[0];
-    	  
+    	
+    	String queryDuration = String.valueOf((double)(System.currentTimeMillis()-queryStartTS)/1000f);
         while(result.advanceRow()) {
-            System.out.println("Result: " + result.getLong(0));
-            System.out.println((double)(System.currentTimeMillis()-queryStartTS)/1000f + "s");
+            String output = "SumPositionByAccountAndProduct," + accountId + "," + productCusip + "," + result.getLong(0) + "," + queryDuration;
+            System.out.println(output);
         }
 
         // block until all outstanding txns return
