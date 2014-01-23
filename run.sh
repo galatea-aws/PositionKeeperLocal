@@ -45,7 +45,7 @@ function srccompile() {
     mkdir -p obj
     javac -target 1.6 -source 1.6 -classpath $APPCLASSPATH -d obj \
         src/PositionKeeper/*.java \
-        src/PositionKeeper/procedures/*.java
+        src/PositionKeeper/procedures/*.java >> result
     # stop if compilation fails
     if [ $? != 0 ]; then exit; fi
 }
