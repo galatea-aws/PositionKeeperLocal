@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 git reset --hard
 git pull
-./run.sh simulator
+./run.sh tradesimulator

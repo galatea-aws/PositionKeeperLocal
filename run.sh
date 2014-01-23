@@ -77,7 +77,7 @@ function rejoin() {
 }
 
 #insert trade data into voltdb
-function simulator() {
+function tradesimulator() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
         PositionKeeper.TestDataSimulator \
@@ -88,7 +88,7 @@ function simulator() {
 }
 
 #test the voltdb query performance
-function querytester() {
+function positionkeeper() {
     srccompile
     java -classpath obj:$CLIENTCLASSPATH:obj -Dlog4j.configuration=file://$LOG4J \
         PositionKeeper.$PROCEDURENAME \

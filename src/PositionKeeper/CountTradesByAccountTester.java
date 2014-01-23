@@ -9,6 +9,8 @@ import org.voltdb.client.NoConnectionsException;
 import org.voltdb.client.ProcCallException;
 
 import PositionKeeper.TestDataSimulator.TradeConfig;
+import PositionKeeper.procedures.CountTradesByAccount;
+import PositionKeeper.procedures.SumPositionByAccountAndProduct;
 
 public class CountTradesByAccountTester extends VoltPerformanceTester{
 
@@ -25,28 +27,19 @@ public class CountTradesByAccountTester extends VoltPerformanceTester{
 
     	String accountId = procedureProp.getProperty("CountTradesByAccount.accountid","account2");
     	
-    	System.out.println("Call Procedure: CountTradesByAccount");
-    	System.out.println("accountId = " + accountId);
-    	
     	VoltTable result = client.callProcedure("CountTradesByAccount",
     			accountId).getResults()[0];
     	
-    	long queryDuration = 0;
+    	String queryDuration = String.valueOf((double)(System.currentTimeMillis()-queryStartTS)/1000f);
         while(result.advanceRow()) {
-        	queryDuration = System.currentTimeMillis()-queryStartTS;
-            System.out.println("Result: " + result.getLong(0));
-            System.out.println((double)(queryDuration/1000f) + "s");
+            String output = "SumPositionByAccountAndProduct," + queryDuration + "," + result.getRowCount() + "," + CountTradesByAccount.resultStmt;
+            System.out.println(output);
         }
 
         // block until all outstanding txns return
         client.drain();
         // close down the client connections
         client.close();
-        
-        BufferedWriter bw = new BufferedWriter(new FileWriter ("querytester"));
-        bw.write(String.valueOf(queryDuration));
-        bw.flush();
-        bw.close();
     }
 	
     

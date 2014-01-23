@@ -7,6 +7,7 @@ import org.voltdb.client.NoConnectionsException;
 import org.voltdb.client.ProcCallException;
 
 import PositionKeeper.TestDataSimulator.TradeConfig;
+import PositionKeeper.procedures.SumPositionByAccountAndProduct;
 
 public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester{
 
@@ -30,7 +31,7 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
     	
     	String queryDuration = String.valueOf((double)(System.currentTimeMillis()-queryStartTS)/1000f);
         while(result.advanceRow()) {
-            String output = "SumPositionByAccountAndProduct," + accountId + "," + productCusip + "," + result.getLong(0) + "," + queryDuration;
+            String output = "SumPositionByAccountAndProduct," + queryDuration + "," + result.getRowCount() + "," + SumPositionByAccountAndProduct.resultStmt;
             System.out.println(output);
         }
 
