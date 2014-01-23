@@ -354,7 +354,12 @@ public class TestDataSimulator {
                 // asynchronously call the "Vote" procedure
                 client.callProcedure(new TradeCallback(),
                                      "DoTrade",
-                                     trade
+                                     trade.accountId,
+                                     trade.tradeId,
+                                     trade.productcusip,
+                                     trade.knowledgeDate,
+                                     trade.effectiveDate,
+                                     trade.positionDelta
                 					);
         	}
         	calendar.add(Calendar.DAY_OF_YEAR,1);
