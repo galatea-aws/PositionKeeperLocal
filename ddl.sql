@@ -13,9 +13,6 @@ PARTITION TABLE trades ON COLUMN account_id;
 CREATE TABLE accounts
 (
 	account_id		varchar(50) NOT NULL,
-	name			varchar(50) NOT NULL,
-	address			varchar(50) NOT NULL,
-	tin             varchar(50) NOT NULL,
 	PRIMARY KEY(account_id)
 );
 
@@ -25,11 +22,6 @@ CREATE TABLE products
 (
 	product_cusip	char(9)     NOT NULL,
 	product_name	varchar(50) NOT NULL,
-	product_isin    char(12)    NOT NULL,
-	product_ric     varchar(9)  NOT NULL,
-	product_ticker  varchar(6)  NOT NULL,
-	product_ccy     char(3)     NOT NULL,
-	product_coi     char(3)     NOT NULL,
 	PRIMARY KEY(product_cusip)
 );
 
