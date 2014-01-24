@@ -31,7 +31,7 @@ public class SumPositionByAccountAndProductTester  extends VoltPerformanceTester
     	
     	String queryDuration = String.valueOf((double)(System.currentTimeMillis()-queryStartTS)/1000f);
         while(result.advanceRow()) {
-            String output = "SumPositionByAccountAndProduct," + queryDuration + "," + result.getRowCount() + "," + SumPositionByAccountAndProduct.resultStmt;
+            String output = "SumPositionByAccountAndProduct," + queryDuration + "," + result.getRowCount() + "," + SumPositionByAccountAndProduct.resultStmt.getText();
             System.out.println(output);
         }
 
