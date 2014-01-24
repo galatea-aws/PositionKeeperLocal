@@ -341,7 +341,7 @@ public class TestDataSimulator {
         
         //Set the current knowledge date and effective date
         Integer tradedays = Integer.valueOf(tradesimulatorProp.getProperty("tradedays"));
-        calendar.add(Calendar.DAY_OF_YEAR,-1*(tradedays-1));
+        calendar.add(Calendar.DAY_OF_YEAR,-1*(tradedays));
         Date currentDate = calendar.getTime();
         
         Integer tradevolume = Integer.valueOf(tradesimulatorProp.getProperty("tradevolume"));
