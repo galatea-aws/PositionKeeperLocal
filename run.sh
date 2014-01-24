@@ -34,6 +34,7 @@ LICENSE="$VOLTDB_VOLTDB/license.xml"
 HOST=$host
 CLIENTHOST=$clienthost
 PROCEDURENAME=""
+MAXHEAPSIZE=$maxheapsize
 
 # remove build artifacts
 function clean() {
@@ -62,6 +63,7 @@ function catalog() {
 function server() {
     # if a catalog doesn't exist, build one
     if [ ! -f $APPNAME.jar ]; then catalog; fi
+    export VOLTDB_HEAPSIZE=$MAXHEAPSIZE
     # run the server
     $VOLTDB create catalog $APPNAME.jar deployment deployment.xml \
         license $LICENSE host $HOST

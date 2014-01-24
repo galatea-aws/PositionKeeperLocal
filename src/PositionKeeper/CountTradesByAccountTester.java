@@ -32,7 +32,7 @@ public class CountTradesByAccountTester extends VoltPerformanceTester{
     	
     	String queryDuration = String.valueOf((double)(System.currentTimeMillis()-queryStartTS)/1000f);
         while(result.advanceRow()) {
-            String output = "SumPositionByAccountAndProduct," + queryDuration + "," + result.getRowCount() + "," + CountTradesByAccount.resultStmt.getText();
+            String output = "CountTradesByAccount," + queryDuration + "," + result.getRowCount() + "," + CountTradesByAccount.resultStmt.getText();
             System.out.println(output);
         }
 
