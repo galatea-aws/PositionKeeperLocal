@@ -347,7 +347,7 @@ public class TestDataSimulator {
         Integer tradevolume = Integer.valueOf(tradesimulatorProp.getProperty("tradevolume"));
         simulatorStartTS = System.currentTimeMillis();
         long tradeId = 1;
-        while (endDate.before(currentDate)) {
+        while (currentDate.before(endDate)) {
         	for(int i=0;i<tradevolume;i++){
                 // Get the next phone call
                 TradeGenerator.Trade trade = switchboard.CreateTrade(tradeId++,currentDate, currentDate);
