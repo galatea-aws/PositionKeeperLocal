@@ -33,3 +33,6 @@ CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.DoTrade;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.CountTradesByAccount;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.SumPositionByAccount;
 CREATE PROCEDURE FROM CLASS PositionKeeper.procedures.SumPositionByAccountAndProduct;
+
+CREATE INDEX hash_trades_account_id ON trades (product_cusip);
+CREATE INDEX hash_trades_product_cusip ON trades (product_cusip);
