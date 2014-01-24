@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><deployment><cluster hostcount="1" kfactor="0" sitesperhost="6"/><systemsettings><temptables maxsize="2048"/></systemsettings></deployment>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><deployment><cluster hostcount="3" kfactor="0" sitesperhost="6"/><systemsettings><temptables maxsize="2048"/></systemsettings></deployment>
