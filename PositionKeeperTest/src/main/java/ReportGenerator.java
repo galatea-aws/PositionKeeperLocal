@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 
 public class ReportGenerator {
+	public static Logger logger = LogManager.getLogger(ReportGenerator.class.getName());
 	private ArrayList<ClientTask> clientTaskList = new ArrayList<ClientTask>();
 	private int serverInstanceCount;
 	private int clientInstanceCount;
@@ -15,7 +18,7 @@ public class ReportGenerator {
 	//Folder for pushing reports to github
 	private String targetReportPath;
 	//Temp folder for saving all reports locally
-	private String tempReportPath = "/report";	
+	private String tempReportPath = "report/";	
 	//Folder for saving newly generated reports;
 	private String newlyGeneratedReportPath;
 	private String instanceType;
@@ -25,9 +28,9 @@ public class ReportGenerator {
 		this.clientInstanceCount = clientInstanceCount;
 		this.benchmarkProp = benchmarkProp;	
 		this.gitHelper = gitHelper;
-		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"/report";
-		this.newlyGeneratedReportPath = tempReportPath+"/Archive/"+instanceType;
+		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"/report/";
 		this.instanceType = benchmarkProp.getProperty("instanceType");
+		this.newlyGeneratedReportPath = tempReportPath+"Archive/"+instanceType + "/";
 	}
 	
 	public void GenerateReport(String queryName){
@@ -44,12 +47,27 @@ public class ReportGenerator {
 	
 	public void LoadWorkSpace() throws IOException{
 		//Delete local report folder
-		FileUtils.deleteDirectory(new File(tempReportPath));	
-		FileUtils.copyDirectory(new File(targetReportPath), new File(tempReportPath));
+		try {
+			FileUtils.deleteDirectory(new File(tempReportPath));
+		} catch (IOException e) {
+			logger.error("Unable to delete folder: " + tempReportPath);
+		}	
+		try {
+			FileUtils.copyDirectory(new File(targetReportPath), new File(tempReportPath));
+		} catch (IOException e) {
+			logger.error("Unable to copy folder from " + targetReportPath + " to " + tempReportPath, e.fillInStackTrace());
+			throw e;
+		}
 		File file = new File(newlyGeneratedReportPath);
 		if(!file.exists()){
-			FileUtils.forceMkdir(file);
+			try {
+				FileUtils.forceMkdir(file);
+			} catch (IOException e) {
+				logger.error("Create folder: " + newlyGeneratedReportPath, e.fillInStackTrace());
+				throw e;
+			}
 		}
+		
 	}
 	
 	public void ArchiveReport() throws IOException{

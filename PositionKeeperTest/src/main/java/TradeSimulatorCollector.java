@@ -28,17 +28,18 @@ public class TradeSimulatorCollector extends DataCollector {
 	public void run(){
 		long totalDuration = 1;
 		for(ClientTask clientTask: clientTaskList){
+			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 			try {
-				BufferedReader br = new BufferedReader(new FileReader((queryName) + "_" + clientTask.getInstance().getInstanceId()));
+				BufferedReader br = new BufferedReader(new FileReader(clientResultFilePath));
 				String line,last = null;
 				while((line = br.readLine())!=null){
 					last = line;
 				}
 				totalDuration += Long.valueOf(last);
 			}catch (FileNotFoundException e) {
-				logger.error("File not exists: " + (queryName) + "_" + clientTask.getInstance().getInstanceId(), e.fillInStackTrace());
+				logger.error("File not exists: " + clientResultFilePath, e.fillInStackTrace());
 			}catch (Exception e) {
-				logger.error("Unable to read file: " + (queryName) + "_" + clientTask.getInstance().getInstanceId(), e.fillInStackTrace());
+				logger.error("Unable to read file: " + clientResultFilePath, e.fillInStackTrace());
 			}
 		}
 		int accounts = Integer.valueOf(benchmarkProp.getProperty("accounts"));
@@ -52,9 +53,8 @@ public class TradeSimulatorCollector extends DataCollector {
 		String now = sdf.format(new Date());
 		BufferedWriter bw = null;
 		try {
-			String filePath = reportPath + "/" + queryName + ".csv";
-			Boolean addHead = (new File(filePath)).exists();
-			bw = new BufferedWriter(new FileWriter(filePath,true));
+			Boolean addHead = (new File(getReportFilePath())).exists();
+			bw = new BufferedWriter(new FileWriter(getReportFilePath(),true));
 			if(!addHead){
 				String head = "Server Count,Client Count,Avg Through Put(txn/s),Trade Volume,Account Count,Product Count,Trade Days,Sitesperhost,Kfactor,Temtablesize,Date";
 				bw.write(head);

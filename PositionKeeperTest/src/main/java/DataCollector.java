@@ -11,7 +11,7 @@ public class DataCollector {
 	public int clientInstanceCount;
 	public String queryName;
 	public Properties benchmarkProp = new Properties();
-	public String reportPath;
+	private String reportPath;
 	public DataCollector(ArrayList<ClientTask> clientTaskList, int serverInstanceCount, int clientInstanceCount, Properties benchmarkProp, String queryName, String reportPath){
 		this.clientTaskList = clientTaskList;
 		this.serverInstanceCount = serverInstanceCount;
@@ -23,5 +23,9 @@ public class DataCollector {
 	
 	public void run(){
 		
+	}
+	
+	public String getReportFilePath(){
+		return reportPath + "/" + queryName + ".csv";
 	}
 }

@@ -1,4 +1,0 @@
-2014-01-27 11:47:51  [ main:0 ] - [ INFO ]  this
-2014-01-27 11:47:51  [ main:3 ] - [ ERROR ]  Positionkeeper benchmark stopped, please check logs
-java.lang.Exception
-	at PositionKeeperBenchmark.main(PositionKeeperBenchmark.java:79)

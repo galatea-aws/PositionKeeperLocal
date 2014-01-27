@@ -73,10 +73,10 @@ public class PositionKeeperBenchmark {
 				logger.info("Running server instance: " + i);
 				pt.run(i,1);
 			}
-			MailHelper.sendJobCompleteMail(pt.queryList);
+		//	MailHelper.sendJobCompleteMail(pt.queryList);
 		} catch (Exception e) {
-			logger.error("Positionkeeper benchmark stopped, please check logs");
-			MailHelper.sendJobFailMail();
+			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
+			//MailHelper.sendJobFailMail();
 		}
 	}
 
@@ -97,10 +97,11 @@ public class PositionKeeperBenchmark {
 			queryList = new ArrayList<String>(
 					Arrays.asList(benchmarkProp
 							.getProperty("querylist").split(",")));
-			gitHelper = new GitHelper(benchmarkProp.getProperty("gitfolder"));
-			serverConfig = gitHelper + benchmarkProp.getProperty("serverconfig");
-			tradesimulatorConfig = gitHelper + benchmarkProp.getProperty("tradesimulatorconfig");
-			deployment = gitHelper + benchmarkProp.getProperty("deployment");
+			String gitFolder = benchmarkProp.getProperty("gitfolder");
+			gitHelper = new GitHelper(gitFolder);
+			serverConfig = gitFolder + benchmarkProp.getProperty("serverconfig");
+			tradesimulatorConfig = gitFolder + benchmarkProp.getProperty("tradesimulatorconfig");
+			deployment = gitFolder + benchmarkProp.getProperty("deployment");
 		} catch (FileNotFoundException e) {
 			logger.error("Benchmark config file: " + benchmarkconfig + " not found", e.fillInStackTrace());
 			throw e;

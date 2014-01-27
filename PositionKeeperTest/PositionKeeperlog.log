@@ -1,41 +1,30 @@
-2014-01-27 13:44:39  [ main:0 ] - [ INFO ]  Running server instance: 3
-2014-01-27 13:44:39  [ main:2 ] - [ INFO ]  Create connection to AWS
-2014-01-27 13:44:40  [ main:1676 ] - [ INFO ]  Server instance count:3
-2014-01-27 13:44:41  [ main:1899 ] - [ INFO ]  Client instance count:1
-2014-01-27 13:44:43  [ main:4304 ] - [ INFO ]  Create server task on instance: i-668d3248
-2014-01-27 13:44:43  [ main:4309 ] - [ INFO ]  Create server task on instance: i-638d324d
-2014-01-27 13:44:43  [ main:4310 ] - [ INFO ]  Create server task on instance: i-608d324e
-2014-01-27 13:44:43  [ main:4310 ] - [ INFO ]  Stop 60s for voltdb start
-2014-01-27 13:44:43  [ Thread-7:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-608d324e
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.ResetEnv(ServerTask.java:65)
-	at ServerTask.StartTask(ServerTask.java:30)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
-2014-01-27 13:44:43  [ Thread-5:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-668d3248
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.ResetEnv(ServerTask.java:65)
-	at ServerTask.StartTask(ServerTask.java:30)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
-2014-01-27 13:44:43  [ Thread-6:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-638d324d
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.ResetEnv(ServerTask.java:65)
-	at ServerTask.StartTask(ServerTask.java:30)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
-2014-01-27 13:44:43  [ Thread-7:4398 ] - [ ERROR ]  Exception in starting voltdb on server instance i-608d324e
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.StartTask(ServerTask.java:43)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
-2014-01-27 13:44:43  [ Thread-6:4419 ] - [ ERROR ]  Exception in starting voltdb on server instance i-638d324d
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.StartTask(ServerTask.java:43)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
-2014-01-27 13:44:43  [ Thread-5:4420 ] - [ ERROR ]  Exception in starting voltdb on server instance i-668d3248
-java.lang.IllegalArgumentException: hostname can't be null
-	at ServerTask.StartTask(ServerTask.java:43)
-	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
-	at java.lang.Thread.run(Unknown Source)
+2014-01-27 17:00:55  [ main:0 ] - [ INFO ]  Running server instance: 3
+2014-01-27 17:00:55  [ main:2 ] - [ INFO ]  Create connection to AWS
+2014-01-27 17:00:56  [ main:1634 ] - [ INFO ]  Server instance count:3
+2014-01-27 17:00:57  [ main:1814 ] - [ INFO ]  Client instance count:1
+2014-01-27 17:00:58  [ main:3661 ] - [ INFO ]  Create server task on instance: i-668d3248
+2014-01-27 17:00:58  [ main:3666 ] - [ INFO ]  Create server task on instance: i-638d324d
+2014-01-27 17:00:58  [ main:3667 ] - [ INFO ]  Create server task on instance: i-608d324e
+2014-01-27 17:00:58  [ main:3667 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-27 17:01:58  [ main:63668 ] - [ INFO ]  Create client task on instance: i-618d324f
+2014-01-27 17:02:07  [ main:72222 ] - [ INFO ]  Shutdown server
+2014-01-27 17:02:09  [ main:74391 ] - [ INFO ]  Shutdown client
+2014-01-27 17:02:10  [ main:75118 ] - [ INFO ]  Running server instance: 2
+2014-01-27 17:02:10  [ main:75118 ] - [ INFO ]  Create connection to AWS
+2014-01-27 17:02:10  [ main:75385 ] - [ INFO ]  Server instance count:2
+2014-01-27 17:02:10  [ main:75525 ] - [ INFO ]  Client instance count:1
+2014-01-27 17:02:12  [ main:77047 ] - [ INFO ]  Create server task on instance: i-668d3248
+2014-01-27 17:02:12  [ main:77049 ] - [ INFO ]  Create server task on instance: i-638d324d
+2014-01-27 17:02:12  [ main:77049 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-27 17:03:12  [ main:137050 ] - [ INFO ]  Create client task on instance: i-618d324f
+2014-01-27 17:03:20  [ main:145364 ] - [ INFO ]  Shutdown server
+2014-01-27 17:03:22  [ main:146772 ] - [ INFO ]  Shutdown client
+2014-01-27 17:03:22  [ main:147489 ] - [ INFO ]  Running server instance: 1
+2014-01-27 17:03:22  [ main:147489 ] - [ INFO ]  Create connection to AWS
+2014-01-27 17:03:22  [ main:147677 ] - [ INFO ]  Server instance count:1
+2014-01-27 17:03:23  [ main:147825 ] - [ INFO ]  Client instance count:1
+2014-01-27 17:03:25  [ main:150086 ] - [ INFO ]  Create server task on instance: i-668d3248
+2014-01-27 17:03:25  [ main:150087 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-27 17:04:25  [ main:210087 ] - [ INFO ]  Create client task on instance: i-618d324f
+2014-01-27 17:04:33  [ main:218475 ] - [ INFO ]  Shutdown server
+2014-01-27 17:04:34  [ main:219192 ] - [ INFO ]  Shutdown client

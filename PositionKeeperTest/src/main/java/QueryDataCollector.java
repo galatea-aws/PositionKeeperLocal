@@ -32,26 +32,26 @@ public class QueryDataCollector extends DataCollector {
 		BufferedReader br = null;
 		BufferedWriter bw = null;
 		try {
-			bw = new BufferedWriter(new FileWriter(queryName+ ".csv", true));
+			Boolean addHead = (new File(getReportFilePath())).exists();
+			bw = new BufferedWriter(new FileWriter(getReportFilePath(), true));
 			for (ClientTask clientTask : clientTaskList) {
 				String line, last = "";
+				String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 				//Open result file that is from client instance
 				try {
-					br = new BufferedReader(new FileReader((queryName) + "_"+ clientTask.getInstance().getInstanceId()));
+					br = new BufferedReader(new FileReader(clientResultFilePath));
 					while ((line = br.readLine()) != null) {
 						last = line;
 					}
 				} catch (FileNotFoundException e) {
-					logger.error("File not exists: " + (queryName) + "_" + clientTask.getInstance().getInstanceId(), e.fillInStackTrace());
+					logger.error("File not exists: " + clientResultFilePath, e.fillInStackTrace());
 					continue;
 				} catch (IOException e) {
-					logger.error("Unable to read file: " + (queryName) + "_" + clientTask.getInstance().getInstanceId(), e.fillInStackTrace());
+					logger.error("Unable to read file: " + clientResultFilePath, e.fillInStackTrace());
 					continue;
 				}
 				
 				//Write result into report
-				String filePath = reportPath + "/" + queryName + ".csv";
-				Boolean addHead = (new File(filePath)).exists();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String now = sdf.format(new Date());
 

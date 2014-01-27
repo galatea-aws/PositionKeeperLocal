@@ -59,7 +59,8 @@ public class ServerTask extends AwsTask{
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
 															+ "rm -rf Positionkeeper >> a &&"
 															+ "cd /home/voltdb/voltdb-3.5.0.1/bin && "
-															+ "./voltadmin shutdown >> t");
+															+ "./voltadmin shutdown >> t && "
+															+ "pkill -9 java");
 			channel.open().await();
 		}catch (Exception e) {
 			logger.error("Exception in resetting environment on server instance "+ instance.getInstanceId(),e.fillInStackTrace());
