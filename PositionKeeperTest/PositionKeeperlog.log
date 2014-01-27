@@ -1,0 +1,41 @@
+2014-01-27 13:44:39  [ main:0 ] - [ INFO ]  Running server instance: 3
+2014-01-27 13:44:39  [ main:2 ] - [ INFO ]  Create connection to AWS
+2014-01-27 13:44:40  [ main:1676 ] - [ INFO ]  Server instance count:3
+2014-01-27 13:44:41  [ main:1899 ] - [ INFO ]  Client instance count:1
+2014-01-27 13:44:43  [ main:4304 ] - [ INFO ]  Create server task on instance: i-668d3248
+2014-01-27 13:44:43  [ main:4309 ] - [ INFO ]  Create server task on instance: i-638d324d
+2014-01-27 13:44:43  [ main:4310 ] - [ INFO ]  Create server task on instance: i-608d324e
+2014-01-27 13:44:43  [ main:4310 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-27 13:44:43  [ Thread-7:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-608d324e
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.ResetEnv(ServerTask.java:65)
+	at ServerTask.StartTask(ServerTask.java:30)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
+2014-01-27 13:44:43  [ Thread-5:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-668d3248
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.ResetEnv(ServerTask.java:65)
+	at ServerTask.StartTask(ServerTask.java:30)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
+2014-01-27 13:44:43  [ Thread-6:4393 ] - [ ERROR ]  Exception in resetting environment on server instance i-638d324d
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.ResetEnv(ServerTask.java:65)
+	at ServerTask.StartTask(ServerTask.java:30)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
+2014-01-27 13:44:43  [ Thread-7:4398 ] - [ ERROR ]  Exception in starting voltdb on server instance i-608d324e
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.StartTask(ServerTask.java:43)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
+2014-01-27 13:44:43  [ Thread-6:4419 ] - [ ERROR ]  Exception in starting voltdb on server instance i-638d324d
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.StartTask(ServerTask.java:43)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
+2014-01-27 13:44:43  [ Thread-5:4420 ] - [ ERROR ]  Exception in starting voltdb on server instance i-668d3248
+java.lang.IllegalArgumentException: hostname can't be null
+	at ServerTask.StartTask(ServerTask.java:43)
+	at PositionKeeperBenchmark$1.run(PositionKeeperBenchmark.java:342)
+	at java.lang.Thread.run(Unknown Source)
