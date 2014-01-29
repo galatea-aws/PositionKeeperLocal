@@ -1,30 +1,7 @@
-2014-01-27 17:00:55  [ main:0 ] - [ INFO ]  Running server instance: 3
-2014-01-27 17:00:55  [ main:2 ] - [ INFO ]  Create connection to AWS
-2014-01-27 17:00:56  [ main:1634 ] - [ INFO ]  Server instance count:3
-2014-01-27 17:00:57  [ main:1814 ] - [ INFO ]  Client instance count:1
-2014-01-27 17:00:58  [ main:3661 ] - [ INFO ]  Create server task on instance: i-668d3248
-2014-01-27 17:00:58  [ main:3666 ] - [ INFO ]  Create server task on instance: i-638d324d
-2014-01-27 17:00:58  [ main:3667 ] - [ INFO ]  Create server task on instance: i-608d324e
-2014-01-27 17:00:58  [ main:3667 ] - [ INFO ]  Stop 60s for voltdb start
-2014-01-27 17:01:58  [ main:63668 ] - [ INFO ]  Create client task on instance: i-618d324f
-2014-01-27 17:02:07  [ main:72222 ] - [ INFO ]  Shutdown server
-2014-01-27 17:02:09  [ main:74391 ] - [ INFO ]  Shutdown client
-2014-01-27 17:02:10  [ main:75118 ] - [ INFO ]  Running server instance: 2
-2014-01-27 17:02:10  [ main:75118 ] - [ INFO ]  Create connection to AWS
-2014-01-27 17:02:10  [ main:75385 ] - [ INFO ]  Server instance count:2
-2014-01-27 17:02:10  [ main:75525 ] - [ INFO ]  Client instance count:1
-2014-01-27 17:02:12  [ main:77047 ] - [ INFO ]  Create server task on instance: i-668d3248
-2014-01-27 17:02:12  [ main:77049 ] - [ INFO ]  Create server task on instance: i-638d324d
-2014-01-27 17:02:12  [ main:77049 ] - [ INFO ]  Stop 60s for voltdb start
-2014-01-27 17:03:12  [ main:137050 ] - [ INFO ]  Create client task on instance: i-618d324f
-2014-01-27 17:03:20  [ main:145364 ] - [ INFO ]  Shutdown server
-2014-01-27 17:03:22  [ main:146772 ] - [ INFO ]  Shutdown client
-2014-01-27 17:03:22  [ main:147489 ] - [ INFO ]  Running server instance: 1
-2014-01-27 17:03:22  [ main:147489 ] - [ INFO ]  Create connection to AWS
-2014-01-27 17:03:22  [ main:147677 ] - [ INFO ]  Server instance count:1
-2014-01-27 17:03:23  [ main:147825 ] - [ INFO ]  Client instance count:1
-2014-01-27 17:03:25  [ main:150086 ] - [ INFO ]  Create server task on instance: i-668d3248
-2014-01-27 17:03:25  [ main:150087 ] - [ INFO ]  Stop 60s for voltdb start
-2014-01-27 17:04:25  [ main:210087 ] - [ INFO ]  Create client task on instance: i-618d324f
-2014-01-27 17:04:33  [ main:218475 ] - [ INFO ]  Shutdown server
-2014-01-27 17:04:34  [ main:219192 ] - [ INFO ]  Shutdown client
+2014-01-29 16:18:14  [ main:0 ] - [ INFO ]  Create connection to AWS
+2014-01-29 16:18:15  [ main:1634 ] - [ INFO ]  Server instance count:1
+2014-01-29 16:18:15  [ main:1827 ] - [ INFO ]  Client instance count:1
+2014-01-29 16:18:17  [ main:3432 ] - [ INFO ]  Create client task on instance: i-618d324f
+2014-01-29 16:18:18  [ Thread-6:4039 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-618d324f
+2014-01-29 16:18:20  [ Thread-8:6192 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-618d324f
+2014-01-29 16:18:22  [ Thread-10:8376 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-618d324f

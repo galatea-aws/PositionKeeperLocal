@@ -27,7 +27,6 @@ public class ClientTask extends AwsTask{
 	
 	@Override
 	public void StartTask(String queryname){
-		ResetEnv();
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;
@@ -36,9 +35,7 @@ public class ClientTask extends AwsTask{
 			//Exec command
 			session = client.connect(getInstance().getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
-			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-															+ "git clone https://github.com/galatea-aws/Positionkeeper.git >> gitcloneresult && "
-															+ "cd Positionkeeper && "
+			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper && "
 															+ "./run.sh positionkeeper " + queryname + " >> " + queryname + "_detail");
 			channel.open().await();
 			channel.waitFor(ClientChannel.CLOSED, 0);
@@ -66,7 +63,9 @@ public class ClientTask extends AwsTask{
 		session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
 		session.authPassword("voltdb", "voltdb").await().isSuccess();
 		ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-														+ "rm -rf Positionkeeper");
+														+ "rm -rf Positionkeeper && "
+														+ "cd /home/voltdb/voltdb-3.5.0.1/examples && "
+														+ "git clone https://github.com/galatea-aws/Positionkeeper.git >> gitcloneresult");
 		channel.open().await();
 		//channel.waitFor(ClientChannel.CLOSED, 0);
 		}catch (Exception e) {

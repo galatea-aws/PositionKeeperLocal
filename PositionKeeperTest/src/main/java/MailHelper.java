@@ -27,8 +27,9 @@ public class MailHelper {
 		
 	}
 	
-	public static void sendJobCompleteMail(ArrayList<String> queryList) {
- 
+	public static void sendJobCompleteMail(ArrayList<String> queryList, Properties benchmarkProp) {
+		
+		String lastestReportFolderPath = benchmarkProp.getProperty("gitfolder")+"/report/LastestReport/";
 		final String username = "sunwell";
 		final String password = "sunwei2321";
  
@@ -56,7 +57,7 @@ public class MailHelper {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 			String now = sdf.format(new Date());
 			Multipart multipart = new MimeMultipart();
-			DataSource source = new FileDataSource("log.log");
+			DataSource source = new FileDataSource("PositionKeeperlog.log");
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setDataHandler(new DataHandler(source));
 			messageBodyPart.setFileName(now + "_PositionKeeperlog.log");
@@ -65,7 +66,7 @@ public class MailHelper {
 			String mailInfo = "Result for following queries:\n";
 			for(String queryName: queryList){
 				mailInfo+=queryName+"\n";
-				source = new FileDataSource(queryName + ".csv");
+				source = new FileDataSource(lastestReportFolderPath + queryName + ".csv");
 				messageBodyPart = new MimeBodyPart();
 				messageBodyPart.setDataHandler(new DataHandler(source));
 				messageBodyPart.setFileName(queryName + ".csv");
@@ -113,7 +114,7 @@ public class MailHelper {
 			
 			//Add log file
 			Multipart multipart = new MimeMultipart();
-			DataSource source = new FileDataSource("log.log");
+			DataSource source = new FileDataSource("PositionKeeperlog.log");
 			MimeBodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setDataHandler(new DataHandler(source));
 			messageBodyPart.setFileName(now + "_PositionKeeperlog.log");

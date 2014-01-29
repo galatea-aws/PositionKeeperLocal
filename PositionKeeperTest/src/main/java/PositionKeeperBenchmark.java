@@ -37,7 +37,7 @@ import com.amazonaws.services.ec2.model.Instance;
 public class PositionKeeperBenchmark {
 	public static Logger logger = LogManager.getLogger(PositionKeeperBenchmark.class.getName());
 	
-	private static String benchmarkconfig = "benchmarkconfig.properties";
+	public static String benchmarkconfig = "benchmarkconfig.properties";
 	private Properties benchmarkProp = new Properties();
 	
 	private String serverConfig;
@@ -53,6 +53,7 @@ public class PositionKeeperBenchmark {
 	// Whether terminate instance after benchmark finish
 	private boolean terminatetInstance = false;
 	
+	private boolean reloadVoltdb = false;
 
 	private ArrayList<String> benchmarkServerIdList = new ArrayList<String>();
 	private ArrayList<String> benchmarkClientIdList = new ArrayList<String>();
@@ -69,39 +70,48 @@ public class PositionKeeperBenchmark {
 		PositionKeeperBenchmark pt;
 		try {
 			pt = new PositionKeeperBenchmark();
-			for(int i=pt.benchmarkServerIdList.size();i>=1;i--){
+/*			for(int i=pt.benchmarkServerIdList.size();i>=1;i--){
 				logger.info("Running server instance: " + i);
 				pt.run(i,1);
-			}
-		//	MailHelper.sendJobCompleteMail(pt.queryList);
+			}*/
+			pt.run(1,1);
+		//	MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
 		} catch (Exception e) {
 			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
-			//MailHelper.sendJobFailMail();
+		//	MailHelper.sendJobFailMail();
 		}
 	}
 
 	public PositionKeeperBenchmark() throws IOException{
 		benchmarkProp = new Properties();
 		try {
+			
 			benchmarkProp.load(new FileInputStream(benchmarkconfig));
-			launchInstance = Boolean.valueOf(benchmarkProp
-					.getProperty("launchinstance"));
-			terminatetInstance = Boolean.valueOf(benchmarkProp
-					.getProperty("terminatetinstance"));
-			benchmarkServerIdList = new ArrayList<String>(
-					Arrays.asList(benchmarkProp
-							.getProperty("serverinstanceids").split(",")));
-			benchmarkClientIdList = new ArrayList<String>(
-					Arrays.asList(benchmarkProp
-							.getProperty("clientinstanceids").split(",")));
-			queryList = new ArrayList<String>(
-					Arrays.asList(benchmarkProp
-							.getProperty("querylist").split(",")));
+			
+			//Aws Instance config
+			launchInstance = Boolean.valueOf(benchmarkProp.getProperty("launchinstance"));
+			terminatetInstance = Boolean.valueOf(benchmarkProp.getProperty("terminatetinstance"));
+			benchmarkServerIdList = new ArrayList<String>(Arrays.asList(benchmarkProp.getProperty("serverinstanceids").split(",")));
+			benchmarkClientIdList = new ArrayList<String>(Arrays.asList(benchmarkProp.getProperty("clientinstanceids").split(",")));
+			
+			//Git commit directory path
 			String gitFolder = benchmarkProp.getProperty("gitfolder");
 			gitHelper = new GitHelper(gitFolder);
+			
+			//Config for voltdb server
 			serverConfig = gitFolder + benchmarkProp.getProperty("serverconfig");
-			tradesimulatorConfig = gitFolder + benchmarkProp.getProperty("tradesimulatorconfig");
 			deployment = gitFolder + benchmarkProp.getProperty("deployment");
+			
+			//Config for tradesimulator
+			tradesimulatorConfig = gitFolder + benchmarkProp.getProperty("tradesimulatorconfig");
+			reloadVoltdb = Boolean.valueOf(benchmarkProp.getProperty("reloadvoltdb"));
+			
+			//Query config
+			if(reloadVoltdb){
+				queryList.add(benchmarkProp.getProperty("reloadvoltdbquery"));
+			}
+			queryList.addAll(Arrays.asList(benchmarkProp.getProperty("querylist").split(",")));
+			
 		} catch (FileNotFoundException e) {
 			logger.error("Benchmark config file: " + benchmarkconfig + " not found", e.fillInStackTrace());
 			throw e;
@@ -110,25 +120,66 @@ public class PositionKeeperBenchmark {
 			throw e;
 		}
 	}
-
-	/**
-	 * Core process
-	 * @throws Exception 
-	 */
+	
+	public PositionKeeperBenchmark(String siteperhost, String kfactor) throws IOException{
+		benchmarkProp = new Properties();
+		try {
+			
+			benchmarkProp.load(new FileInputStream(benchmarkconfig));
+			
+			benchmarkProp.setProperty("kfactor", kfactor);
+			benchmarkProp.setProperty("siteperhost", siteperhost);
+			
+			//Aws Instance config
+			launchInstance = Boolean.valueOf(benchmarkProp.getProperty("launchinstance"));
+			terminatetInstance = Boolean.valueOf(benchmarkProp.getProperty("terminatetinstance"));
+			benchmarkServerIdList = new ArrayList<String>(Arrays.asList(benchmarkProp.getProperty("serverinstanceids").split(",")));
+			benchmarkClientIdList = new ArrayList<String>(Arrays.asList(benchmarkProp.getProperty("clientinstanceids").split(",")));
+			
+			//Git commit directory path
+			String gitFolder = benchmarkProp.getProperty("gitfolder");
+			gitHelper = new GitHelper(gitFolder);
+			
+			//Config for voltdb server
+			serverConfig = gitFolder + benchmarkProp.getProperty("serverconfig");
+			deployment = gitFolder + benchmarkProp.getProperty("deployment");
+			
+			//Config for tradesimulator
+			tradesimulatorConfig = gitFolder + benchmarkProp.getProperty("tradesimulatorconfig");
+			reloadVoltdb = Boolean.valueOf(benchmarkProp.getProperty("reloadvoltdb"));
+			
+			//Query config
+			if(reloadVoltdb){
+				queryList.add(benchmarkProp.getProperty("reloadvoltdbquery"));
+			}
+			queryList.addAll(Arrays.asList(benchmarkProp.getProperty("querylist").split(",")));
+			
+		} catch (FileNotFoundException e) {
+			logger.error("Benchmark config file: " + benchmarkconfig + " not found", e.fillInStackTrace());
+			throw e;
+		} catch (IOException e) {
+			logger.error("Can not read benchmark", e.fillInStackTrace());
+			throw e;
+		}
+	}
+	
 	public void run(int serverInstanceCount, int clientInstanceCount) throws Exception {
 
 		if (serverInstanceCount > benchmarkServerIdList.size()|| clientInstanceCount >benchmarkClientIdList.size()) {
 			logger.warn("Not enough instances for benchmark");
 			throw new Exception();
 		}
+		
 		// Create connection to AWS
 		logger.info("Create connection to AWS");
 		awsHelper = AwsHelper.getAwsHelper();
 
 		try {
 			if (launchInstance) {
+				//Launch new instances
 				launchInstance(serverInstanceCount, clientInstanceCount);
 			} else {
+				//Instances are running, get their information
 				serverInstanceList = new ArrayList<Instance>(
 						awsHelper.updateInstancesByIds(new ArrayList<String>(benchmarkServerIdList.subList(0, serverInstanceCount))));
 				logger.info("Server instance count:" + serverInstanceList.size());
@@ -147,18 +198,18 @@ public class PositionKeeperBenchmark {
 		} finally {
 			if (terminatetInstance)
 				terminateInstance();
-			else
-				resetEnv();
 		}
 	}
 
 	public void launchInstance(int serverInstanceCount, int clientInstanceCount) throws Exception {
+		//Launch new server instances
 		serverInstanceList = new ArrayList<Instance>(awsHelper.lanuchInstance(
 				serverInstanceCount, imageName, instanceType, securityGroup));
+		//Launch new client instances
 		clientInstanceList = new ArrayList<Instance>(awsHelper.lanuchInstance(
 				clientInstanceCount, imageName, instanceType, securityGroup));
 
-		// Check instance number
+		// Check instance count
 		if (serverInstanceList.size() == 0 || clientInstanceList.size() == 0) {
 			if (serverInstanceList.size() == 0)
 				logger.error("No server instance lanuched");
@@ -175,7 +226,7 @@ public class PositionKeeperBenchmark {
 			logger.error("Thread excepetion", e.fillInStackTrace());
 		}
 
-		// Wait for instance status check initializing
+		// Wait for instances status check initializing
 		try {
 			logger.info("Stop 180s for instance status check initializing");
 			Thread.sleep(180 * 1000);
@@ -198,6 +249,7 @@ public class PositionKeeperBenchmark {
 			}
 		}
 
+		//Update public DNS name and public ip
 		serverInstanceList = new ArrayList<Instance>(
 				awsHelper.updateInstances(serverInstanceList));
 		clientInstanceList = new ArrayList<Instance>(
@@ -209,49 +261,56 @@ public class PositionKeeperBenchmark {
 		if (serverInstanceList.size() == 0)
 			return;
 
+		//Update voltdb deployment.xml
 		updateDeployment();
+		//Update voltdb server config
 		updateServerConfig();
+		//Update throughput test config
 		updateTradesimulatorConfig();
 	}
 
 	public void updateDeployment() throws ParserConfigurationException, TransformerException{
-		// Update Deployment.xml
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory
 				.newInstance();
 		DocumentBuilder docBuilder;
 		try {
 			docBuilder = docFactory.newDocumentBuilder();
-			// root elements
+			//Root element
 			Document doc = docBuilder.newDocument();
 			Element rootElement = doc.createElement("deployment");
 			doc.appendChild(rootElement);
 	
-			// cluster elements
+			//Add cluster element to root element
 			Element cluster = doc.createElement("cluster");
 			rootElement.appendChild(cluster);
 	
-			// set attribute to cluster element
+			//Set attributes to cluster element
+			//Attribute hostcount
 			Attr attr = doc.createAttribute("hostcount");
 			attr.setValue(String.valueOf(serverInstanceList.size()));
 			cluster.setAttributeNode(attr);
 	
+			//Attribute sitesperhost
 			attr = doc.createAttribute("sitesperhost");
 			attr.setValue(benchmarkProp.getProperty("sitesperhost"));
 			cluster.setAttributeNode(attr);
 	
+			//Attribute kfactor
 			attr = doc.createAttribute("kfactor");
 			attr.setValue(benchmarkProp.getProperty("kfactor"));
 			cluster.setAttributeNode(attr);
 			
 			
-			// systemsettings elements
+			//Add systemsettings element to root element
 			Element systemsettings = doc.createElement("systemsettings");
 			rootElement.appendChild(systemsettings);
 	
-			// set attribute to systemsettings element
+			//Add temptables element to root systemsettings
 			Element temptables = doc.createElement("temptables");
 			systemsettings.appendChild(temptables);
 			
+			//Set attributes to temptables element
+			//Attribute maxzie
 			attr = doc.createAttribute("maxsize");
 			attr.setValue(benchmarkProp.getProperty("temptablesize"));
 			temptables.setAttributeNode(attr);
@@ -302,7 +361,7 @@ public class PositionKeeperBenchmark {
 	
 	public void updateTradesimulatorConfig() throws FileNotFoundException, IOException {
 
-		// Update ServerConfig
+		// Update tradesimulator config
 		Properties tradesimulatorProp = new Properties();
 		
 		try {
@@ -311,6 +370,7 @@ public class PositionKeeperBenchmark {
 		tradesimulatorProp.setProperty("accounts",benchmarkProp.getProperty("accounts"));
 		tradesimulatorProp.setProperty("products",benchmarkProp.getProperty("products"));
 		tradesimulatorProp.setProperty("tradedays",benchmarkProp.getProperty("tradedays"));
+		tradesimulatorProp.setProperty("probabilitybyisin",benchmarkProp.getProperty("probabilitybyisin"));
 		tradesimulatorProp.store(new FileOutputStream(tradesimulatorConfig), "test");
 		}
 		catch (FileNotFoundException e) {
@@ -334,49 +394,78 @@ public class PositionKeeperBenchmark {
 		serverTaskList = new ArrayList<ServerTask>();
 		clientTaskList = new ArrayList<ClientTask>();
 		
-		// Launch server task
-		for (Instance i : serverInstanceList) {
-			logger.info("Create server task on instance: "
-					+ i.getInstanceId());
-			final ServerTask serverTask = new ServerTask(i);
-			Thread t = new Thread(new Runnable() {
-						public void run() {
-							serverTask.StartTask();
-						}
-					});
-			t.start();
-			serverTaskList.add(serverTask);
-		}
+		if(reloadVoltdb){
+			
+			//Create server task
+			for (Instance i : serverInstanceList) {
+				ServerTask serverTask = new ServerTask(i);
+				serverTaskList.add(serverTask);
+			}
+			
+			ResetServerInstanceEnv();
 
-		// Wait for all voltdb start
-		try {
-			logger.info("Stop 60s for voltdb start");
-			Thread.sleep(60 * 1000);
-		} catch (InterruptedException e) {
-			logger.error("Thread excepetion", e.fillInStackTrace());
+			for (final ServerTask serverTask : serverTaskList) {
+				Thread t = new Thread(new Runnable() {
+							public void run() {
+								serverTask.StartTask();
+							}
+						});
+				t.start();
+			}
+			
+			// Wait for all voltdb start
+			try {
+				int waitingforvoltdb = Integer.parseInt(benchmarkProp.getProperty("waitingforvoltdb","60"));
+				logger.info("Stop " + waitingforvoltdb + "s for voltdb start");
+				Thread.sleep(waitingforvoltdb * 1000);
+			} catch (InterruptedException e) {
+				logger.error("Thread excepetion", e.fillInStackTrace());
+			}
 		}
-
-		// Launch client task
+		
+		//Create client task
 		for (Instance i : clientInstanceList) {
 			logger.info("Create client task on instance: "
 					+ i.getInstanceId());
 			clientTaskList.add(new ClientTask(i));
 		}
 		
-		ReportGenerator reportGenerator = new ReportGenerator(clientTaskList, gitHelper, benchmarkProp,serverInstanceCount, clientInstanceCount);
-		reportGenerator.LoadWorkSpace();
-		//Collect Data	
+		//Reset client instance env
+		ResetClientInstanceEnv();
+		
+		//Run query
 		for(int i = 0; i<queryList.size();i++){
 			launchClientTask(queryList.get(i));
+		}
+		
+		//Generate report
+		ReportGenerator reportGenerator = new ReportGenerator(clientTaskList, gitHelper, benchmarkProp,serverInstanceCount);
+		reportGenerator.LoadWorkSpace();
+		for(int i = 0; i<queryList.size();i++){
 			reportGenerator.GenerateReport(queryList.get(i));
 		}
+		//Save report on git
 		reportGenerator.ArchiveReport();
 	}
+	
+	public void ResetServerInstanceEnv(){
+		for (ServerTask serverTask : serverTaskList) {
+			serverTask.ResetEnv();
+		}
+	}
 
+	public void ResetClientInstanceEnv(){
+		for (ClientTask clientTask : clientTaskList) {
+			clientTask.ResetEnv();
+		}
+	}
+	
 	public void launchClientTask(final String queryName) {
 		for (final ClientTask clientTask : clientTaskList) {
 			Thread t = new Thread(new Runnable() {
 					public void run() {
+						logger.info("Run query:" + queryName + " on instance: "
+								+ clientTask.getInstance().getInstanceId());
 						clientTask.StartTask(queryName);
 					}
 				});
@@ -387,17 +476,6 @@ public class PositionKeeperBenchmark {
 				logger.error("Thread excepetion", e.fillInStackTrace());
 			}
 		}
-	}
-
-	public void resetEnv() {
-		// Reset Env
-		logger.info("Shutdown server");
-		for (ServerTask serverTask : serverTaskList)
-				serverTask.ResetEnv();
-
-		logger.info("Shutdown client");
-		for (ClientTask clientTask : clientTaskList)
-				clientTask.ResetEnv();
 	}
 
 	/**

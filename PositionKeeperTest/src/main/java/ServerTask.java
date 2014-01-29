@@ -27,7 +27,6 @@ public class ServerTask extends AwsTask{
 	
 	@Override
 	public void StartTask(){
-		ResetEnv();
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;
@@ -57,9 +56,7 @@ public class ServerTask extends AwsTask{
 			session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-															+ "rm -rf Positionkeeper >> a &&"
-															+ "cd /home/voltdb/voltdb-3.5.0.1/bin && "
-															+ "./voltadmin shutdown >> t && "
+															+ "rm -rf Positionkeeper >> a && "
 															+ "pkill -9 java");
 			channel.open().await();
 		}catch (Exception e) {

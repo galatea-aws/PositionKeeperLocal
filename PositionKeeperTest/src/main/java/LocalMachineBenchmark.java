@@ -4,32 +4,29 @@ import java.util.ArrayList;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.amazonaws.services.ec2.model.Instance;
 
 
 public class LocalMachineBenchmark {
+	
+	public static Logger logger = LogManager.getLogger(LocalMachineBenchmark.class.getName());
+	
 	public static void main(String[] args) throws IOException, ParserConfigurationException, TransformerException {
-		PositionKeeperBenchmark pt = new PositionKeeperBenchmark();
-		ArrayList<Instance> serverInstanceList = new ArrayList<Instance>();
-		ArrayList<Instance> clientInstanceList = new ArrayList<Instance>();
-		Instance i = new Instance();
-		i.setPrivateIpAddress("192.168.52.128");
-		i.setPublicIpAddress("192.168.52.128");
-		i.setInstanceId("Server1");
-		serverInstanceList.add(i);
-		i = new Instance();
-		i.setPrivateIpAddress("192.168.52.131");
-		i.setPublicIpAddress("192.168.52.131");
-		i.setInstanceId("Client1");
-		clientInstanceList.add(i);
-		pt.serverInstanceList = serverInstanceList;
-		pt.clientInstanceList = clientInstanceList;
-		
-		// Update server ip list
-		pt.updateConfigFile();
-		// Push to GitHub
-		pt.pushToGit();
-		// Do test
-		pt.startTest(1, 1);
+		PositionKeeperBenchmark pt;
+		try {
+			pt = new PositionKeeperBenchmark("6","1");
+/*			for(int i=pt.benchmarkServerIdList.size();i>=1;i--){
+				logger.info("Running server instance: " + i);
+				pt.run(i,1);
+			}*/
+			pt.run(1,1);
+		//	MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
+		} catch (Exception e) {
+			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
+		//	MailHelper.sendJobFailMail();
+		}
 	}
 }
