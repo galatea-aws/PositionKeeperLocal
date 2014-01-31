@@ -26,7 +26,7 @@ public class ClientTask extends AwsTask{
 	}
 	
 	@Override
-	public void StartTask(String queryname){
+	public void StartTask(String queryname) throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;
@@ -36,13 +36,14 @@ public class ClientTask extends AwsTask{
 			session = client.connect(getInstance().getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper && "
-															+ "./run.sh positionkeeper " + queryname + " >> " + queryname + "_detail");
+															+ "./run.sh positionkeeper " + queryname + " > " + queryname + "_detail");
 			channel.open().await();
 			channel.waitFor(ClientChannel.CLOSED, 0);
 			
 			//Download result file
 	        SftpClient c = session.createSftpClient();
 	        inputStream = c.read("/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + queryname + "_detail");
+	        logger.info("copy file" + "/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + queryname + "_detail");
 	        FileUtils.copyInputStreamToFile(inputStream, new File(queryname + "_" + getInstance().getInstanceId()));
 	        c.close();
 		} catch (Exception e) {
@@ -50,11 +51,12 @@ public class ClientTask extends AwsTask{
 		}
 		finally{
 		    client.stop();	
+		    logger.info("Clienttask ended");
 		}
 	}
 	
 	@Override
-	public void ResetEnv(){
+	public void ResetEnv() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;

@@ -24,9 +24,9 @@ public class QueryDataCollector extends DataCollector {
 	
 	public static Logger logger = LogManager.getLogger(QueryDataCollector.class.getName());
 	public QueryDataCollector(ArrayList<ClientTask> clientTaskList,
-			int serverInstanceCount,Properties benchmarkProp, String queryName, String reportPath) {
+			int serverInstanceCount,Properties benchmarkProp, String queryName, String reportPath, String gitRevision) {
 		super(clientTaskList, serverInstanceCount,
-				benchmarkProp, queryName,reportPath);
+				benchmarkProp, queryName,reportPath, gitRevision);
 	}
 
 /*	public void run() {
@@ -126,7 +126,7 @@ public class QueryDataCollector extends DataCollector {
 				cell.setCellValue("Instance Type: ");
 				
 				cell = row.createCell(1);
-				cell.setCellValue(benchmarkProp.getProperty("instanceType"));
+				cell.setCellValue(benchmarkProp.getProperty("instancetype"));
 				cell.setCellStyle(style);
 				
 				sheet.createRow(4);
@@ -135,7 +135,7 @@ public class QueryDataCollector extends DataCollector {
 				int cellnum = 0;
 				row = sheet.createRow(6);
 				String[] columnName = new String[]{"Server Count","Client Count","Trade Volume","Query Duration(s)",
-						"Record Count","Sitesperhost","Kfactor","Temtablesize","Date", "Table Parition", "Table Index", "Procedure Partition"};
+						"Record Count","Sitesperhost","Kfactor","Temtablesize","Date", "Table Parition", "Table Index", "Git Revision"};
 				
 				for(String s: columnName){
 					cell = row.createCell(cellnum++);
@@ -151,7 +151,7 @@ public class QueryDataCollector extends DataCollector {
 	}
 	
 	@Override
-	public void writeResult(){
+	public void writeQueryResult(){
 		int tradedays = Integer.valueOf(benchmarkProp.getProperty("tradedays"));
 		long totalVolume = Long.valueOf(benchmarkProp.getProperty("tradevolume")) * clientInstanceCount * tradedays;
 		int top = sheet.getLastRowNum();
@@ -159,10 +159,9 @@ public class QueryDataCollector extends DataCollector {
 			BufferedReader br = null;
 			String line = null;
 			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
-			ArrayList<String> resultInfo = new ArrayList<String>();
-			resultInfo.add(String.valueOf(serverInstanceCount));
-			resultInfo.add(String.valueOf(clientTaskList.size()));
-			resultInfo.add(String.valueOf(totalVolume));
+			resultInfo.add(serverInstanceCount);
+			resultInfo.add(clientTaskList.size());
+			resultInfo.add(totalVolume);
 			try {
 				br = new BufferedReader(new FileReader(clientResultFilePath));
 				int rowcount = 1;
@@ -185,46 +184,13 @@ public class QueryDataCollector extends DataCollector {
 				logger.error("Unable to read file: " + clientResultFilePath, e.fillInStackTrace());
 			}
 			
-			resultInfo.add(benchmarkProp.getProperty("sitesperhost"));
-			resultInfo.add(benchmarkProp.getProperty("kfactor"));
-			resultInfo.add(benchmarkProp.getProperty("temptablesize"));
+			writeVoltDbInfo();
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			String now = sdf.format(new Date());
-			resultInfo.add(now);
-			
-			resultInfo.add(tablePartition);
-			resultInfo.add(tableIndex);
-			resultInfo.add(procedurePartition);
-			
-			int cellnum = 0;
-			HSSFRow row = sheet.createRow(sheet.getLastRowNum()+1);
-			Cell cell = row.createCell(0);
-			
-			HSSFCellStyle style = workbook.createCellStyle();
-			style.setWrapText(true);
-			
-			for(String s: resultInfo){
-				cell = row.createCell(cellnum);
-				cell.setCellValue(s);
-				if(cellnum==resultInfo.size()-1||
-					cellnum==resultInfo.size()-2||
-					cellnum==resultInfo.size()-3){
-					cell.setCellStyle(style);
-				}
-					
-				cellnum++;
-			}
+			writeRow();
 		}
 		
 		for(int i=0;i<=15;i++){
 			sheet.autoSizeColumn(i);
 		}
-		
-	    Iterator<Row> rowIter = sheet.iterator();
-	    while(rowIter.hasNext()) {
-	      Row row = rowIter.next();
-  	      row.setHeight((short)300);
-	    }
 	}
 }

@@ -1,0 +1,1 @@
+PARTITION TABLE trades ON COLUMN product_cusip;

@@ -1,0 +1,1 @@
+CREATE INDEX trades_account_id ON trades (product_cusip,account_id);

@@ -1,7 +1,563 @@
-2014-01-29 16:18:14  [ main:0 ] - [ INFO ]  Create connection to AWS
-2014-01-29 16:18:15  [ main:1634 ] - [ INFO ]  Server instance count:1
-2014-01-29 16:18:15  [ main:1827 ] - [ INFO ]  Client instance count:1
-2014-01-29 16:18:17  [ main:3432 ] - [ INFO ]  Create client task on instance: i-618d324f
-2014-01-29 16:18:18  [ Thread-6:4039 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-618d324f
-2014-01-29 16:18:20  [ Thread-8:6192 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-618d324f
-2014-01-29 16:18:22  [ Thread-10:8376 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-618d324f
+2014-01-31 15:13:51  [ main:0 ] - [ INFO ]  Start benchmark ServerInstanceCount: 4 ClientInstanceCount: 1 Trade Volumen: 5000000 Kfactor2 Sitesperhost: 6
+2014-01-31 15:13:51  [ main:1 ] - [ INFO ]  Create connection to AWS
+2014-01-31 15:13:53  [ main:1882 ] - [ INFO ]  Server instance count:4
+2014-01-31 15:13:54  [ main:2151 ] - [ INFO ]  Client instance count:1
+2014-01-31 15:13:55  [ main:3168 ] - [ INFO ]  [master 8f5f0e7] test
+ 10 files changed, 5 insertions(+), 5 deletions(-)
+ delete mode 100644 report/LastestReport/TestDataSimulator.xls
+
+2014-01-31 15:13:57  [ main:5405 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   25ddbf3..8f5f0e7  master -> master
+
+2014-01-31 15:13:57  [ main:5408 ] - [ INFO ]  Reset Server Env on instance: i-4e23b260
+2014-01-31 15:13:57  [ main:6016 ] - [ INFO ]  Reset Server Env on instance: i-4f23b261
+2014-01-31 15:13:58  [ main:6743 ] - [ INFO ]  Reset Server Env on instance: i-5223b27c
+2014-01-31 15:13:59  [ main:7475 ] - [ INFO ]  Reset Server Env on instance: i-5023b27e
+2014-01-31 15:14:00  [ main:8188 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-01-31 15:14:15  [ main:23190 ] - [ INFO ]  Create server task on instance: i-4e23b260
+2014-01-31 15:14:15  [ main:23191 ] - [ INFO ]  Create server task on instance: i-4f23b261
+2014-01-31 15:14:15  [ main:23191 ] - [ INFO ]  Create server task on instance: i-5223b27c
+2014-01-31 15:14:15  [ main:23191 ] - [ INFO ]  Create server task on instance: i-5023b27e
+2014-01-31 15:14:15  [ main:23191 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-31 15:14:18  [ Thread-9:26911 ] - [ INFO ]  Instance i-4e23b260 channel isopened: true
+2014-01-31 15:14:18  [ Thread-9:26911 ] - [ INFO ]  Instance i-4e23b260 channel isdone: true
+2014-01-31 15:14:18  [ Thread-12:26913 ] - [ INFO ]  Instance i-5023b27e channel isopened: true
+2014-01-31 15:14:18  [ Thread-12:26913 ] - [ INFO ]  Instance i-5023b27e channel isdone: true
+2014-01-31 15:14:18  [ Thread-10:26919 ] - [ INFO ]  Instance i-4f23b261 channel isopened: true
+2014-01-31 15:14:18  [ Thread-10:26919 ] - [ INFO ]  Instance i-4f23b261 channel isdone: true
+2014-01-31 15:14:18  [ Thread-11:26930 ] - [ INFO ]  Instance i-5223b27c channel isopened: true
+2014-01-31 15:14:18  [ Thread-11:26930 ] - [ INFO ]  Instance i-5223b27c channel isdone: true
+2014-01-31 15:15:15  [ main:83191 ] - [ INFO ]  Create client task on instance: i-5123b27f
+2014-01-31 15:15:15  [ main:83192 ] - [ INFO ]  Reset Client Env on instance: i-5123b27f
+2014-01-31 15:15:15  [ Thread-20:84077 ] - [ INFO ]  Run query:TestDataSimulator on instance: i-5123b27f
+2014-01-31 15:19:07  [ Thread-20:315856 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/TestDataSimulator_detail
+2014-01-31 15:19:07  [ Thread-20:316057 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:08  [ Thread-22:316505 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:10  [ Thread-22:318578 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:10  [ Thread-22:318750 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:12  [ Thread-24:320106 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:14  [ Thread-24:322234 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:14  [ Thread-24:322443 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:14  [ Thread-26:323053 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:17  [ Thread-26:325125 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:17  [ Thread-26:325307 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:17  [ Thread-28:325709 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:19  [ Thread-28:327801 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:19  [ Thread-28:327966 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:20  [ Thread-30:328294 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:22  [ Thread-30:330348 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:22  [ Thread-30:330512 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:22  [ Thread-32:330819 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:24  [ Thread-32:332883 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:24  [ Thread-32:333039 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:25  [ Thread-34:333339 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:27  [ Thread-34:335413 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:27  [ Thread-34:335578 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:27  [ Thread-36:335880 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:29  [ Thread-36:337975 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:30  [ Thread-36:338142 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:30  [ Thread-38:338435 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:32  [ Thread-38:340530 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:32  [ Thread-38:340698 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:32  [ Thread-40:341004 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:34  [ Thread-40:343090 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:35  [ Thread-40:343257 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:35  [ Thread-42:343559 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:37  [ Thread-42:345642 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:37  [ Thread-42:345813 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:38  [ Thread-44:346165 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:40  [ Thread-44:348257 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:40  [ Thread-44:348417 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:40  [ Thread-46:348740 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:42  [ Thread-46:350620 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:42  [ Thread-46:350794 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:42  [ Thread-48:351096 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:45  [ Thread-48:353180 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:45  [ Thread-48:353344 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:45  [ Thread-50:353658 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:47  [ Thread-50:355850 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:47  [ Thread-50:356014 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:48  [ Thread-52:356329 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:50  [ Thread-52:358393 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:50  [ Thread-52:358564 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:50  [ Thread-54:358868 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:52  [ Thread-54:360941 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:53  [ Thread-54:361105 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:53  [ Thread-56:361418 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:55  [ Thread-56:363510 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:55  [ Thread-56:363676 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:55  [ Thread-58:363997 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:19:57  [ Thread-58:366072 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:19:58  [ Thread-58:366238 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:19:58  [ Thread-60:366555 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:20:00  [ Thread-60:368649 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:20:00  [ Thread-60:368829 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:01  [ Thread-62:369139 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:03  [ Thread-62:371755 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:03  [ Thread-62:371923 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:04  [ Thread-64:372219 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:06  [ Thread-64:374937 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:07  [ Thread-64:375108 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:07  [ Thread-66:375407 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:09  [ Thread-66:378061 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:10  [ Thread-66:378232 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:10  [ Thread-68:378531 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:13  [ Thread-68:381578 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:13  [ Thread-68:381749 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:13  [ Thread-70:382048 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:16  [ Thread-70:385011 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:17  [ Thread-70:385188 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:17  [ Thread-72:385488 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:20  [ Thread-72:388462 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:20  [ Thread-72:388630 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:20  [ Thread-74:388956 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:23  [ Thread-74:391604 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:23  [ Thread-74:391761 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:23  [ Thread-76:392057 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:27  [ Thread-76:395108 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:27  [ Thread-76:395275 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:27  [ Thread-78:395574 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:30  [ Thread-78:398588 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:30  [ Thread-78:398757 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:30  [ Thread-80:399055 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:33  [ Thread-80:402068 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:34  [ Thread-80:402234 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:34  [ Thread-82:402536 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:37  [ Thread-82:405159 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:37  [ Thread-82:405326 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:37  [ Thread-84:405630 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:40  [ Thread-84:408261 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:40  [ Thread-84:408430 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:40  [ Thread-86:408752 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:43  [ Thread-86:411393 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:43  [ Thread-86:411560 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:43  [ Thread-88:411882 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:46  [ Thread-88:414514 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:46  [ Thread-88:414684 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:46  [ Thread-90:414980 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:49  [ Thread-90:417642 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:49  [ Thread-90:417814 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:50  [ Thread-92:418119 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:52  [ Thread-92:420771 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:52  [ Thread-92:420944 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:53  [ Thread-94:421247 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:55  [ Thread-94:423890 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:55  [ Thread-94:424075 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:56  [ Thread-96:424376 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:20:58  [ Thread-96:427020 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:20:59  [ Thread-96:427196 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:20:59  [ Thread-98:427501 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:21:02  [ Thread-98:430169 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:21:02  [ Thread-98:430339 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:02  [ Thread-100:430654 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:21:05  [ Thread-100:433615 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:21:05  [ Thread-100:433780 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:05  [ Thread-102:434078 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:08  [ Thread-102:436216 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:08  [ Thread-102:436384 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:08  [ Thread-104:436672 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:10  [ Thread-104:438816 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:10  [ Thread-104:438978 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:11  [ Thread-106:439269 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:13  [ Thread-106:441400 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:13  [ Thread-106:441567 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:13  [ Thread-108:441854 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:15  [ Thread-108:444022 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:16  [ Thread-108:444183 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:16  [ Thread-110:444470 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:18  [ Thread-110:446635 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:18  [ Thread-110:446801 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:18  [ Thread-112:447085 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:21  [ Thread-112:449262 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:21  [ Thread-112:449437 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:21  [ Thread-114:449722 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:23  [ Thread-114:451929 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:23  [ Thread-114:452098 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:24  [ Thread-116:452387 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:26  [ Thread-116:454550 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:26  [ Thread-116:454718 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:26  [ Thread-118:455005 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:29  [ Thread-118:457145 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:29  [ Thread-118:457309 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:29  [ Thread-120:457603 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:31  [ Thread-120:459777 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:31  [ Thread-120:459941 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:32  [ Thread-122:460228 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:34  [ Thread-122:462366 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:34  [ Thread-122:462538 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:34  [ Thread-124:462831 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:36  [ Thread-124:465016 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:37  [ Thread-124:465180 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:37  [ Thread-126:465471 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:39  [ Thread-126:467597 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:39  [ Thread-126:467766 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:39  [ Thread-128:468056 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:42  [ Thread-128:470165 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:42  [ Thread-128:470332 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:42  [ Thread-130:470628 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:44  [ Thread-130:472840 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:44  [ Thread-130:473016 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:45  [ Thread-132:473429 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:47  [ Thread-132:475620 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:47  [ Thread-132:475785 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:47  [ Thread-134:476073 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:50  [ Thread-134:478194 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:50  [ Thread-134:478354 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:50  [ Thread-136:478644 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:52  [ Thread-136:480791 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:52  [ Thread-136:480956 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:53  [ Thread-138:481282 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:55  [ Thread-138:483479 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:55  [ Thread-138:483645 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:55  [ Thread-140:483947 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:21:57  [ Thread-140:485869 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:21:57  [ Thread-140:486037 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:21:58  [ main:486612 ] - [ INFO ]  Delete folder: C:/Users/wsun/Desktop/Positionkeeper/report/
+2014-01-31 15:21:58  [ main:486990 ] - [ INFO ]  Copy folder from report/ to C:/Users/wsun/Desktop/Positionkeeper/report/
+2014-01-31 15:21:58  [ main:486999 ] - [ INFO ]  Delete folder: C:/Users/wsun/Desktop/Positionkeeper/report/LastestReport/
+2014-01-31 15:21:58  [ main:487078 ] - [ INFO ]  copy folder from report/Archive/c3.2xlarge/ to C:/Users/wsun/Desktop/Positionkeeper/report/LastestReport/
+2014-01-31 15:21:59  [ main:487235 ] - [ INFO ]  
+2014-01-31 15:21:59  [ main:487665 ] - [ INFO ]  [master 79c4069] test
+ 8 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 report/LastestReport/TestDataSimulator.xls
+
+2014-01-31 15:22:01  [ main:489243 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   8f5f0e7..79c4069  master -> master
+
+2014-01-31 15:22:01  [ main:489264 ] - [ INFO ]  Reset Server Env on instance: i-4e23b260
+2014-01-31 15:22:01  [ main:490022 ] - [ INFO ]  Reset Server Env on instance: i-4f23b261
+2014-01-31 15:22:02  [ main:490722 ] - [ INFO ]  Reset Server Env on instance: i-5223b27c
+2014-01-31 15:22:03  [ main:491432 ] - [ INFO ]  Reset Server Env on instance: i-5023b27e
+2014-01-31 15:22:04  [ main:492137 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-01-31 15:22:19  [ main:507138 ] - [ INFO ]  Reset Client Env on instance: i-5123b27f
+2014-01-31 15:22:19  [ main:507827 ] - [ INFO ]  Start benchmark ServerInstanceCount: 4 ClientInstanceCount: 1 Trade Volumen: 5000000 Kfactor3 Sitesperhost: 6
+2014-01-31 15:22:19  [ main:507827 ] - [ INFO ]  Create connection to AWS
+2014-01-31 15:22:20  [ main:508385 ] - [ INFO ]  Server instance count:4
+2014-01-31 15:22:20  [ main:508557 ] - [ INFO ]  Client instance count:1
+2014-01-31 15:22:20  [ main:508632 ] - [ INFO ]  [master 9746ed5] test
+ 3 files changed, 6 insertions(+), 6 deletions(-)
+
+2014-01-31 15:22:22  [ main:510137 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   79c4069..9746ed5  master -> master
+
+2014-01-31 15:22:22  [ main:510137 ] - [ INFO ]  Reset Server Env on instance: i-4e23b260
+2014-01-31 15:22:22  [ main:510841 ] - [ INFO ]  Reset Server Env on instance: i-4f23b261
+2014-01-31 15:22:23  [ main:511542 ] - [ INFO ]  Reset Server Env on instance: i-5223b27c
+2014-01-31 15:22:24  [ main:512252 ] - [ INFO ]  Reset Server Env on instance: i-5023b27e
+2014-01-31 15:22:24  [ main:512956 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-01-31 15:22:39  [ main:527957 ] - [ INFO ]  Create server task on instance: i-4e23b260
+2014-01-31 15:22:39  [ main:527957 ] - [ INFO ]  Create server task on instance: i-4f23b261
+2014-01-31 15:22:39  [ main:527957 ] - [ INFO ]  Create server task on instance: i-5223b27c
+2014-01-31 15:22:39  [ main:527957 ] - [ INFO ]  Create server task on instance: i-5023b27e
+2014-01-31 15:22:39  [ main:527957 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-31 15:22:43  [ Thread-161:531663 ] - [ INFO ]  Instance i-4e23b260 channel isopened: true
+2014-01-31 15:22:43  [ Thread-161:531663 ] - [ INFO ]  Instance i-4e23b260 channel isdone: true
+2014-01-31 15:22:43  [ Thread-163:531671 ] - [ INFO ]  Instance i-5223b27c channel isopened: true
+2014-01-31 15:22:43  [ Thread-163:531671 ] - [ INFO ]  Instance i-5223b27c channel isdone: true
+2014-01-31 15:22:43  [ Thread-164:531674 ] - [ INFO ]  Instance i-5023b27e channel isopened: true
+2014-01-31 15:22:43  [ Thread-164:531674 ] - [ INFO ]  Instance i-5023b27e channel isdone: true
+2014-01-31 15:22:43  [ Thread-162:531681 ] - [ INFO ]  Instance i-4f23b261 channel isopened: true
+2014-01-31 15:22:43  [ Thread-162:531681 ] - [ INFO ]  Instance i-4f23b261 channel isdone: true
+2014-01-31 15:23:39  [ main:587957 ] - [ INFO ]  Create client task on instance: i-5123b27f
+2014-01-31 15:23:39  [ main:587957 ] - [ INFO ]  Reset Client Env on instance: i-5123b27f
+2014-01-31 15:23:40  [ Thread-172:588758 ] - [ INFO ]  Run query:TestDataSimulator on instance: i-5123b27f
+2014-01-31 15:28:28  [ Thread-172:876754 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/TestDataSimulator_detail
+2014-01-31 15:28:28  [ Thread-172:876920 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:28  [ Thread-174:876961 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:30  [ Thread-174:878992 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:31  [ Thread-174:879163 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:31  [ Thread-176:879483 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:33  [ Thread-176:881506 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:33  [ Thread-176:881682 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:33  [ Thread-178:881989 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:35  [ Thread-178:884004 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:36  [ Thread-178:884168 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:36  [ Thread-180:884476 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:38  [ Thread-180:886489 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:38  [ Thread-180:886661 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:38  [ Thread-182:886967 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:40  [ Thread-182:888971 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:41  [ Thread-182:889137 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:41  [ Thread-184:889447 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:43  [ Thread-184:891463 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:43  [ Thread-184:891624 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:43  [ Thread-186:891927 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:45  [ Thread-186:893964 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:46  [ Thread-186:894135 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:46  [ Thread-188:894447 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:48  [ Thread-188:896480 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:48  [ Thread-188:896649 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:48  [ Thread-190:896959 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:50  [ Thread-190:898999 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:51  [ Thread-190:899165 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:51  [ Thread-192:899475 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:53  [ Thread-192:901509 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:53  [ Thread-192:901670 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:53  [ Thread-194:901969 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:55  [ Thread-194:904008 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:56  [ Thread-194:904173 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:56  [ Thread-196:904487 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:28:58  [ Thread-196:906540 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:28:58  [ Thread-196:906709 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:28:58  [ Thread-198:907019 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:01  [ Thread-198:909114 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:01  [ Thread-198:909280 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:01  [ Thread-200:909591 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:03  [ Thread-200:911611 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:03  [ Thread-200:911780 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:04  [ Thread-202:912099 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:06  [ Thread-202:914140 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:06  [ Thread-202:914299 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:06  [ Thread-204:914622 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:08  [ Thread-204:916675 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:08  [ Thread-204:916842 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:09  [ Thread-206:917269 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:11  [ Thread-206:919290 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:11  [ Thread-206:919459 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:11  [ Thread-208:919784 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:13  [ Thread-208:921841 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:13  [ Thread-208:922013 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:14  [ Thread-210:922340 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:16  [ Thread-210:924381 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:16  [ Thread-210:924544 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:16  [ Thread-212:924858 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-5123b27f
+2014-01-31 15:29:18  [ Thread-212:926908 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionByAccountAndProductTester_detail
+2014-01-31 15:29:18  [ Thread-212:927087 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:19  [ Thread-214:927399 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:22  [ Thread-214:930198 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:22  [ Thread-214:930376 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:22  [ Thread-216:930682 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:25  [ Thread-216:933456 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:25  [ Thread-216:933625 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:25  [ Thread-218:933934 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:28  [ Thread-218:936765 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:28  [ Thread-218:936928 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:29  [ Thread-220:937235 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:32  [ Thread-220:940654 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:32  [ Thread-220:940837 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:33  [ Thread-222:941143 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:35  [ Thread-222:943965 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:36  [ Thread-222:944133 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:36  [ Thread-224:944441 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:39  [ Thread-224:947304 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:39  [ Thread-224:947469 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:39  [ Thread-226:947785 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:42  [ Thread-226:950589 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:42  [ Thread-226:950769 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:42  [ Thread-228:951074 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:46  [ Thread-228:954490 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:46  [ Thread-228:954658 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:46  [ Thread-230:954975 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:49  [ Thread-230:957799 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:49  [ Thread-230:957976 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:50  [ Thread-232:958281 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:52  [ Thread-232:961078 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:53  [ Thread-232:961244 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:53  [ Thread-234:961551 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:56  [ Thread-234:964360 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:56  [ Thread-234:964531 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:29:56  [ Thread-236:964839 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:29:59  [ Thread-236:967641 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:29:59  [ Thread-236:967815 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:00  [ Thread-238:968126 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:02  [ Thread-238:970902 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:02  [ Thread-238:971076 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:03  [ Thread-240:971386 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:06  [ Thread-240:974199 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:06  [ Thread-240:974370 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:06  [ Thread-242:974681 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:09  [ Thread-242:977451 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:09  [ Thread-242:977620 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:09  [ Thread-244:977940 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:12  [ Thread-244:980755 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:12  [ Thread-244:980926 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:13  [ Thread-246:981236 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:15  [ Thread-246:984053 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:16  [ Thread-246:984236 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:16  [ Thread-248:984554 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:19  [ Thread-248:987361 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:19  [ Thread-248:987533 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:19  [ Thread-250:987852 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:22  [ Thread-250:990695 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:22  [ Thread-250:990865 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:23  [ Thread-252:991191 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-5123b27f
+2014-01-31 15:30:26  [ Thread-252:994617 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForAccountGroupByProductTester_detail
+2014-01-31 15:30:26  [ Thread-252:994787 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:26  [ Thread-254:995098 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:29  [ Thread-254:997217 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:29  [ Thread-254:997384 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:29  [ Thread-256:997678 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:31  [ Thread-256:999812 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:31  [ Thread-256:999983 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:32  [ Thread-258:1000289 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:34  [ Thread-258:1002424 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:34  [ Thread-258:1002600 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:34  [ Thread-260:1002903 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:36  [ Thread-260:1005044 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:37  [ Thread-260:1005215 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:37  [ Thread-262:1005518 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:39  [ Thread-262:1007628 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:39  [ Thread-262:1007795 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:39  [ Thread-264:1008093 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:42  [ Thread-264:1010251 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:42  [ Thread-264:1010419 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:42  [ Thread-266:1010725 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:44  [ Thread-266:1012856 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:44  [ Thread-266:1013028 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:45  [ Thread-268:1013324 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:47  [ Thread-268:1015443 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:47  [ Thread-268:1015607 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:47  [ Thread-270:1015902 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:49  [ Thread-270:1018040 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:50  [ Thread-270:1018212 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:50  [ Thread-272:1018509 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:52  [ Thread-272:1020670 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:52  [ Thread-272:1020839 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:53  [ Thread-274:1021145 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:55  [ Thread-274:1023276 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:55  [ Thread-274:1023442 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:55  [ Thread-276:1023749 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:30:57  [ Thread-276:1025914 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:30:57  [ Thread-276:1026078 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:30:58  [ Thread-278:1026463 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:00  [ Thread-278:1028642 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:00  [ Thread-278:1028808 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:01  [ Thread-280:1029113 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:03  [ Thread-280:1031243 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:03  [ Thread-280:1031404 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:03  [ Thread-282:1031705 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:05  [ Thread-282:1033848 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:05  [ Thread-282:1034008 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:06  [ Thread-284:1034315 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:08  [ Thread-284:1036420 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:08  [ Thread-284:1036586 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:08  [ Thread-286:1036891 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:10  [ Thread-286:1039014 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:11  [ Thread-286:1039181 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:11  [ Thread-288:1039481 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:13  [ Thread-288:1041618 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:13  [ Thread-288:1041788 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:14  [ Thread-290:1042104 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:16  [ Thread-290:1044299 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:16  [ Thread-290:1044468 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:16  [ Thread-292:1044767 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-5123b27f
+2014-01-31 15:31:18  [ Thread-292:1046893 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/SumPositionForProductGroupByAccountTester_detail
+2014-01-31 15:31:18  [ Thread-292:1047057 ] - [ INFO ]  Clienttask ended
+2014-01-31 15:31:19  [ main:1047383 ] - [ INFO ]  Delete folder: C:/Users/wsun/Desktop/Positionkeeper/report/
+2014-01-31 15:31:19  [ main:1047437 ] - [ INFO ]  Copy folder from report/ to C:/Users/wsun/Desktop/Positionkeeper/report/
+2014-01-31 15:31:19  [ main:1047439 ] - [ ERROR ]  Unable to delete folder: C:/Users/wsun/Desktop/Positionkeeper/report/LastestReport/
+2014-01-31 15:31:19  [ main:1047455 ] - [ INFO ]  copy folder from report/Archive/c3.2xlarge/ to C:/Users/wsun/Desktop/Positionkeeper/report/LastestReport/
+2014-01-31 15:31:19  [ main:1047535 ] - [ INFO ]  
+2014-01-31 15:31:19  [ main:1047730 ] - [ INFO ]  [master 53483d6] test
+ 8 files changed, 0 insertions(+), 0 deletions(-)
+
+2014-01-31 15:31:21  [ main:1049395 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   9746ed5..53483d6  master -> master
+
+2014-01-31 15:31:21  [ main:1049407 ] - [ INFO ]  Reset Server Env on instance: i-4e23b260
+2014-01-31 15:31:22  [ main:1050191 ] - [ INFO ]  Reset Server Env on instance: i-4f23b261
+2014-01-31 15:31:22  [ main:1050939 ] - [ INFO ]  Reset Server Env on instance: i-5223b27c
+2014-01-31 15:31:23  [ main:1051701 ] - [ INFO ]  Reset Server Env on instance: i-5023b27e
+2014-01-31 15:31:24  [ main:1052421 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-01-31 15:31:39  [ main:1067422 ] - [ INFO ]  Reset Client Env on instance: i-5123b27f
+2014-01-31 15:31:40  [ main:1068118 ] - [ INFO ]  Start benchmark ServerInstanceCount: 4 ClientInstanceCount: 1 Trade Volumen: 5000000 Kfactor3 Sitesperhost: 6
+2014-01-31 15:31:40  [ main:1068118 ] - [ INFO ]  Create connection to AWS
+2014-01-31 15:31:40  [ main:1068659 ] - [ INFO ]  Server instance count:4
+2014-01-31 15:31:40  [ main:1068838 ] - [ INFO ]  Client instance count:1
+2014-01-31 15:31:40  [ main:1068922 ] - [ INFO ]  [master 4a0fe8b] test
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+2014-01-31 15:31:42  [ main:1070475 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   53483d6..4a0fe8b  master -> master
+
+2014-01-31 15:31:42  [ main:1070475 ] - [ INFO ]  Reset Server Env on instance: i-4e23b260
+2014-01-31 15:31:43  [ main:1071166 ] - [ INFO ]  Reset Server Env on instance: i-4f23b261
+2014-01-31 15:31:43  [ main:1071881 ] - [ INFO ]  Reset Server Env on instance: i-5223b27c
+2014-01-31 15:31:44  [ main:1072590 ] - [ INFO ]  Reset Server Env on instance: i-5023b27e
+2014-01-31 15:31:45  [ main:1073302 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-01-31 15:32:00  [ main:1088303 ] - [ INFO ]  Create server task on instance: i-4e23b260
+2014-01-31 15:32:00  [ main:1088303 ] - [ INFO ]  Create server task on instance: i-4f23b261
+2014-01-31 15:32:00  [ main:1088303 ] - [ INFO ]  Create server task on instance: i-5223b27c
+2014-01-31 15:32:00  [ main:1088303 ] - [ INFO ]  Create server task on instance: i-5023b27e
+2014-01-31 15:32:00  [ main:1088303 ] - [ INFO ]  Stop 60s for voltdb start
+2014-01-31 15:32:03  [ Thread-317:1092006 ] - [ INFO ]  Instance i-5023b27e channel isopened: true
+2014-01-31 15:32:03  [ Thread-317:1092006 ] - [ INFO ]  Instance i-5023b27e channel isdone: true
+2014-01-31 15:32:03  [ Thread-314:1092008 ] - [ INFO ]  Instance i-4e23b260 channel isopened: true
+2014-01-31 15:32:03  [ Thread-314:1092008 ] - [ INFO ]  Instance i-4e23b260 channel isdone: true
+2014-01-31 15:32:03  [ Thread-316:1092015 ] - [ INFO ]  Instance i-5223b27c channel isopened: true
+2014-01-31 15:32:03  [ Thread-316:1092015 ] - [ INFO ]  Instance i-5223b27c channel isdone: true
+2014-01-31 15:32:03  [ Thread-315:1092029 ] - [ INFO ]  Instance i-4f23b261 channel isopened: true
+2014-01-31 15:32:03  [ Thread-315:1092029 ] - [ INFO ]  Instance i-4f23b261 channel isdone: true
+2014-01-31 15:33:00  [ main:1148303 ] - [ INFO ]  Create client task on instance: i-5123b27f
+2014-01-31 15:33:00  [ main:1148303 ] - [ INFO ]  Reset Client Env on instance: i-5123b27f
+2014-01-31 15:33:01  [ Thread-325:1149107 ] - [ INFO ]  Run query:TestDataSimulator on instance: i-5123b27f

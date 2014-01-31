@@ -1,3 +1,4 @@
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,10 +33,10 @@ public class GitHelper {
 				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
 				throw e;
 			}
-		PumpStreamHandler streamHandler = new PumpStreamHandler();
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 		exec.setWorkingDirectory(file);
 		exec.setStreamHandler(streamHandler);
-
 		// commit
 		CommandLine cl;
 		cl = new CommandLine("git");
@@ -45,6 +46,8 @@ public class GitHelper {
 		cl.addArgument("-a");
 		try {
 			exec.execute(cl);
+			logger.info(outputStream.toString());
+			outputStream.reset();
 		} catch (ExecuteException e) {
 			logger.error("Unable to commit file: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
@@ -58,6 +61,8 @@ public class GitHelper {
 		cl.addArgument("push");
 		try {
 			exec.execute(cl);
+			logger.info(outputStream.toString());
+			outputStream.reset();
 		} catch (ExecuteException e) {
 			logger.error("Unable to push file to git: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
@@ -77,7 +82,8 @@ public class GitHelper {
 				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
 				throw e;
 			}
-		PumpStreamHandler streamHandler = new PumpStreamHandler();
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 		exec.setWorkingDirectory(file);
 		exec.setStreamHandler(streamHandler);
 
@@ -88,6 +94,8 @@ public class GitHelper {
 		cl.addArgument(".");
 		try {
 			exec.execute(cl);
+			logger.info(outputStream.toString());
+			outputStream.reset();
 		} catch (ExecuteException e) {
 			logger.error("Unable to add file: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
@@ -104,6 +112,8 @@ public class GitHelper {
 		cl.addArgument("-a");
 		try {
 			exec.execute(cl);
+			logger.info(outputStream.toString());
+			outputStream.reset();
 		} catch (ExecuteException e) {
 			logger.error("Unable to commit file: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
@@ -117,6 +127,8 @@ public class GitHelper {
 		cl.addArgument("push");
 		try {
 			exec.execute(cl);
+			logger.info(outputStream.toString());
+			outputStream.reset();
 		} catch (ExecuteException e) {
 			logger.error("Unable to push file to git: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
@@ -124,5 +136,31 @@ public class GitHelper {
 			logger.error("IO Exception in pushing file: " + cl.getExecutable(), e.fillInStackTrace());
 			throw e;
 		}
+		
+	}
+	
+	public  String getHeadRevision() {
+		Executor exec = new DefaultExecutor();
+		File file = new File(folderPath);
+		if (!file.exists())
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
+			}
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+		exec.setWorkingDirectory(file);
+	    CommandLine cl;
+		cl = new CommandLine("git");
+		cl.addArgument("rev-parse");
+		cl.addArgument("HEAD");
+	    exec.setStreamHandler(streamHandler);
+	    try {
+			exec.execute(cl);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+	    return(outputStream.toString());
 	}
 }

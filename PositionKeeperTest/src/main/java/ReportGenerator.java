@@ -21,25 +21,27 @@ public class ReportGenerator {
 	//Folder for saving newly generated reports;
 	private String newlyGeneratedReportPath;
 	private String instanceType;
-	public ReportGenerator(ArrayList<ClientTask> clientTaskList, GitHelper gitHelper, Properties benchmarkProp,int serverInstanceCount){
+	private String gitRevision;
+	public ReportGenerator(ArrayList<ClientTask> clientTaskList, GitHelper gitHelper, Properties benchmarkProp,int serverInstanceCount, String gitRevision){
 		this.clientTaskList = clientTaskList;
 		this.serverInstanceCount = serverInstanceCount;
 		this.benchmarkProp = benchmarkProp;	
 		this.gitHelper = gitHelper;
 		this.tempReportPath = "report/";
-		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"/report/";
-		this.instanceType = benchmarkProp.getProperty("instanceType");
+		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"report/";
+		this.instanceType = benchmarkProp.getProperty("instancetype");
 		this.newlyGeneratedReportPath = tempReportPath+"Archive/"+instanceType + "/";
+		this.gitRevision = gitRevision;
 	}
 	
 	public void GenerateReport(String queryName){
 		//Collect Data	
 		if(queryName.equals("TestDataSimulator")){
-			TradeSimulatorCollector tc = new TradeSimulatorCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath);
+			TradeSimulatorCollector tc = new TradeSimulatorCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath,gitRevision);
 			tc.run();
 		}
 		else{
-			QueryDataCollector qc = new QueryDataCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath);
+			QueryDataCollector qc = new QueryDataCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath,gitRevision);
 			qc.run();
 		}
 	}
@@ -67,11 +69,13 @@ public class ReportGenerator {
 		//Delete local report folder
 		try {
 			FileUtils.deleteDirectory(new File(targetReportPath));
+			logger.info("Delete folder: " + targetReportPath);
 		} catch (IOException e) {
 			logger.error("Unable to delete folder: " + targetReportPath);
 		}
 		try {
 			FileUtils.copyDirectory(new File(tempReportPath), new File(targetReportPath));
+			logger.info("Copy folder from " + tempReportPath + " to " + targetReportPath);
 		} catch (IOException e) {
 			logger.error("Unable to copy folder from " + tempReportPath + " to " + targetReportPath, e.fillInStackTrace());
 			throw e;
@@ -79,14 +83,16 @@ public class ReportGenerator {
 		
 		try {
 			FileUtils.deleteDirectory(new File(targetReportPath+"LastestReport/"));
+			logger.info("Delete folder: " + targetReportPath+ "LastestReport/");
 		} catch (IOException e) {
-			logger.error("Unable to delete folder: " + targetReportPath);
+			logger.error("Unable to delete folder: " + targetReportPath+ "LastestReport/");
 		}
 		
 		try {
 			FileUtils.copyDirectory(new File(newlyGeneratedReportPath), new File(targetReportPath+ "LastestReport/"));
+			logger.info("copy folder from " + newlyGeneratedReportPath + " to " + targetReportPath+ "LastestReport/");
 		} catch (IOException e) {
-			logger.error("Unable to copy folder from " + newlyGeneratedReportPath + " to " + targetReportPath, e.fillInStackTrace());
+			logger.error("Unable to copy folder from " + newlyGeneratedReportPath + " to " + targetReportPath+ "LastestReport/", e.fillInStackTrace());
 			throw e;
 		}
 		

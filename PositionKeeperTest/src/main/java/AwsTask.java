@@ -20,15 +20,15 @@ public abstract class AwsTask {
 	public AwsTask(Instance instance){
 		this.instance = instance;
 	}
-	public void StartTask() {
+	public void StartTask() throws LoginFailException{
 		
 	}
 	
-	public void StartTask(String queryname) {
+	public void StartTask(String queryname) throws LoginFailException {
 		
 	}
 	
-	public void ResetEnv(){
+	public void ResetEnv() throws LoginFailException{
 		
 	}
 	

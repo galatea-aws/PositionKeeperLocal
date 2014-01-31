@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.apache.sshd.ClientChannel;
 import org.apache.sshd.ClientSession;
 import org.apache.sshd.SshClient;
+import org.apache.sshd.client.future.OpenFuture;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.Instance;
@@ -26,18 +27,32 @@ public class ServerTask extends AwsTask{
 	}
 	
 	@Override
-	public void StartTask(){
+	public void StartTask() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;
 		try {
 			session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
-			session.authPassword("voltdb", "voltdb").await().isSuccess();
+			Boolean loginSuccess = session.authPassword("voltdb", "voltdb").await().isSuccess();
+			int retry = 0;
+			while(!loginSuccess&&retry<5){
+				logger.info("Instance " + getInstance().getInstanceId() + " login result: " + loginSuccess);
+				loginSuccess = session.authPassword("voltdb", "voltdb").await().isSuccess();
+				retry++;
+			}
+			if(retry==5){
+				logger.error("Can not login instance:" + getInstance().getInstanceId());
+				throw new LoginFailException();
+			}
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-															+ "git clone https://github.com/galatea-aws/Positionkeeper.git >> gitcloneresult && "
+															+ "echo $(date) moved to voltdb directory >> server.log && "
+															+ "git clone https://github.com/galatea-aws/Positionkeeper.git > gitcloneresult && "
 															+ "cd Positionkeeper && "
 															+ "./server.sh >> result");
-			channel.open().await();
+			OpenFuture  of = channel.open().await();
+			Thread.sleep(3 * 1000);
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isopened: " + of.isOpened());
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isdone: " + of.isDone());
 		} catch (Exception e) {
 			logger.error("Exception in starting voltdb on server instance "+ instance.getInstanceId(),e.fillInStackTrace());
 		}
@@ -47,7 +62,7 @@ public class ServerTask extends AwsTask{
 	}
 	
 	@Override
-	public void ResetEnv(){
+	public void ResetEnv() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
 		client.start();
 		ClientSession session;
@@ -56,7 +71,7 @@ public class ServerTask extends AwsTask{
 			session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-															+ "rm -rf Positionkeeper >> a && "
+															+ "rm -rf Positionkeeper && "
 															+ "pkill -9 java");
 			channel.open().await();
 		}catch (Exception e) {
