@@ -39,7 +39,7 @@ public class PositionKeeperBenchmark {
 	public static Logger logger = LogManager.getLogger(PositionKeeperBenchmark.class.getName());
 	
 	public static String benchmarkconfig = "benchmarkconfig.properties";
-	private Properties benchmarkProp = new Properties();
+	public Properties benchmarkProp = new Properties();
 	
 	private String serverConfig;
 	private String tradesimulatorConfig;
@@ -64,7 +64,7 @@ public class PositionKeeperBenchmark {
 	public ArrayList<Instance> clientInstanceList = new ArrayList<Instance>();
 	private ArrayList<ServerTask> serverTaskList = new ArrayList<ServerTask>();
 	private ArrayList<ClientTask> clientTaskList = new ArrayList<ClientTask>();
-	private	ArrayList<String> queryList = new ArrayList<String>();
+	public	ArrayList<String> queryList = new ArrayList<String>();
 	
 	private GitHelper gitHelper = new GitHelper();
 	
@@ -419,7 +419,7 @@ public class PositionKeeperBenchmark {
 									serverTask.StartTask();
 								} catch (LoginFailException e) {
 									// TODO Auto-generated catch block
-									e.printStackTrace();
+									logger.error("Thread excepetion", e.fillInStackTrace());
 								}
 							}
 						});
@@ -507,7 +507,7 @@ public class PositionKeeperBenchmark {
 							clientTask.StartTask(queryName);
 						} catch (LoginFailException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							logger.error("Thread excepetion", e.fillInStackTrace());
 						}
 					}
 				});

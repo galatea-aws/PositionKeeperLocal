@@ -27,14 +27,10 @@ public class LocalMachineBenchmark {
 				String[] taskArgs = line.split(",");
 				pt.run(Integer.parseInt(taskArgs[0]),Integer.parseInt(taskArgs[1]), taskArgs[2], taskArgs[3],taskArgs[4]);
 			}
-/*			for(int i=pt.benchmarkServerIdList.size();i>=1;i--){
-				logger.info("Running server instance: " + i);
-				pt.run(i,1);
-			}*/
-		//	MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
+			MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
 		} catch (Exception e) {
 			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
-		//	MailHelper.sendJobFailMail();
+			MailHelper.sendJobFailMail();
 		}
 	}
 }
