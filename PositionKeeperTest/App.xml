@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	<bean id="taskList" class="java.util.ArrayList">
+		<constructor-arg>
+	        <list>
+        	 	<ref bean="task1" />
+        	 	<ref bean="task2" />
+	        </list>
+	    </constructor-arg>
+	</bean>
+	
+	<bean id="task1" class="PositionKeeperBenchmark">
+		<property name="serverInstanceStart" value="0"/>
+		<property name="serverInstanceEnd" value="1"/>
+		<property name="clientInstanceStart" value="0"/>
+		<property name="clientInstanceEnd" value="1"/>
+		<property name="kfactor" value="0"/>
+		<property name="sitesperhost" value="6"/>
+		<property name="tradeVolume" value="50000"/>
+		<property name="withNext" value="true"/>
+	</bean>
+	
+	<bean id="task2" class="PositionKeeperBenchmark">
+		<property name="serverInstanceStart" value="1"/>
+		<property name="serverInstanceEnd" value="2"/>
+		<property name="clientInstanceStart" value="1"/>
+		<property name="clientInstanceEnd" value="2"/>
+		<property name="kfactor" value="0"/>
+		<property name="sitesperhost" value="6"/>
+		<property name="tradeVolume" value="50000"/>
+		<property name="withNext" value="false"/>
+	</bean>
+	
+</beans>

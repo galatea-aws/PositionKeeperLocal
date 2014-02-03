@@ -16,6 +16,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.joda.time.DateTime;
@@ -24,9 +25,9 @@ public class QueryDataCollector extends DataCollector {
 	
 	public static Logger logger = LogManager.getLogger(QueryDataCollector.class.getName());
 	public QueryDataCollector(ArrayList<ClientTask> clientTaskList,
-			int serverInstanceCount,Properties benchmarkProp, String queryName, String reportPath, String gitRevision) {
+			int serverInstanceCount,Properties benchmarkProp, String queryName, String reportPath, String gitRevision, String uuid) {
 		super(clientTaskList, serverInstanceCount,
-				benchmarkProp, queryName,reportPath, gitRevision);
+				benchmarkProp, queryName,reportPath, gitRevision, uuid);
 	}
 
 /*	public void run() {
@@ -95,7 +96,7 @@ public class QueryDataCollector extends DataCollector {
 			String queryStatement = "";
 			String queryProcedureName = "";
 			ClientTask clientTask = clientTaskList.get(0);
-			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
+			String clientResultFilePath = uuid + "_" + (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 			HSSFCellStyle style = workbook.createCellStyle();
 			style.setWrapText(true);
 
@@ -117,6 +118,7 @@ public class QueryDataCollector extends DataCollector {
 				cell = row.createCell(0);
 				cell.setCellValue("QueryStatement: ");
 				
+				sheet.addMergedRegion(new CellRangeAddress(1,1,1,12));
 				cell = row.createCell(1);
 				cell.setCellValue(queryStatement);
 				cell.setCellStyle(style);
@@ -154,11 +156,10 @@ public class QueryDataCollector extends DataCollector {
 	public void writeQueryResult(){
 		int tradedays = Integer.valueOf(benchmarkProp.getProperty("tradedays"));
 		long totalVolume = Long.valueOf(benchmarkProp.getProperty("tradevolume")) * clientInstanceCount * tradedays;
-		int top = sheet.getLastRowNum();
 		for (ClientTask clientTask : clientTaskList) {
 			BufferedReader br = null;
 			String line = null;
-			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
+			String clientResultFilePath = uuid + "_" + (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 			resultInfo.add(serverInstanceCount);
 			resultInfo.add(clientTaskList.size());
 			resultInfo.add(totalVolume);

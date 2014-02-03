@@ -1,7 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Attr;
@@ -44,10 +47,11 @@ public class PositionKeeperBenchmark {
 	private String serverConfig;
 	private String tradesimulatorConfig;
 	private String deployment;
-
+	private String ddl;
+	
 	private AwsHelper awsHelper;
 	private String imageName;
-	private String instanceType;
+	public String instanceType;
 	private String securityGroup;
 	// Whether launch new instance
 	private boolean launchInstance = false;
@@ -67,8 +71,25 @@ public class PositionKeeperBenchmark {
 	public	ArrayList<String> queryList = new ArrayList<String>();
 	
 	private GitHelper gitHelper = new GitHelper();
+	private String  revision;
+	public BenchmarkCoordinator bc = null;
+	public Boolean isStartingServer = false;
+	public Boolean waitingForOtherBenchmark = false;
 	
+	private int tradeVolume;
+	private int sitesperhost;
+	private int kfactor;
+	private boolean withNext;
+	private int serverInstanceStart;
+	private int serverInstanceEnd;
+	private int clientInstanceStart;
+	private int clientInstanceEnd;
+	private int queryRepeatTimes = 3;
 	
+	public int serverInstanceCount;
+	public int clientInstanceCount;
+	public String uuid;
+	public String gitFolder;
 /*	public static void main(String[] args) {
 		PositionKeeperBenchmark pt;
 		try {
@@ -85,6 +106,10 @@ public class PositionKeeperBenchmark {
 		}
 	}*/
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public PositionKeeperBenchmark() throws IOException{
 		benchmarkProp = new Properties();
 		try {
@@ -101,13 +126,14 @@ public class PositionKeeperBenchmark {
 			securityGroup =		benchmarkProp.getProperty("securitygroup");
 			
 			//Git commit directory path
-			String gitFolder = benchmarkProp.getProperty("gitfolder");
+			gitFolder = benchmarkProp.getProperty("gitfolder");
 			gitHelper = new GitHelper(gitFolder);
 			
 			//Config for voltdb server
 			serverConfig = gitFolder + benchmarkProp.getProperty("serverconfig");
 			deployment = gitFolder + benchmarkProp.getProperty("deployment");
-			
+			ddl=gitFolder + benchmarkProp.getProperty("ddl");
+					
 			//Config for tradesimulator
 			tradesimulatorConfig = gitFolder + benchmarkProp.getProperty("tradesimulatorconfig");
 			reloadVoltdb = Boolean.valueOf(benchmarkProp.getProperty("reloadvoltdb"));
@@ -120,7 +146,6 @@ public class PositionKeeperBenchmark {
 			}
 			queryList.addAll(Arrays.asList(benchmarkProp.getProperty("querylist").split(",")));
 
-			
 		} catch (FileNotFoundException e) {
 			logger.error("Benchmark config file: " + benchmarkconfig + " not found", e.fillInStackTrace());
 			throw e;
@@ -131,17 +156,24 @@ public class PositionKeeperBenchmark {
 	}
 	
 
-	
-	public void run(int serverInstanceCount, int clientInstanceCount,String tradeVolume,String sitesperhost, String kfactor) throws Exception{
-		logger.info("Start benchmark ServerInstanceCount: " +serverInstanceCount + " ClientInstanceCount: " + clientInstanceCount +
-				" Trade Volumen: " + tradeVolume + " Kfactor" + kfactor + " Sitesperhost: " + sitesperhost);
-		benchmarkProp.setProperty("tradevolume", tradeVolume);
-		benchmarkProp.setProperty("kfactor", kfactor);
-		benchmarkProp.setProperty("sitesperhost", sitesperhost);
-		run(serverInstanceCount,clientInstanceCount);
-	}
-	public void run(int serverInstanceCount, int clientInstanceCount) throws Exception {
-
+	/**
+	 * 
+	 * @param serverInstanceCount
+	 * @param clientInstanceCount
+	 * @throws Exception
+	 */
+	public void run() throws Exception {
+		
+		logger.info("Start benchmark ServerInstanceCount: " + (getServerInstanceEnd()-getServerInstanceStart()) + 
+				" ClientInstanceCount: " + (getClientInstanceEnd()-getClientInstanceStart()) +
+				" Trade Volumen: " + getTradeVolume() + " Kfactor" + getKfactor() + " Sitesperhost: " + getSitesperhost());
+		benchmarkProp.setProperty("tradevolume", String.valueOf(getTradeVolume()));
+		benchmarkProp.setProperty("kfactor", String.valueOf(getKfactor()));
+		benchmarkProp.setProperty("sitesperhost", String.valueOf(getSitesperhost()));
+		
+		serverInstanceCount = getServerInstanceEnd() - getServerInstanceStart();
+		clientInstanceCount = getClientInstanceEnd() - getClientInstanceStart();
+		
 		if (serverInstanceCount > benchmarkServerIdList.size()|| clientInstanceCount >benchmarkClientIdList.size()) {
 			logger.warn("Not enough instances for benchmark");
 			throw new Exception();
@@ -154,14 +186,14 @@ public class PositionKeeperBenchmark {
 		try {
 			if (launchInstance) {
 				//Launch new instances
-				launchInstance(serverInstanceCount, clientInstanceCount);
+				launchInstance();
 			} else {
 				//Instances are running, get their information
 				serverInstanceList = new ArrayList<Instance>(
-						awsHelper.updateInstancesByIds(new ArrayList<String>(benchmarkServerIdList.subList(0, serverInstanceCount))));
+						awsHelper.updateInstancesByIds(new ArrayList<String>(benchmarkServerIdList.subList(getServerInstanceStart(), getServerInstanceEnd()))));
 				logger.info("Server instance count:" + serverInstanceList.size());
 				clientInstanceList = new ArrayList<Instance>(
-						awsHelper.updateInstancesByIds(new ArrayList<String>(benchmarkClientIdList.subList(0, clientInstanceCount))));
+						awsHelper.updateInstancesByIds(new ArrayList<String>(benchmarkClientIdList.subList(getClientInstanceStart(), getClientInstanceEnd()))));
 				logger.info("Client instance count:" + clientInstanceList.size());
 				
 				//Validate Instance Type.
@@ -182,12 +214,33 @@ public class PositionKeeperBenchmark {
 				}
 				
 			}
-			// Update server ip list
-			updateConfigFile();
-			// Push to GitHub
-			pushToGit();
+			if(bc ==null){
+				// Update configs
+				updateConfigFile();
+				// Push to GitHub
+				pushToGit();	
+			}
+			else{
+				waitingForOtherBenchmark = true;
+				bc.addBenchmark(this);
+				while(waitingForOtherBenchmark){
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				// Update configs
+				updateConfigFile();
+				// Push to GitHub
+				pushToGit();	
+			}
+			
+			revision = gitHelper.getHeadRevision();
+			
 			// Do test
-			startTest(serverInstanceCount, clientInstanceCount);
+			startTest();
 		} catch (Exception e) {
 			throw e;
 		} finally {
@@ -205,8 +258,8 @@ public class PositionKeeperBenchmark {
 				
 		}
 	}
-
-	public void launchInstance(int serverInstanceCount, int clientInstanceCount) throws Exception {
+	
+	public void launchInstance() throws Exception {
 		//Launch new server instances
 		serverInstanceList = new ArrayList<Instance>(awsHelper.lanuchInstance(
 				serverInstanceCount, imageName, instanceType, securityGroup));
@@ -260,7 +313,13 @@ public class PositionKeeperBenchmark {
 		clientInstanceList = new ArrayList<Instance>(
 				awsHelper.updateInstances(clientInstanceList));
 	}
-
+	
+	/**
+	 * 
+	 * @throws IOException
+	 * @throws ParserConfigurationException
+	 * @throws TransformerException
+	 */
 	public void updateConfigFile() throws IOException,
 			ParserConfigurationException, TransformerException {
 		if (serverInstanceList.size() == 0)
@@ -272,8 +331,15 @@ public class PositionKeeperBenchmark {
 		updateServerConfig();
 		//Update throughput test config
 		updateTradesimulatorConfig();
+		//Update DDL sql
+		updateDDL();
 	}
-
+	
+	/**
+	 * 
+	 * @throws ParserConfigurationException
+	 * @throws TransformerException
+	 */
 	public void updateDeployment() throws ParserConfigurationException, TransformerException{
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory
 				.newInstance();
@@ -329,14 +395,19 @@ public class PositionKeeperBenchmark {
 			StreamResult result = new StreamResult(new File(deployment));
 			transformer.transform(source, result);
 		} catch (ParserConfigurationException e) {
-			logger.error("Can not parese deployment.xml", e.fillInStackTrace());
+			logger.error("Can not parse deployment.xml", e.fillInStackTrace());
 			throw e;
 		} catch (TransformerException e) {
-			logger.error("Can not write deployment.xml to " + deployment, e.fillInStackTrace());
+			logger.error("Unable to write deployment.xml:" + deployment, e.fillInStackTrace());
 			throw e;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public void updateServerConfig() throws FileNotFoundException, IOException {
 
 		// Update ServerConfig
@@ -359,11 +430,16 @@ public class PositionKeeperBenchmark {
 			logger.error("Server config file: " + serverConfig + " not found", e.fillInStackTrace());
 			throw e;
 		} catch (IOException e) {
-			logger.error("Unable to read Server config file: " + serverConfig, e.fillInStackTrace());
+			logger.error("Unable to write Server config file: " + serverConfig, e.fillInStackTrace());
 			throw e;
 		}
 	}
 	
+	/**
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public void updateTradesimulatorConfig() throws FileNotFoundException, IOException {
 
 		// Update tradesimulator config
@@ -382,9 +458,27 @@ public class PositionKeeperBenchmark {
 			logger.error("Tradesimulator config file : " + tradesimulatorConfig + " not found", e.fillInStackTrace());
 			throw e;
 		} catch (IOException e) {
-			logger.error("Unable to read Tradesimulator config file: " + tradesimulatorConfig, e.fillInStackTrace());
+			logger.error("Unable to write Tradesimulator config file: " + tradesimulatorConfig, e.fillInStackTrace());
 			throw e;
 		}
+	}
+	
+	/**
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void updateDDL() throws FileNotFoundException, IOException {
+		File ddlFile = new File(ddl);
+		FileUtils.copyFile(new File("dbschema/ddl.sql"), ddlFile);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(ddl, true));
+		String tableIndex = String.format("CREATE INDEX trades_account_id ON trades (%s);", benchmarkProp.getProperty("tradetableindex"));
+		String tableParition = String.format("PARTITION TABLE trades ON COLUMN %s;", benchmarkProp.getProperty("tradetableparition"));
+		bw.write(tableIndex);
+		bw.newLine();
+		bw.write(tableParition);
+		bw.flush();
+		bw.close();
 	}
 	
 	public void pushToGit() throws IOException{
@@ -392,11 +486,11 @@ public class PositionKeeperBenchmark {
 	}
 
 	/**
-	 * @throws IOException 
-	 * @throws LoginFailException 
 	 * 
+	 * @throws IOException
+	 * @throws LoginFailException
 	 */
-	public void startTest(int serverInstanceCount, int clientInstanceCount) throws IOException, LoginFailException {
+	public void startTest() throws IOException, LoginFailException {
 		serverTaskList = new ArrayList<ServerTask>();
 		clientTaskList = new ArrayList<ClientTask>();
 		
@@ -432,44 +526,46 @@ public class PositionKeeperBenchmark {
 				serverTask.StartTask();
 			}*/
 			
-			// Wait for all voltdb start
+			// Wait for all voltdb complete initialization
 			try {
 				int waitingforvoltdb = Integer.parseInt(benchmarkProp.getProperty("waitingforvoltdb","60"));
-				logger.info("Stop " + waitingforvoltdb + "s for voltdb start");
+				logger.info("Stop " + waitingforvoltdb + "s for voltdb complete initialization");
 				Thread.sleep(waitingforvoltdb * 1000);
 			} catch (InterruptedException e) {
 				logger.error("Thread excepetion", e.fillInStackTrace());
 			}
+			
 		}
 		
 		//Create client task
 		for (Instance i : clientInstanceList) {
 			logger.info("Create client task on instance: "
 					+ i.getInstanceId());
-			clientTaskList.add(new ClientTask(i));
+			clientTaskList.add(new ClientTask(i,uuid));
 		}
 		
 		//Reset client instance env
-		ResetClientInstanceEnv();
+		if(reloadVoltdb)
+			ResetClientInstanceEnv();
 		
-		//Generate report
-		ReportGenerator reportGenerator = new ReportGenerator(clientTaskList, gitHelper, benchmarkProp,serverInstanceCount, gitHelper.getHeadRevision());
+		isStartingServer = false;
+		
+		ReportGenerator reportGenerator = new ReportGenerator(clientTaskList, gitHelper, benchmarkProp,serverInstanceCount, revision, uuid);
 		reportGenerator.LoadWorkSpace();
 		
 		//Run query
 		for(int i = 0; i<queryList.size();i++){
-			int repeattimes = 20;
+			int repeatTimes = queryRepeatTimes;
 			if(queryList.get(i).equals(reloadVoltdbQuery)){
-				repeattimes = 1;
+				repeatTimes = 1;
 			}
 			
-			for(int j=1;j<=repeattimes;j++){
+			for(int j=1;j<=repeatTimes;j++){
 				launchClientTask(queryList.get(i));
 				reportGenerator.GenerateReport(queryList.get(i));
 			}
 		}
 		
-		//Save report on git
 		reportGenerator.ArchiveReport();
 	}
 	
@@ -529,5 +625,95 @@ public class PositionKeeperBenchmark {
 			awsHelper.terminateInstance(serverInstanceList);
 			awsHelper.terminateInstance(clientInstanceList);
 		}
+	}
+
+
+	public int getQueryRepeatTimes() {
+		return queryRepeatTimes;
+	}
+
+
+	public void setQueryRepeatTimes(int queryRepeatTimes) {
+		this.queryRepeatTimes = queryRepeatTimes;
+	}
+
+
+	public int getClientInstanceEnd() {
+		return clientInstanceEnd;
+	}
+
+
+	public void setClientInstanceEnd(int clientInstanceEnd) {
+		this.clientInstanceEnd = clientInstanceEnd;
+	}
+
+
+	public int getClientInstanceStart() {
+		return clientInstanceStart;
+	}
+
+
+	public void setClientInstanceStart(int clientInstanceStart) {
+		this.clientInstanceStart = clientInstanceStart;
+	}
+
+
+	public int getServerInstanceEnd() {
+		return serverInstanceEnd;
+	}
+
+
+	public void setServerInstanceEnd(int serverInstanceEnd) {
+		this.serverInstanceEnd = serverInstanceEnd;
+	}
+
+
+	public int getServerInstanceStart() {
+		return serverInstanceStart;
+	}
+
+
+	public void setServerInstanceStart(int serverInstanceStart) {
+		this.serverInstanceStart = serverInstanceStart;
+	}
+
+
+	public boolean isWithNext() {
+		return withNext;
+	}
+
+
+	public void setWithNext(boolean withNext) {
+		this.withNext = withNext;
+	}
+
+
+	public int getKfactor() {
+		return kfactor;
+	}
+
+
+	public void setKfactor(int kfactor) {
+		this.kfactor = kfactor;
+	}
+
+
+	public int getSitesperhost() {
+		return sitesperhost;
+	}
+
+
+	public void setSitesperhost(int sitesperhost) {
+		this.sitesperhost = sitesperhost;
+	}
+
+
+	public int getTradeVolume() {
+		return tradeVolume;
+	}
+
+
+	public void setTradeVolume(int tradeVolume) {
+		this.tradeVolume = tradeVolume;
 	}
 }

@@ -14,29 +14,25 @@ import org.apache.log4j.Logger;
 public class GitHelper {
 	private String folderPath;
 	public static Logger logger = LogManager.getLogger(GitHelper.class.getName());
-	
+	private ByteArrayOutputStream outputStream;
+	private Executor exec;
+	private PumpStreamHandler streamHandler;
 	public GitHelper(String folderPath){
 		this.folderPath = folderPath;
+		outputStream = new ByteArrayOutputStream();
+		exec = new DefaultExecutor();
+		streamHandler = new PumpStreamHandler(outputStream);
 	}
 	
 	public GitHelper(){
-		
+		outputStream = new ByteArrayOutputStream();
+		exec = new DefaultExecutor();
+		streamHandler = new PumpStreamHandler(outputStream);
 	}
 	
 	public void commitAndPush() throws IOException{
-		Executor exec = new DefaultExecutor();
-		File file = new File(folderPath);
-		if (!file.exists())
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
-				throw e;
-			}
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
-		exec.setWorkingDirectory(file);
-		exec.setStreamHandler(streamHandler);
+		
+		loadGitFolder(folderPath);
 		// commit
 		CommandLine cl;
 		cl = new CommandLine("git");
@@ -73,20 +69,8 @@ public class GitHelper {
 	}
 	
 	public void addCommitAndPushReport()throws IOException{
-		Executor exec = new DefaultExecutor();
-		File file = new File(folderPath+"/report");
-		if (!file.exists())
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
-				throw e;
-			}
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
-		exec.setWorkingDirectory(file);
-		exec.setStreamHandler(streamHandler);
-
+		loadGitFolder(folderPath+"/report");
+		
 		// add
 		CommandLine cl;
 		cl = new CommandLine("git");
@@ -140,27 +124,32 @@ public class GitHelper {
 	}
 	
 	public  String getHeadRevision() {
-		Executor exec = new DefaultExecutor();
-		File file = new File(folderPath);
-		if (!file.exists())
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
-			}
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
-		exec.setWorkingDirectory(file);
+		loadGitFolder(folderPath);
+	    //get revision
 	    CommandLine cl;
 		cl = new CommandLine("git");
 		cl.addArgument("rev-parse");
 		cl.addArgument("HEAD");
-	    exec.setStreamHandler(streamHandler);
 	    try {
 			exec.execute(cl);
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	    return(outputStream.toString());
+	}
+	
+	private void loadGitFolder(String path){
+		exec = new DefaultExecutor();
+		File file = new File(path);
+		if (!file.exists())
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				logger.error("Unable to create file: " + file.getPath(), e.fillInStackTrace());
+			}
+		outputStream = new ByteArrayOutputStream();
+		streamHandler = new PumpStreamHandler(outputStream);
+		exec.setWorkingDirectory(file);
+	    exec.setStreamHandler(streamHandler);
 	}
 }

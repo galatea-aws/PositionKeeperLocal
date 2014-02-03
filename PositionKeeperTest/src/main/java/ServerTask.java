@@ -26,6 +26,10 @@ public class ServerTask extends AwsTask{
 		super(instance);
 	}
 	
+	/**
+	 * Clone code from github
+	 * Start voltdb
+	 */
 	@Override
 	public void StartTask() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
@@ -49,10 +53,10 @@ public class ServerTask extends AwsTask{
 															+ "git clone https://github.com/galatea-aws/Positionkeeper.git > gitcloneresult && "
 															+ "cd Positionkeeper && "
 															+ "./server.sh >> result");
-			OpenFuture  of = channel.open().await();
+			OpenFuture  openFuture = channel.open().await();
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isopened: " + openFuture.isOpened());
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isdone: " + openFuture.isDone());
 			Thread.sleep(3 * 1000);
-			logger.info("Instance " + getInstance().getInstanceId() + " channel isopened: " + of.isOpened());
-			logger.info("Instance " + getInstance().getInstanceId() + " channel isdone: " + of.isDone());
 		} catch (Exception e) {
 			logger.error("Exception in starting voltdb on server instance "+ instance.getInstanceId(),e.fillInStackTrace());
 		}
@@ -61,6 +65,10 @@ public class ServerTask extends AwsTask{
 		}
 	}
 	
+	/**
+	 * Remove voltdb code
+	 * Stop voltdb
+	 */
 	@Override
 	public void ResetEnv() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();

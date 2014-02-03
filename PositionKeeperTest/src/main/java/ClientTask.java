@@ -21,10 +21,16 @@ import com.amazonaws.services.ec2.model.Instance;
 
 public class ClientTask extends AwsTask{
 	public static Logger logger = LogManager.getLogger(ClientTask.class.getName());
-	public ClientTask(Instance instance){
+	public String uuid;
+	public ClientTask(Instance instance, String uuid){
 		super(instance);
+		this.uuid = uuid;
 	}
 	
+	/**
+	 * Start benchmark
+	 * Download result file to local machine
+	 */
 	@Override
 	public void StartTask(String queryname) throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();
@@ -36,15 +42,15 @@ public class ClientTask extends AwsTask{
 			session = client.connect(getInstance().getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper && "
-															+ "./run.sh positionkeeper " + queryname + " > " + queryname + "_detail");
+															+ "./run.sh positionkeeper " + queryname + " > " + uuid + "_" + queryname + "_detail");
 			channel.open().await();
 			channel.waitFor(ClientChannel.CLOSED, 0);
 			
 			//Download result file
 	        SftpClient c = session.createSftpClient();
-	        inputStream = c.read("/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + queryname + "_detail");
-	        logger.info("copy file" + "/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + queryname + "_detail");
-	        FileUtils.copyInputStreamToFile(inputStream, new File(queryname + "_" + getInstance().getInstanceId()));
+	        inputStream = c.read("/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + uuid + "_" + queryname + "_detail");
+	        logger.info("copy file" + "/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/" + uuid + "_" + queryname + "_detail");
+	        FileUtils.copyInputStreamToFile(inputStream, new File(uuid + "_" + queryname + "_" + getInstance().getInstanceId()));
 	        c.close();
 		} catch (Exception e) {
 			logger.error("Exception in running query " + queryname +" on client instance "+ instance.getInstanceId(),e.fillInStackTrace());
@@ -55,6 +61,10 @@ public class ClientTask extends AwsTask{
 		}
 	}
 	
+	/**
+	 * Remove voltdb code
+	 * Clone voltdb code from github
+	 */
 	@Override
 	public void ResetEnv() throws LoginFailException{
 		SshClient client = SshClient.setUpDefaultClient();

@@ -24,8 +24,8 @@ public class TradeSimulatorCollector extends DataCollector {
 
 	public static Logger logger = LogManager.getLogger(TradeSimulatorCollector.class.getName());
 	public TradeSimulatorCollector(ArrayList<ClientTask> clientTaskList,
-			int serverInstanceCount, Properties benchmarkProp, String queryName, String reportPath, String gitRevision) {
-		super(clientTaskList, serverInstanceCount,benchmarkProp,queryName, reportPath, gitRevision);
+			int serverInstanceCount, Properties benchmarkProp, String queryName, String reportPath, String gitRevision, String uuid) {
+		super(clientTaskList, serverInstanceCount,benchmarkProp,queryName, reportPath, gitRevision, uuid);
 	}
 	
 /*	@Override
@@ -101,7 +101,7 @@ public class TradeSimulatorCollector extends DataCollector {
 			String queryStatement = "";
 			String queryProcedureName = "";
 			ClientTask clientTask = clientTaskList.get(0);
-			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
+			String clientResultFilePath = uuid + "_" + (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 			HSSFCellStyle style = workbook.createCellStyle();
 			style.setWrapText(true);
 			
@@ -168,7 +168,7 @@ public class TradeSimulatorCollector extends DataCollector {
 
 		long totalDuration = 1;
 		for(ClientTask clientTask: clientTaskList){
-			String clientResultFilePath = (queryName) + "_"+ clientTask.getInstance().getInstanceId();
+			String clientResultFilePath = uuid + "_" + (queryName) + "_"+ clientTask.getInstance().getInstanceId();
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(clientResultFilePath));
 				String line,last = null;
@@ -202,6 +202,4 @@ public class TradeSimulatorCollector extends DataCollector {
 			sheet.autoSizeColumn(i);
 		}
 	}
-	
-
 }

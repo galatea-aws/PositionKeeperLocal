@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -18,6 +20,7 @@ import org.apache.poi.ss.usermodel.Cell;
 
 
 public class DataCollector {
+	public static Logger logger = LogManager.getLogger(DataCollector.class.getName());
 	public ArrayList<ClientTask> clientTaskList = new ArrayList<ClientTask>();
 	public int serverInstanceCount;
 	public int clientInstanceCount;
@@ -30,8 +33,9 @@ public class DataCollector {
 	public String tableIndex = "";
 	public String procedurePartition = "";
 	public String gitRevision;
+	public String uuid;
 	public ArrayList<Object> resultInfo = new ArrayList<Object>();
-	public DataCollector(ArrayList<ClientTask> clientTaskList, int serverInstanceCount, Properties benchmarkProp, String queryName, String reportPath, String gitRevision){
+	public DataCollector(ArrayList<ClientTask> clientTaskList, int serverInstanceCount, Properties benchmarkProp, String queryName, String reportPath, String gitRevision, String uuid){
 		this.clientTaskList = clientTaskList;
 		this.serverInstanceCount = serverInstanceCount;
 		this.clientInstanceCount = clientTaskList.size();
@@ -39,10 +43,14 @@ public class DataCollector {
 		this.benchmarkProp = benchmarkProp;	
 		this.reportPath = reportPath;
 		this.gitRevision = gitRevision;
+		this.uuid = uuid;
 	}
 	
+	/**
+	 * Generate or update report file
+	 */
 	public void run(){
-		File file = new File(reportPath + "/" + queryName + ".xls");
+		File file = new File(reportPath + "/" + uuid + "_" + queryName + ".xls");
 	    workbook = new HSSFWorkbook();
 	    Boolean creatSheet = !file.exists();
 		if(creatSheet)
@@ -51,9 +59,9 @@ public class DataCollector {
 			try {
 				workbook = new HSSFWorkbook(new FileInputStream(file));
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				logger.error(e.fillInStackTrace());
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e.fillInStackTrace());
 			}
 		
 		sheet = workbook.getSheetAt(0);
@@ -67,9 +75,9 @@ public class DataCollector {
 			out = new FileOutputStream(file);
 		    workbook.write(out);
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e.fillInStackTrace());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.fillInStackTrace());
 		}
 		finally{
 			if(out!=null)
@@ -77,13 +85,9 @@ public class DataCollector {
 					out.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e.fillInStackTrace());
 				}
 		}
-	}
-	
-	public String getReportFilePath(){
-		return reportPath + "/" + queryName + ".csv";
 	}
 	
 	public void addHead(){
@@ -103,11 +107,14 @@ public class DataCollector {
 		String now = sdf.format(new Date());
 		resultInfo.add(now);
 		
-		resultInfo.add(benchmarkProp.getProperty("trade_table_index"));
-		resultInfo.add(benchmarkProp.getProperty("trade_table_parition"));
+		resultInfo.add(benchmarkProp.getProperty("tradetableparition"));
+		resultInfo.add(benchmarkProp.getProperty("tradetableindex"));
 		resultInfo.add(gitRevision);
 	}
 	
+	/**
+	 * Output result info to a row
+	 */
 	public void writeRow(){
 		int cellnum = 0;
 		HSSFRow row = sheet.createRow(sheet.getLastRowNum()+1);

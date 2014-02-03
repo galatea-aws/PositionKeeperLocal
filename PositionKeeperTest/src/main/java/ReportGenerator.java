@@ -16,98 +16,50 @@ public class ReportGenerator {
 	private GitHelper gitHelper;
 	//Folder for pushing reports to github
 	private String targetReportPath;
-	//Temp folder for saving all reports locally
-	private String tempReportPath;	
-	//Folder for saving newly generated reports;
-	private String newlyGeneratedReportPath;
 	private String instanceType;
 	private String gitRevision;
-	public ReportGenerator(ArrayList<ClientTask> clientTaskList, GitHelper gitHelper, Properties benchmarkProp,int serverInstanceCount, String gitRevision){
+	private String uuid;
+	public ReportGenerator(ArrayList<ClientTask> clientTaskList, GitHelper gitHelper, Properties benchmarkProp,int serverInstanceCount, String gitRevision, String uuid){
 		this.clientTaskList = clientTaskList;
 		this.serverInstanceCount = serverInstanceCount;
 		this.benchmarkProp = benchmarkProp;	
 		this.gitHelper = gitHelper;
-		this.tempReportPath = "report/";
-		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"report/";
+		this.targetReportPath = benchmarkProp.getProperty("gitfolder")+"report/tmp/";
 		this.instanceType = benchmarkProp.getProperty("instancetype");
-		this.newlyGeneratedReportPath = tempReportPath+"Archive/"+instanceType + "/";
 		this.gitRevision = gitRevision;
+		this.uuid = uuid;
 	}
 	
 	public void GenerateReport(String queryName){
 		//Collect Data	
 		if(queryName.equals("TestDataSimulator")){
-			TradeSimulatorCollector tc = new TradeSimulatorCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath,gitRevision);
+			TradeSimulatorCollector tc = new TradeSimulatorCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,targetReportPath,gitRevision, uuid);
 			tc.run();
 		}
 		else{
-			QueryDataCollector qc = new QueryDataCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,newlyGeneratedReportPath,gitRevision);
+			QueryDataCollector qc = new QueryDataCollector(clientTaskList,serverInstanceCount, benchmarkProp,queryName,targetReportPath,gitRevision, uuid);
 			qc.run();
 		}
 	}
 	
-	public void LoadWorkSpace() throws IOException{
+	public void LoadWorkSpace(){
 		try {
-			FileUtils.copyDirectory(new File(targetReportPath), new File(tempReportPath));
+			File f = new File(targetReportPath);
+			if(!f.exists())
+				FileUtils.forceMkdir(f);
 		} catch (IOException e) {
-			logger.error("Unable to copy folder from " + targetReportPath + " to " + tempReportPath, e.fillInStackTrace());
-			throw e;
+			// TODO Auto-generated catch block
+			logger.error(e.fillInStackTrace());
 		}
-		File file = new File(newlyGeneratedReportPath);
-		if(!file.exists()){
-			try {
-				FileUtils.forceMkdir(file);
-			} catch (IOException e) {
-				logger.error("Create folder: " + newlyGeneratedReportPath, e.fillInStackTrace());
-				throw e;
-			}
-		}
-		
 	}
 	
 	public void ArchiveReport() throws IOException{
-		//Delete local report folder
-		try {
-			FileUtils.deleteDirectory(new File(targetReportPath));
-			logger.info("Delete folder: " + targetReportPath);
-		} catch (IOException e) {
-			logger.error("Unable to delete folder: " + targetReportPath);
-		}
-		try {
-			FileUtils.copyDirectory(new File(tempReportPath), new File(targetReportPath));
-			logger.info("Copy folder from " + tempReportPath + " to " + targetReportPath);
-		} catch (IOException e) {
-			logger.error("Unable to copy folder from " + tempReportPath + " to " + targetReportPath, e.fillInStackTrace());
-			throw e;
-		}
-		
-		try {
-			FileUtils.deleteDirectory(new File(targetReportPath+"LastestReport/"));
-			logger.info("Delete folder: " + targetReportPath+ "LastestReport/");
-		} catch (IOException e) {
-			logger.error("Unable to delete folder: " + targetReportPath+ "LastestReport/");
-		}
-		
-		try {
-			FileUtils.copyDirectory(new File(newlyGeneratedReportPath), new File(targetReportPath+ "LastestReport/"));
-			logger.info("copy folder from " + newlyGeneratedReportPath + " to " + targetReportPath+ "LastestReport/");
-		} catch (IOException e) {
-			logger.error("Unable to copy folder from " + newlyGeneratedReportPath + " to " + targetReportPath+ "LastestReport/", e.fillInStackTrace());
-			throw e;
-		}
-		
+/*		//Delete local report folder	
 		try {
 			gitHelper.addCommitAndPushReport();
 		} catch (IOException e) {
 			logger.error("Unable to commit reports to github", e.fillInStackTrace());
 			throw e;
-		}
-		
-		try {
-			FileUtils.deleteDirectory(new File(tempReportPath));
-		} catch (IOException e) {
-			logger.error("Unable to delete folder: " + tempReportPath);
-		}	
-		
+		}	*/
 	}
 }
