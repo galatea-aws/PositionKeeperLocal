@@ -1,8 +1,12 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 
 public class BenchmarkCoordinator implements Runnable{
+	public static Logger logger = LogManager.getLogger(BenchmarkCoordinator.class.getName());
 	
 	public boolean waitForBenmarkStart;
 	public boolean keepRunning = true;
@@ -17,6 +21,7 @@ public class BenchmarkCoordinator implements Runnable{
 	public void run() {
 		while(keepRunning){
 			if(currentBenchmark!=null){
+				logger.info("no current benchmark");
 				while(currentBenchmark.isStartingServer){
 					try {
 						Thread.sleep(5000);
@@ -30,6 +35,8 @@ public class BenchmarkCoordinator implements Runnable{
 					currentBenchmark.isStartingServer = true;
 					currentBenchmark.waitingForOtherBenchmark = false;
 				}
+				else
+					currentBenchmark = null;
 			}
 			else{
 				if(benchmarkQueue.size()>0){

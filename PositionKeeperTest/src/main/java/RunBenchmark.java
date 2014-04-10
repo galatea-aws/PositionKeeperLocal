@@ -32,28 +32,6 @@ public class RunBenchmark {
 	
 	public static void main(String[] args) throws Exception {
 		PositionKeeperBenchmark pt;
-/*		try {
-			BufferedReader br = new BufferedReader(new FileReader("TaskList"));
-			String line = null;
-			pt = new PositionKeeperBenchmark();
-			br.readLine();
-			while((line=br.readLine())!=null){
-				String[] taskArgs = line.split(",");
-				if(taskArgs.length<5)
-					continue;
-				int serverInstanceCount = Integer.parseInt(taskArgs[0]);
-				int clientInstanceCount = Integer.parseInt(taskArgs[1]);
-				String tradeVolume = taskArgs[2];
-				String sitesperhost = taskArgs[3];
-				String kfactor = taskArgs[4];
-				pt.run(0, 4, 0, 1, tradeVolume, sitesperhost, kfactor);
-			}
-			MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
-		} catch (Exception e) {
-			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
-			MailHelper.sendJobFailMail();
-		}*/
-		
 		ConfigurableApplicationContext context = 
 				new ClassPathXmlApplicationContext("App.xml");
 		ArrayList<PositionKeeperBenchmark> taskList = (ArrayList<PositionKeeperBenchmark>)context.getBean("taskList");
@@ -78,7 +56,7 @@ public class RunBenchmark {
 						pb.run();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						MailHelper.sendJobFailMail();
 					}
 				}
 			});
@@ -89,81 +67,20 @@ public class RunBenchmark {
 				for(Thread t: threadList){
 					t.join();
 				}
+				logger.info("Summarize Report Start");
 				for(String queryName:pb.queryList){
 					for(String uuid:uuidList){
 						String sourceXLS = pb.gitFolder + "report/tmp/" + uuid + "_" + queryName + ".xls";
 						String targetXLS = pb.gitFolder + "report/Archive/" + pb.instanceType + "/" + queryName + ".xls";
-						SummarizeReport(sourceXLS, targetXLS);
+						ReportGenerator.SummarizeReport(sourceXLS, targetXLS);
 					}
 				}
+				logger.info("Summarize Report End");
 				uuidList.clear();
-				threadList.clear();	
+				threadList.clear();
+				pb.gitHelper.addCommitAndPushReport();
 			}
 		}
 		bc.keepRunning = false;
-	}
-	
-	public static void SummarizeReport(String sourceXLS, String targetXLS) throws FileNotFoundException, IOException{
-		File targetFile = new File(targetXLS);
-		File sourceFile = new File(sourceXLS);
-		if(!targetFile.exists()){
-			try {
-				FileUtils.copyFile(sourceFile,targetFile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-		HSSFWorkbook sourceWorkbook = new HSSFWorkbook(new FileInputStream(sourceFile));
-		HSSFWorkbook targetWorkbook = new HSSFWorkbook(new FileInputStream(targetFile));
-		HSSFSheet sourceSheet = sourceWorkbook.getSheetAt(0);
-		HSSFSheet targetSheet = targetWorkbook.getSheetAt(0);
-		
-		for(int i=7;i<=sourceSheet.getLastRowNum();i++){
-			Row sourceRow = sourceSheet.getRow(i);
-			Row targetRow = targetSheet.createRow(targetSheet.getLastRowNum()+1);
-			for(int j=0; j<sourceRow.getLastCellNum();j++){
-				Cell targetcell = targetRow.createCell(j);
-				Cell sourceCell = sourceRow.getCell(j);
-				switch(sourceCell.getCellType()){
-				case Cell.CELL_TYPE_NUMERIC:
-					targetcell.setCellValue(sourceCell.getNumericCellValue());
-					break;
-				case Cell.CELL_TYPE_STRING:
-					targetcell.setCellValue(sourceCell.getStringCellValue());
-					break;
-				case Cell.CELL_TYPE_BOOLEAN:
-					targetcell.setCellValue(sourceCell.getBooleanCellValue());
-					break;
-				default:
-					targetcell.setCellValue(sourceCell.getStringCellValue());
-					break;
-				}
-				CellStyle newStyle = targetWorkbook.createCellStyle();
-				newStyle.cloneStyleFrom(sourceCell.getCellStyle());
-				targetcell.setCellStyle(newStyle);
-			}
-		}
-		
-		
-		FileOutputStream out = null;
-		try {
-			out = new FileOutputStream(targetFile);
-			targetWorkbook.write(out);
-		} catch (FileNotFoundException e) {
-			logger.error(e.fillInStackTrace());
-		} catch (IOException e) {
-			logger.error(e.fillInStackTrace());
-		}
-		finally{
-			if(out!=null)
-				try {
-					out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					logger.error(e.fillInStackTrace());
-				}
-		}
 	}
 }

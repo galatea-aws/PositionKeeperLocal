@@ -135,7 +135,7 @@ public class GitHelper {
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-	    return(outputStream.toString());
+	    return(outputStream.toString().replace("\n", ""));
 	}
 	
 	private void loadGitFolder(String path){

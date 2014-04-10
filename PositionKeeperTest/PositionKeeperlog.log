@@ -1,0 +1,226 @@
+2014-02-14 17:50:57  [ main:0 ] - [ INFO ]  Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3348854d: startup date [Fri Feb 14 17:50:57 EST 2014]; root of context hierarchy
+2014-02-14 17:50:57  [ main:93 ] - [ INFO ]  Loading XML bean definitions from class path resource [App.xml]
+2014-02-14 17:50:58  [ Thread-1:421 ] - [ INFO ]  Start benchmark ServerInstanceCount: 6 ClientInstanceCount: 1 Trade Volumen: 1000000 Kfactor1 Sitesperhost: 6
+2014-02-14 17:50:58  [ Thread-1:421 ] - [ INFO ]  Create connection to AWS
+2014-02-14 17:50:59  [ Thread-1:1996 ] - [ INFO ]  Server instance count:6
+2014-02-14 17:51:00  [ Thread-1:2215 ] - [ INFO ]  Client instance count:1
+2014-02-14 17:51:05  [ Thread-1:7472 ] - [ INFO ]  [master 587b7d5] test
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+warning: LF will be replaced by CRLF in ddl.sql.
+The file will have its original line endings in your working directory.
+
+2014-02-14 17:51:06  [ Thread-1:8860 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   c572f75..587b7d5  master -> master
+
+2014-02-14 17:51:06  [ Thread-1:8876 ] - [ INFO ]  Create client task on instance: i-c13b7def
+2014-02-14 17:51:06  [ Thread-1:8892 ] - [ INFO ]  Reset Client Env on instance: i-c13b7def
+2014-02-14 17:51:07  [ Thread-1:9501 ] - [ INFO ]  Instance i-c13b7def channel isopened: true
+2014-02-14 17:51:07  [ Thread-1:9501 ] - [ INFO ]  Instance i-c13b7def channel isdone: true
+2014-02-14 17:51:07  [ Thread-1:9517 ] - [ INFO ]  Reset Server Env on instance: i-c63b7de8
+2014-02-14 17:51:08  [ Thread-1:10265 ] - [ INFO ]  Instance i-c63b7de8 channel isopened: true
+2014-02-14 17:51:08  [ Thread-1:10265 ] - [ INFO ]  Instance i-c63b7de8 channel isdone: true
+2014-02-14 17:51:08  [ Thread-0:10406 ] - [ INFO ]  no current benchmark
+2014-02-14 17:51:11  [ Thread-1:13276 ] - [ INFO ]  Reset Server Env on instance: i-c73b7de9
+2014-02-14 17:51:11  [ Thread-1:13978 ] - [ INFO ]  Instance i-c73b7de9 channel isopened: true
+2014-02-14 17:51:11  [ Thread-1:13978 ] - [ INFO ]  Instance i-c73b7de9 channel isdone: true
+2014-02-14 17:51:14  [ Thread-1:16989 ] - [ INFO ]  Reset Server Env on instance: i-c43b7dea
+2014-02-14 17:51:15  [ Thread-1:17707 ] - [ INFO ]  Instance i-c43b7dea channel isopened: true
+2014-02-14 17:51:15  [ Thread-1:17707 ] - [ INFO ]  Instance i-c43b7dea channel isdone: true
+2014-02-14 17:51:18  [ Thread-1:20717 ] - [ INFO ]  Reset Server Env on instance: i-c53b7deb
+2014-02-14 17:51:19  [ Thread-1:21435 ] - [ INFO ]  Instance i-c53b7deb channel isopened: true
+2014-02-14 17:51:19  [ Thread-1:21435 ] - [ INFO ]  Instance i-c53b7deb channel isdone: true
+2014-02-14 17:51:22  [ Thread-1:24446 ] - [ INFO ]  Reset Server Env on instance: i-c33b7ded
+2014-02-14 17:51:23  [ Thread-1:25163 ] - [ INFO ]  Instance i-c33b7ded channel isopened: true
+2014-02-14 17:51:23  [ Thread-1:25163 ] - [ INFO ]  Instance i-c33b7ded channel isdone: true
+2014-02-14 17:51:26  [ Thread-1:28175 ] - [ INFO ]  Reset Server Env on instance: i-c03b7dee
+2014-02-14 17:51:26  [ Thread-1:28893 ] - [ INFO ]  Instance i-c03b7dee channel isopened: true
+2014-02-14 17:51:26  [ Thread-1:28893 ] - [ INFO ]  Instance i-c03b7dee channel isdone: true
+2014-02-14 17:51:29  [ Thread-1:31904 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c63b7de8
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c73b7de9
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c43b7dea
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c53b7deb
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c33b7ded
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Create server task on instance: i-c03b7dee
+2014-02-14 17:51:44  [ Thread-1:46911 ] - [ INFO ]  Stop 40s for voltdb complete initialization
+2014-02-14 17:51:45  [ Thread-17:47644 ] - [ INFO ]  Instance i-c73b7de9 channel isopened: true
+2014-02-14 17:51:45  [ Thread-17:47644 ] - [ INFO ]  Instance i-c73b7de9 channel isdone: true
+2014-02-14 17:51:45  [ Thread-19:47660 ] - [ INFO ]  Instance i-c53b7deb channel isopened: true
+2014-02-14 17:51:45  [ Thread-19:47660 ] - [ INFO ]  Instance i-c53b7deb channel isdone: true
+2014-02-14 17:51:45  [ Thread-21:47660 ] - [ INFO ]  Instance i-c03b7dee channel isopened: true
+2014-02-14 17:51:45  [ Thread-21:47660 ] - [ INFO ]  Instance i-c03b7dee channel isdone: true
+2014-02-14 17:51:45  [ Thread-20:47660 ] - [ INFO ]  Instance i-c33b7ded channel isopened: true
+2014-02-14 17:51:45  [ Thread-20:47660 ] - [ INFO ]  Instance i-c33b7ded channel isdone: true
+2014-02-14 17:51:45  [ Thread-18:47660 ] - [ INFO ]  Instance i-c43b7dea channel isopened: true
+2014-02-14 17:51:45  [ Thread-18:47660 ] - [ INFO ]  Instance i-c43b7dea channel isdone: true
+2014-02-14 17:51:45  [ Thread-16:47675 ] - [ INFO ]  Instance i-c63b7de8 channel isopened: true
+2014-02-14 17:51:45  [ Thread-16:47675 ] - [ INFO ]  Instance i-c63b7de8 channel isdone: true
+2014-02-14 17:52:24  [ Thread-28:86915 ] - [ INFO ]  Run query:TestDataSimulator on instance: i-c13b7def
+2014-02-14 17:52:25  [ Thread-28:87488 ] - [ INFO ]  ./run.sh positionkeeper TestDataSimulator > cf4eb304-74ed-44ed-a436-35984bb60830_TestDataSimulator_detail
+2014-02-14 17:53:20  [ Thread-28:142907 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_TestDataSimulator_detail
+2014-02-14 17:53:20  [ Thread-28:143110 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:21  [ Thread-30:143329 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:21  [ Thread-30:143906 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:23  [ Thread-30:145606 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:23  [ Thread-30:145809 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:23  [ Thread-32:145840 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:24  [ Thread-32:146402 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:25  [ Thread-32:148102 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:26  [ Thread-32:148274 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:26  [ Thread-34:148352 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:26  [ Thread-34:148913 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:28  [ Thread-34:150614 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:28  [ Thread-34:150832 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:28  [ Thread-36:150863 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:29  [ Thread-36:151269 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:30  [ Thread-36:152977 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:31  [ Thread-36:153149 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:31  [ Thread-38:153196 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:31  [ Thread-38:153757 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:33  [ Thread-38:155473 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:33  [ Thread-38:155692 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:33  [ Thread-40:155770 ] - [ INFO ]  Run query:SumPositionByAccountAndProductTester on instance: i-c13b7def
+2014-02-14 17:53:34  [ Thread-40:156347 ] - [ INFO ]  ./run.sh positionkeeper SumPositionByAccountAndProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:35  [ Thread-40:158016 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester_detail
+2014-02-14 17:53:36  [ Thread-40:158188 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:36  [ Thread-42:158235 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:36  [ Thread-42:158812 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:38  [ Thread-42:160497 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:38  [ Thread-42:160668 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:38  [ Thread-44:160699 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:39  [ Thread-44:161277 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:40  [ Thread-44:162977 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:41  [ Thread-44:163149 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:41  [ Thread-46:163195 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:41  [ Thread-46:163757 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:43  [ Thread-46:165442 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:43  [ Thread-46:165613 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:43  [ Thread-48:165676 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:44  [ Thread-48:166237 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:45  [ Thread-48:167953 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:46  [ Thread-48:168141 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:46  [ Thread-50:168187 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:46  [ Thread-50:168765 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:48  [ Thread-50:170465 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:48  [ Thread-50:170637 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:48  [ Thread-52:170683 ] - [ INFO ]  Run query:SumPositionForAccountGroupByProductTester on instance: i-c13b7def
+2014-02-14 17:53:49  [ Thread-52:171245 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForAccountGroupByProductTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:50  [ Thread-52:172930 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester_detail
+2014-02-14 17:53:50  [ Thread-52:173101 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:50  [ Thread-54:173133 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:53:51  [ Thread-54:173710 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:53  [ Thread-54:175551 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:53  [ Thread-54:175753 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:53  [ Thread-56:175769 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:53:54  [ Thread-56:176346 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:55  [ Thread-56:178015 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:56  [ Thread-56:178187 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:56  [ Thread-58:178218 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:53:56  [ Thread-58:178795 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:58  [ Thread-58:180511 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:53:58  [ Thread-58:180667 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:53:58  [ Thread-60:180683 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:53:59  [ Thread-60:181276 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:00  [ Thread-60:182965 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:00  [ Thread-60:183136 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:54:01  [ Thread-62:183167 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:54:01  [ Thread-62:183745 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:03  [ Thread-62:185445 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:03  [ Thread-62:185617 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:54:03  [ Thread-64:185632 ] - [ INFO ]  Run query:SumPositionForProductGroupByAccountTester on instance: i-c13b7def
+2014-02-14 17:54:03  [ Thread-64:186007 ] - [ INFO ]  ./run.sh positionkeeper SumPositionForProductGroupByAccountTester > cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:05  [ Thread-64:187691 ] - [ INFO ]  copy file/home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester_detail
+2014-02-14 17:54:05  [ Thread-64:187863 ] - [ INFO ]  Clienttask ended
+2014-02-14 17:54:05  [ Thread-1:187894 ] - [ INFO ]  Download log from: i-c63b7de8
+2014-02-14 17:54:06  [ Thread-1:188456 ] - [ INFO ]  download log fromi-c63b7de8
+2014-02-14 17:54:06  [ Thread-1:189002 ] - [ INFO ]  Download ended
+2014-02-14 17:54:06  [ Thread-1:189002 ] - [ INFO ]  Download log from: i-c73b7de9
+2014-02-14 17:54:07  [ Thread-1:189579 ] - [ INFO ]  download log fromi-c73b7de9
+2014-02-14 17:54:07  [ Thread-1:190078 ] - [ INFO ]  Download ended
+2014-02-14 17:54:07  [ Thread-1:190078 ] - [ INFO ]  Download log from: i-c43b7dea
+2014-02-14 17:54:08  [ Thread-1:190671 ] - [ INFO ]  download log fromi-c43b7dea
+2014-02-14 17:54:09  [ Thread-1:191186 ] - [ INFO ]  Download ended
+2014-02-14 17:54:09  [ Thread-1:191186 ] - [ INFO ]  Download log from: i-c53b7deb
+2014-02-14 17:54:09  [ Thread-1:191763 ] - [ INFO ]  download log fromi-c53b7deb
+2014-02-14 17:54:10  [ Thread-1:192262 ] - [ INFO ]  Download ended
+2014-02-14 17:54:10  [ Thread-1:192262 ] - [ INFO ]  Download log from: i-c33b7ded
+2014-02-14 17:54:10  [ Thread-1:192824 ] - [ INFO ]  download log fromi-c33b7ded
+2014-02-14 17:54:11  [ Thread-1:193323 ] - [ INFO ]  Download ended
+2014-02-14 17:54:11  [ Thread-1:193323 ] - [ INFO ]  Download log from: i-c03b7dee
+2014-02-14 17:54:11  [ Thread-1:193916 ] - [ INFO ]  download log fromi-c03b7dee
+2014-02-14 17:54:12  [ Thread-1:194415 ] - [ INFO ]  Download ended
+2014-02-14 17:54:12  [ Thread-1:194415 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-02-14 17:54:27  [ Thread-1:209422 ] - [ INFO ]  Reset Server Env on instance: i-c63b7de8
+2014-02-14 17:54:28  [ Thread-1:210171 ] - [ INFO ]  Instance i-c63b7de8 channel isopened: true
+2014-02-14 17:54:28  [ Thread-1:210171 ] - [ INFO ]  Instance i-c63b7de8 channel isdone: true
+2014-02-14 17:54:31  [ Thread-1:213182 ] - [ INFO ]  Reset Server Env on instance: i-c73b7de9
+2014-02-14 17:54:31  [ Thread-1:213900 ] - [ INFO ]  Instance i-c73b7de9 channel isopened: true
+2014-02-14 17:54:31  [ Thread-1:213900 ] - [ INFO ]  Instance i-c73b7de9 channel isdone: true
+2014-02-14 17:54:34  [ Thread-1:216910 ] - [ INFO ]  Reset Server Env on instance: i-c43b7dea
+2014-02-14 17:54:35  [ Thread-1:217644 ] - [ INFO ]  Instance i-c43b7dea channel isopened: true
+2014-02-14 17:54:35  [ Thread-1:217644 ] - [ INFO ]  Instance i-c43b7dea channel isdone: true
+2014-02-14 17:54:38  [ Thread-1:220644 ] - [ INFO ]  Reset Server Env on instance: i-c53b7deb
+2014-02-14 17:54:39  [ Thread-1:221359 ] - [ INFO ]  Instance i-c53b7deb channel isopened: true
+2014-02-14 17:54:39  [ Thread-1:221359 ] - [ INFO ]  Instance i-c53b7deb channel isdone: true
+2014-02-14 17:54:42  [ Thread-1:224360 ] - [ INFO ]  Reset Server Env on instance: i-c33b7ded
+2014-02-14 17:54:42  [ Thread-1:225099 ] - [ INFO ]  Instance i-c33b7ded channel isopened: true
+2014-02-14 17:54:42  [ Thread-1:225099 ] - [ INFO ]  Instance i-c33b7ded channel isdone: true
+2014-02-14 17:54:45  [ Thread-1:228099 ] - [ INFO ]  Reset Server Env on instance: i-c03b7dee
+2014-02-14 17:54:46  [ Thread-1:228820 ] - [ INFO ]  Instance i-c03b7dee channel isopened: true
+2014-02-14 17:54:46  [ Thread-1:228820 ] - [ INFO ]  Instance i-c03b7dee channel isdone: true
+2014-02-14 17:54:49  [ Thread-1:231820 ] - [ INFO ]  Stop 15 s for voltdb shutdown
+2014-02-14 17:55:04  [ Thread-1:246822 ] - [ INFO ]  Reset Client Env on instance: i-c13b7def
+2014-02-14 17:55:25  [ Thread-1:267830 ] - [ ERROR ]  Exception in resetting environment on client instance i-c13b7def
+org.apache.sshd.common.RuntimeSshException: Failed to get the session.
+	at ClientTask.ResetEnv(ClientTask.java:88)
+	at PositionKeeperBenchmark.ResetClientInstanceEnv(PositionKeeperBenchmark.java:579)
+	at PositionKeeperBenchmark.run(PositionKeeperBenchmark.java:237)
+	at RunBenchmark$2.run(RunBenchmark.java:56)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.io.IOException: The semaphore timeout period has expired.
+
+	at sun.nio.ch.Iocp.translateErrorToIOException(Iocp.java:309)
+	at sun.nio.ch.Iocp.access$700(Iocp.java:46)
+	at sun.nio.ch.Iocp$EventHandlerTask.run(Iocp.java:399)
+	... 1 more
+2014-02-14 17:55:25  [ main:267832 ] - [ INFO ]  Summarize Report Start
+2014-02-14 17:55:26  [ main:268154 ] - [ INFO ]  Summarize Report End
+2014-02-14 17:55:26  [ main:268685 ] - [ INFO ]  
+2014-02-14 17:55:26  [ main:268888 ] - [ INFO ]  [master a17c3a1] test
+ 8 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 report/tmp/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionByAccountAndProductTester.xls
+ create mode 100644 report/tmp/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForAccountGroupByProductTester.xls
+ create mode 100644 report/tmp/cf4eb304-74ed-44ed-a436-35984bb60830_SumPositionForProductGroupByAccountTester.xls
+ create mode 100644 report/tmp/cf4eb304-74ed-44ed-a436-35984bb60830_TestDataSimulator.xls
+
+2014-02-14 17:55:28  [ main:270493 ] - [ INFO ]  warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+To https://galatea-aws:sunnymario23@github.com/galatea-aws/Positionkeeper.git
+   587b7d5..a17c3a1  master -> master
+

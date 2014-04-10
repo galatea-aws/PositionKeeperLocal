@@ -70,7 +70,7 @@ public class PositionKeeperBenchmark {
 	private ArrayList<ClientTask> clientTaskList = new ArrayList<ClientTask>();
 	public	ArrayList<String> queryList = new ArrayList<String>();
 	
-	private GitHelper gitHelper = new GitHelper();
+	public GitHelper gitHelper = new GitHelper();
 	private String  revision;
 	public BenchmarkCoordinator bc = null;
 	public Boolean isStartingServer = false;
@@ -90,21 +90,6 @@ public class PositionKeeperBenchmark {
 	public int clientInstanceCount;
 	public String uuid;
 	public String gitFolder;
-/*	public static void main(String[] args) {
-		PositionKeeperBenchmark pt;
-		try {
-			pt = new PositionKeeperBenchmark();
-			for(int i=pt.benchmarkServerIdList.size();i>=1;i--){
-				logger.info("Running server instance: " + i);
-				pt.run(i,1);
-			}
-			pt.run(1,1);
-		//	MailHelper.sendJobCompleteMail(pt.queryList, pt.benchmarkProp);
-		} catch (Exception e) {
-			logger.error("Positionkeeper benchmark stopped, please check logs",e.fillInStackTrace());
-		//	MailHelper.sendJobFailMail();
-		}
-	}*/
 
 	/**
 	 * 
@@ -494,6 +479,17 @@ public class PositionKeeperBenchmark {
 		serverTaskList = new ArrayList<ServerTask>();
 		clientTaskList = new ArrayList<ClientTask>();
 		
+		//Create client task
+		for (Instance i : clientInstanceList) {
+			logger.info("Create client task on instance: "
+					+ i.getInstanceId());
+			clientTaskList.add(new ClientTask(i,uuid));
+		}
+		
+		//Reset client instance env
+		if(reloadVoltdb)
+			ResetClientInstanceEnv();
+		
 		if(reloadVoltdb){
 			
 			//Create server task
@@ -527,6 +523,7 @@ public class PositionKeeperBenchmark {
 			}*/
 			
 			// Wait for all voltdb complete initialization
+			isStartingServer = false;
 			try {
 				int waitingforvoltdb = Integer.parseInt(benchmarkProp.getProperty("waitingforvoltdb","60"));
 				logger.info("Stop " + waitingforvoltdb + "s for voltdb complete initialization");
@@ -536,19 +533,8 @@ public class PositionKeeperBenchmark {
 			}
 			
 		}
-		
-		//Create client task
-		for (Instance i : clientInstanceList) {
-			logger.info("Create client task on instance: "
-					+ i.getInstanceId());
-			clientTaskList.add(new ClientTask(i,uuid));
-		}
-		
-		//Reset client instance env
-		if(reloadVoltdb)
-			ResetClientInstanceEnv();
-		
-		isStartingServer = false;
+		else
+			isStartingServer = false;
 		
 		ReportGenerator reportGenerator = new ReportGenerator(clientTaskList, gitHelper, benchmarkProp,serverInstanceCount, revision, uuid);
 		reportGenerator.LoadWorkSpace();
@@ -567,6 +553,7 @@ public class PositionKeeperBenchmark {
 		}
 		
 		reportGenerator.ArchiveReport();
+		DownloadVoltdbLog(revision);
 	}
 	
 	public void ResetServerInstanceEnv() throws LoginFailException{
@@ -613,6 +600,22 @@ public class PositionKeeperBenchmark {
 			} catch (InterruptedException e) {
 				logger.error("Thread excepetion", e.fillInStackTrace());
 			}
+		}
+	}
+	
+	public void DownloadVoltdbLog(String gitRevision) throws LoginFailException{
+		for (ServerTask serverTask : serverTaskList) {
+			logger.info("Download log from: "
+					+ serverTask.getInstance().getInstanceId());
+			serverTask.DownloadLog(gitRevision);
+		}
+		
+		// Wait for all voltdb start
+		try {
+			logger.info("Stop 15 s for voltdb shutdown");
+			Thread.sleep(15 * 1000);
+		} catch (InterruptedException e) {
+			logger.error("Thread excepetion", e.fillInStackTrace());
 		}
 	}
 

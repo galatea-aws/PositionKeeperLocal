@@ -30,14 +30,14 @@ public class MailHelper {
 	public static void sendJobCompleteMail(ArrayList<String> queryList, Properties benchmarkProp) {
 		
 		String lastestReportFolderPath = benchmarkProp.getProperty("gitfolder")+"/report/LastestReport/";
-		final String username = "sunwell";
-		final String password = "sunwei2321";
+		final String username = "";
+		final String password = "";
  
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "zimbra.ccs.neu.edu");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.host", "");
+		props.put("mail.smtp.port", "");
 		
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
@@ -86,14 +86,14 @@ public class MailHelper {
 	
 	public static void sendJobFailMail() {
 		 
-		final String username = "sunwell";
-		final String password = "sunwei2321";
+		final String username = "";
+		final String password = "";
  
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "zimbra.ccs.neu.edu");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.host", "");
+		props.put("mail.smtp.port", "");
 		
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {

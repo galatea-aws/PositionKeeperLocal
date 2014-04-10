@@ -14,6 +14,7 @@ import org.apache.sshd.ClientChannel;
 import org.apache.sshd.ClientSession;
 import org.apache.sshd.SshClient;
 import org.apache.sshd.client.SftpClient;
+import org.apache.sshd.client.future.OpenFuture;
 
 import com.amazonaws.services.ec2.AmazonEC2Client;
 import com.amazonaws.services.ec2.model.Instance;
@@ -41,6 +42,7 @@ public class ClientTask extends AwsTask{
 			//Exec command
 			session = client.connect(getInstance().getPublicIpAddress(), 22).await().getSession();
 			session.authPassword("voltdb", "voltdb").await().isSuccess();
+			logger.info("./run.sh positionkeeper " + queryname + " > " + uuid + "_" + queryname + "_detail");
 			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples/Positionkeeper && "
 															+ "./run.sh positionkeeper " + queryname + " > " + uuid + "_" + queryname + "_detail");
 			channel.open().await();
@@ -72,14 +74,16 @@ public class ClientTask extends AwsTask{
 		ClientSession session;
 		//Exec command
 		try{
-		session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
-		session.authPassword("voltdb", "voltdb").await().isSuccess();
-		ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
-														+ "rm -rf Positionkeeper && "
-														+ "cd /home/voltdb/voltdb-3.5.0.1/examples && "
-														+ "git clone https://github.com/galatea-aws/Positionkeeper.git >> gitcloneresult");
-		channel.open().await();
-		//channel.waitFor(ClientChannel.CLOSED, 0);
+			session = client.connect(instance.getPublicIpAddress(), 22).await().getSession();
+			session.authPassword("voltdb", "voltdb").await().isSuccess();
+			ClientChannel channel = session.createExecChannel("cd /home/voltdb/voltdb-3.5.0.1/examples && "
+															+ "rm -rf Positionkeeper && "
+															+ "cd /home/voltdb/voltdb-3.5.0.1/examples && "
+															+ "git clone https://github.com/galatea-aws/Positionkeeper.git >> gitcloneresult");
+			OpenFuture  openFuture =  channel.open().await();
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isopened: " + openFuture.isOpened());
+			logger.info("Instance " + getInstance().getInstanceId() + " channel isdone: " + openFuture.isDone());
+			//channel.waitFor(ClientChannel.CLOSED, 0);
 		}catch (Exception e) {
 			logger.error("Exception in resetting environment on client instance "+ instance.getInstanceId(),e.fillInStackTrace());
 		}

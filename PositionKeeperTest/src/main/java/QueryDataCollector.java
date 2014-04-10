@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -143,6 +144,7 @@ public class QueryDataCollector extends DataCollector {
 					cell = row.createCell(cellnum++);
 					cell.setCellValue(s);
 				}
+				br.close();
 			} catch (FileNotFoundException e) {
 				logger.error("File not exists: " + clientResultFilePath, e.fillInStackTrace());
 			} catch (IOException e) {
@@ -178,6 +180,8 @@ public class QueryDataCollector extends DataCollector {
 					}
 					rowcount++;
 				}
+				br.close();
+				FileUtils.deleteQuietly(new File(clientResultFilePath));
 				
 			} catch (FileNotFoundException e) {
 				logger.error("File not exists: " + clientResultFilePath, e.fillInStackTrace());
